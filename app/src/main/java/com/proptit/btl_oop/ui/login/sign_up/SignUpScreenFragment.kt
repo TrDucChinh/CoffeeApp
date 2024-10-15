@@ -1,4 +1,4 @@
-package com.proptit.btl_oop.ui.sign_up
+package com.proptit.btl_oop.ui.login.sign_up
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentSignUpScreenBinding
 
 
@@ -29,7 +28,8 @@ class SignUpScreenFragment : Fragment() {
     private fun setupUI() {
         binding.apply {
             btnSignUp.setOnClickListener { validateInput() }
-            tvMoveToSignInScreen.setOnClickListener{ findNavController().navigate(R.id.action_signUpScreenFragment_to_signInScreenFragment)}
+            tvMoveToSignInScreen.setOnClickListener{ findNavController().popBackStack()}
+            icBack.setOnClickListener{ findNavController().popBackStack()}
         }
     }
 
@@ -53,7 +53,7 @@ class SignUpScreenFragment : Fragment() {
             }
             else -> {
                 Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_signUpScreenFragment_to_signInScreenFragment)
+                findNavController().popBackStack()
             }
         }
     }

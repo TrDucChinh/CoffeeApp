@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
     id("kotlin-android")
+    id ("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
