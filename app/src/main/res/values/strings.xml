@@ -21,4 +21,10 @@
     <string name="set_password">Set Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="we_will_email_you_a_link_to_reset_your_password">We will email you\na link to reset your password.</string>
+    <string name="example_email">example@example</string>
+    <string name="send">Send</string>
+    <string name="notify_send_link">We have sent an email to\nsarah.jansen@gmail.com with instructions to\nreset your password.</string>
+    <string name="back_to_sign_in">Back to Sign in</string>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.sign_in.SignInScreenFragment">
+    tools:context=".ui.login.sign_in.SignInScreenFragment">
 
     <TextView
         android:id="@+id/tvSignIn"
@@ -150,7 +150,7 @@
         android:id="@+id/layoutOr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintEnd_toEndOf="parent"
