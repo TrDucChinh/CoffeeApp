@@ -42,7 +42,7 @@ class SendLinkViaEmailFragment : Fragment() {
             tvNotifySendLink.text = spannable
             icBack.setOnClickListener { findNavController().popBackStack() }
             btnBackToSignIn.setOnClickListener {
-                findNavController().navigate(R.id.action_sendLinkViaEmailFragment_to_signInScreenFragment)
+                findNavController().popBackStack()
             }
         }
         return binding.root
