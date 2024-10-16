@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id ("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -42,6 +43,13 @@ android {
 }
 
 dependencies {
+    // Firebase BOM
+    implementation(platform(libs.firebase.bom))
+    // Firebase Realtime Database
+    implementation(libs.firebase.database)
+    // Firebase Authentication
+    implementation (libs.firebase.auth)
+
     val nav_version = "2.7.2"
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation(libs.androidx.core.ktx)
