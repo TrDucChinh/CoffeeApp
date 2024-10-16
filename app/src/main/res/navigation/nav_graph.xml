@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/signInScreenFragment">
+
+    <fragment
+        android:id="@+id/signInScreenFragment"
+        android:name="com.proptit.btl_oop.ui.login.sign_in.SignInScreenFragment"
+        android:label="fragment_sign_in_screen"
+        tools:layout="@layout/fragment_sign_in_screen" >
+        <action
+            android:id="@+id/action_signInScreenFragment_to_signUpScreenFragment"
+            app:destination="@id/signUpScreenFragment" />
+        <action
+            android:id="@+id/action_signInScreenFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpScreenFragment"
+        android:name="com.proptit.btl_oop.ui.login.sign_up.SignUpScreenFragment"
+        android:label="fragment_sign_up_screen"
+        tools:layout="@layout/fragment_sign_up_screen" >
+        <action
+            android:id="@+id/action_signUpScreenFragment_to_signInScreenFragment"
+            app:destination="@id/signInScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.proptit.btl_oop.ui.login.forgot_password.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_sendLinkViaEmailFragment"
+            app:destination="@id/sendLinkViaEmailFragment"
+            app:popUpTo="@id/signInScreenFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/sendLinkViaEmailFragment"
+        android:name="com.proptit.btl_oop.ui.login.forgot_password.SendLinkViaEmailFragment"
+        android:label="fragment_send_link_via_email"
+        tools:layout="@layout/fragment_send_link_via_email" >
+        <action
+            android:id="@+id/action_sendLinkViaEmailFragment_to_signInScreenFragment"
+            app:destination="@id/signInScreenFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
+</navigation>
