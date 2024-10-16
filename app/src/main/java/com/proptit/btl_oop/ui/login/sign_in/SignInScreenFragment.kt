@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentSignInScreenBinding
 
@@ -17,12 +18,23 @@ class SignInScreenFragment : Fragment() {
     private var _binding: FragmentSignInScreenBinding? = null
     private val binding get() = _binding!!
 
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInScreenBinding.inflate(inflater, container, false)
+        /* Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            findNavController().navigate(R.id.action_signInScreenFragment_to_forgotPasswordFragment)
+        } else {
+            setupUI()
+        }
+         */
         setupUI()
+
         return binding.root
     }
     private fun setupUI(){
@@ -47,6 +59,16 @@ class SignInScreenFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
             else -> {
+                // Đăng nhập
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
+//                            findNavController().navigate(R.id.action_signInScreenFragment_to_forgotPasswordFragment)
+                        } else {
+                            Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
 //                findNavController().popBackStack()
             }
