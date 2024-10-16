@@ -33,7 +33,8 @@
         tools:layout="@layout/fragment_forgot_password" >
         <action
             android:id="@+id/action_forgotPasswordFragment_to_sendLinkViaEmailFragment"
-            app:destination="@id/sendLinkViaEmailFragment" />
+            app:destination="@id/sendLinkViaEmailFragment"
+            app:popUpTo="@id/signInScreenFragment"/>
     </fragment>
     <fragment
         android:id="@+id/sendLinkViaEmailFragment"
