@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.firebase.database)
     // Firebase Authentication
     implementation (libs.firebase.auth)
+    implementation(libs.firebase.auth.ktx)
 
     val nav_version = "2.7.2"
     implementation ("androidx.viewpager2:viewpager2:1.0.0")

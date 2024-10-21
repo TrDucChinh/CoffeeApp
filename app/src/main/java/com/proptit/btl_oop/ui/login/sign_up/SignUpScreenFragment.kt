@@ -71,6 +71,7 @@ class SignUpScreenFragment : Fragment() {
                 registerUser(email, password, binding.etFullName.text.toString().trim())
                 Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT)
                     .show()
+                findNavController().popBackStack()
             }
         }
     }

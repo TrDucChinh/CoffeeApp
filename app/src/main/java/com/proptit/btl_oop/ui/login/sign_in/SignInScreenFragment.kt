@@ -25,15 +25,15 @@ class SignInScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInScreenBinding.inflate(inflater, container, false)
-        /* Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
+        //Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            findNavController().navigate(R.id.action_signInScreenFragment_to_forgotPasswordFragment)
+            findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
         } else {
             setupUI()
         }
-         */
-        setupUI()
+
+//        setupUI()
 
         return binding.root
     }
@@ -64,13 +64,11 @@ class SignInScreenFragment : Fragment() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
-//                            findNavController().navigate(R.id.action_signInScreenFragment_to_forgotPasswordFragment)
+                            findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
                         } else {
                             Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show()
                         }
                     }
-                Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
-//                findNavController().popBackStack()
             }
         }
     }

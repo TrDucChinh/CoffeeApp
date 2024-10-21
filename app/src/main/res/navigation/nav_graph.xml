@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_signInScreenFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_signInScreenFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreenFragment"
@@ -48,4 +51,9 @@
             android:name="email"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
 </navigation>
