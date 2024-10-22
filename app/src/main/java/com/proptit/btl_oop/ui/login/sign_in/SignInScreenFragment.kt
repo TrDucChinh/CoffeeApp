@@ -18,7 +18,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.proptit.btl_oop.R
+import com.proptit.btl_oop.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentSignInScreenBinding
+import com.proptit.btl_oop.model.User
 
 
 class SignInScreenFragment : Fragment() {
@@ -35,14 +37,19 @@ class SignInScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInScreenBinding.inflate(inflater, container, false)
-        /* Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
+        //Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            findNavController().navigate(R.id.action_signInScreenFragment_to_forgotPasswordFragment)
+            findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
         } else {
+            setupGoogleSignIn()
             setupUI()
         }
-         */
+
+
+        return binding.root
+    }
+    private fun setupGoogleSignIn() {
         googleSignInClient = GoogleSignIn.getClient(
             requireContext(),
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -50,9 +57,6 @@ class SignInScreenFragment : Fragment() {
                 .requestEmail()
                 .build()
         )
-        setupUI()
-
-        return binding.root
     }
     private fun setupUI(){
         binding.apply{
@@ -84,8 +88,14 @@ class SignInScreenFragment : Fragment() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    user?.let{
+                        val name = it.email?.substringBefore("@")
+                        val saveUser = name?.let { it1 -> User(it.uid, it.email!!, it1) }
+                        SaveToDB.saveUserToDB(saveUser!!)
+                    }
                     Toast.makeText(requireContext(), "Google sign-in successful", Toast.LENGTH_SHORT).show()
-//                    navigateToHome()
+                    findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
                 } else {
                     Log.w("LoginFragment", "Google sign-in failed", task.exception)
                 }
@@ -112,13 +122,11 @@ class SignInScreenFragment : Fragment() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
-//                            findNavController().navigate(R.id.action_signInScreenFragment_to_forgotPasswordFragment)
+                            findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
                         } else {
                             Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show()
                         }
                     }
-                Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
-//                findNavController().popBackStack()
             }
         }
     }

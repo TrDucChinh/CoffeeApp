@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.proptit.btl_oop.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentSignUpScreenBinding
 import com.proptit.btl_oop.model.User
 
@@ -71,6 +72,7 @@ class SignUpScreenFragment : Fragment() {
                 registerUser(email, password, binding.etFullName.text.toString().trim())
                 Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT)
                     .show()
+                findNavController().popBackStack()
             }
         }
     }
@@ -85,7 +87,7 @@ class SignUpScreenFragment : Fragment() {
                 if (task.isSuccessful) {
                     val userId = auth.currentUser?.uid
                     val user = User(id = userId ?: "", email = email, name = name)
-                    saveUserToDatabase(user)
+                    SaveToDB.saveUserToDB(user)
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT)
