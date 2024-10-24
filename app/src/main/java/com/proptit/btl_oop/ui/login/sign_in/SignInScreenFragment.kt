@@ -26,14 +26,14 @@ class SignInScreenFragment : Fragment() {
     ): View? {
         _binding = FragmentSignInScreenBinding.inflate(inflater, container, false)
 //        //Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
-//        val currentUser = auth.currentUser
-//        if (currentUser != null) {
-//            findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
-//        } else {
-//            setupUI()
-//        }
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
+        } else {
+            setupUI()
+        }
 
-        setupUI()
+//        setupUI()
 
         return binding.root
     }

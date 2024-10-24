@@ -44,6 +44,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemTextAppearance="@style/tab_text"
+        app:headerLayout="@layout/nav_header"
         android:backgroundTint="@color/dark_gray"
         app:itemTextColor="@color/white"
         app:menu="@menu/sidebar_menu" />
