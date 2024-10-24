@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.proptit.btl_oop.R
@@ -34,6 +36,11 @@ class HomeScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawerLayout)
+
+        binding.icOverview.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
         setupTabsWithRecycler()
     }
 
