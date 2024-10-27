@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.signInScreenFragment,
                 R.id.signUpScreenFragment,
-                R.id.forgotPasswordFragment -> hideBottomNavigation()
+                R.id.forgotPasswordFragment,
+                R.id.coffeeDetailsFragment,
+                R.id.beanDetailsFragment -> hideBottomNavigation()
                 else -> showBottomNavigation()
             }
         }

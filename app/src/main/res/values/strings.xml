@@ -33,4 +33,13 @@
     <string name="cappuccino">Cappuccino</string>
     <string name="coffee_bean">Coffee Bean</string>
     <string name="password_required">Use 6 or more characters with a mix of uppercase and\nlowercase characters, combined with numbers.</string>
+    <string name="description">Description</string>
+    <string name="bean">Bean</string>
+    <string name="milk">Milk</string>
+    <string name="medium_roasted">Medium Roasted</string>
+    <string name="cappuccino_description_content">Cappuccino is a latte made with more foam than steamed milk, often with a sprinkle of cocoa powder or cinnamon on top.</string>
+    <string name="size">Size</string>
+    <string name="price">Price</string>
+    <string name="robusta_beans">Robusta Beans</string>
+    <string name="robusta_description_content">Arabica beans are by far the most popular type of coffee beans, making up about 60% of the world’s coffee. These tasty beans originated many centuries ago in the highlands of Ethiopia, and may even be the first coffee beans ever consumed!</string>
 </resources>

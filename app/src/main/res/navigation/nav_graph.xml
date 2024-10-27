@@ -9,7 +9,7 @@
         android:id="@+id/signInScreenFragment"
         android:name="com.proptit.btl_oop.ui.login.sign_in.SignInScreenFragment"
         android:label="fragment_sign_in_screen"
-        tools:layout="@layout/fragment_sign_in_screen" >
+        tools:layout="@layout/fragment_sign_in_screen">
         <action
             android:id="@+id/action_signInScreenFragment_to_signUpScreenFragment"
             app:destination="@id/signUpScreenFragment" />
@@ -24,7 +24,7 @@
         android:id="@+id/signUpScreenFragment"
         android:name="com.proptit.btl_oop.ui.login.sign_up.SignUpScreenFragment"
         android:label="fragment_sign_up_screen"
-        tools:layout="@layout/fragment_sign_up_screen" >
+        tools:layout="@layout/fragment_sign_up_screen">
         <action
             android:id="@+id/action_signUpScreenFragment_to_signInScreenFragment"
             app:destination="@id/signInScreenFragment" />
@@ -33,17 +33,17 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="com.proptit.btl_oop.ui.login.forgot_password.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" >
+        tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_sendLinkViaEmailFragment"
             app:destination="@id/sendLinkViaEmailFragment"
-            app:popUpTo="@id/signInScreenFragment"/>
+            app:popUpTo="@id/signInScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/sendLinkViaEmailFragment"
         android:name="com.proptit.btl_oop.ui.login.forgot_password.SendLinkViaEmailFragment"
         android:label="fragment_send_link_via_email"
-        tools:layout="@layout/fragment_send_link_via_email" >
+        tools:layout="@layout/fragment_send_link_via_email">
         <action
             android:id="@+id/action_sendLinkViaEmailFragment_to_signInScreenFragment"
             app:destination="@id/signInScreenFragment" />
@@ -53,7 +53,31 @@
     </fragment>
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="com.proptit.btl_oop.ui.main_app.HomeScreenFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.home.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen">
+        <action
+            android:id="@+id/action_homeScreenFragment_to_coffeeDetailsFragment"
+            app:destination="@id/coffeeDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_beanDetailsFragment"
+            app:destination="@id/beanDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coffeeDetailsFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.details.CoffeeDetailsFragment"
+        android:label="fragment_coffee_details"
+        tools:layout="@layout/fragment_coffee_details">
+        <argument
+            android:name="coffeeId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/beanDetailsFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.details.BeanDetailsFragment"
+        android:label="BeanDetailsFragment">
+        <argument
+            android:name="beanId"
+            app:argType="long" />
+    </fragment>
 </navigation>

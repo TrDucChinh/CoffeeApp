@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.databinding.ItemCoffeeBinding
 
-class CoffeeAdapter(private var coffeeList: List<Coffee>) : RecyclerView.Adapter<CoffeeAdapter.CoffeeViewHolder>() {
+class CoffeeAdapter(private var coffeeList: List<Coffee>, private val onCoffeeClick: (Long) -> Unit) : RecyclerView.Adapter<CoffeeAdapter.CoffeeViewHolder>() {
 
     class CoffeeViewHolder(private val binding: ItemCoffeeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coffee: Coffee) {
@@ -28,9 +28,13 @@ class CoffeeAdapter(private var coffeeList: List<Coffee>) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: CoffeeViewHolder, position: Int) {
         val coffee = coffeeList[position]
         holder.bind(coffee)
+        holder.itemView.setOnClickListener {
+            onCoffeeClick(coffee.id)
+        }
     }
 
     override fun getItemCount(): Int = coffeeList.size
+
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newCoffeeList: List<Coffee>) {
         coffeeList = newCoffeeList
