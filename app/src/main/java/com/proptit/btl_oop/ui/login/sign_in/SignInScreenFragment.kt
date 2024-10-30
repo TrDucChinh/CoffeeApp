@@ -25,7 +25,7 @@ class SignInScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInScreenBinding.inflate(inflater, container, false)
-        //Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
+//        //Đăng nhập 1 lần duy nhất nếu không đăng xuất không cần đăng nhập lại
         val currentUser = auth.currentUser
         if (currentUser != null) {
             findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
@@ -49,14 +49,11 @@ class SignInScreenFragment : Fragment() {
         val password = binding.etPassword.text.toString().trim()
 
         when {
-            TextUtils.isEmpty(email) -> {
-                Toast.makeText(requireContext(), "Please enter your email", Toast.LENGTH_SHORT).show()
+            TextUtils.isEmpty(email) || TextUtils.isEmpty(password)-> {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
             !isEmailValid(email) -> {
                 Toast.makeText(requireContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show()
-            }
-            TextUtils.isEmpty(password) -> {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
             else -> {
                 // Đăng nhập
