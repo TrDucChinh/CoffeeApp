@@ -40,16 +40,19 @@ class SignUpScreenFragment : Fragment() {
 
     private fun validateInput() {
         val email = binding.etEmail.text.toString().trim()
+        val fullName = binding.etFullName.text.toString().trim()
         val password = binding.etSetPassword.text.toString().trim()
         val confirmPassword = binding.etConfirmPassword.text.toString().trim()
 
         when {
-            TextUtils.isEmpty(email) -> {
-                Toast.makeText(requireContext(), "Please enter your email", Toast.LENGTH_SHORT)
+            TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword) || TextUtils.isEmpty(fullName) -> {
+                binding.tvPasswordRequired.visibility = View.GONE
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
                     .show()
             }
 
             !isEmailValid(email) -> {
+                binding.tvPasswordRequired.visibility = View.GONE
                 Toast.makeText(
                     requireContext(),
                     "Please enter a valid email address",
@@ -57,17 +60,17 @@ class SignUpScreenFragment : Fragment() {
                 ).show()
             }
 
-            TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword) -> {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
             password != confirmPassword -> {
+                binding.tvPasswordRequired.visibility = View.GONE
                 Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT)
                     .show()
             }
 
-            else -> {
+            !isPasswordValid(password) -> {
+                binding.tvPasswordRequired.visibility = View.VISIBLE
+            }
+            else-> {
+                binding.tvPasswordRequired.visibility = View.GONE
                 registerUser(email, password, binding.etFullName.text.toString().trim())
                 Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT)
                     .show()
@@ -98,6 +101,10 @@ class SignUpScreenFragment : Fragment() {
         val database = FirebaseDatabase.getInstance()
         val userRef = database.getReference("Users").child(user.id)
         userRef.setValue(user)
+    }
+    private fun isPasswordValid(password: String): Boolean {
+        val passwordPattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}".toRegex()
+        return password.matches(passwordPattern)
     }
 
     override fun onDestroyView() {
