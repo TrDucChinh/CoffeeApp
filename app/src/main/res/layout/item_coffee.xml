@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="250dp"
     android:layout_margin="8dp"
-    android:layout_marginTop="5dp"
     android:backgroundTint="@color/dark_gray"
     android:radius="8dp"
     app:cardCornerRadius="8dp"
@@ -76,7 +76,9 @@
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_add_item"
+            android:src="@drawable/ic_add"
+            android:background="@drawable/rounded_add_icon_bg"
+            android:backgroundTint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
