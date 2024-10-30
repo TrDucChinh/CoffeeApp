@@ -45,7 +45,8 @@
     <View
         android:id="@+id/detailsBackground"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.18"
         android:background="@drawable/details_background"
         app:layout_constraintBottom_toBottomOf="@id/imgCoffee"
         app:layout_constraintEnd_toEndOf="parent"
