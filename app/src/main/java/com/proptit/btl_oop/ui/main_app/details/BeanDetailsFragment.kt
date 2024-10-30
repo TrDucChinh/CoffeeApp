@@ -18,6 +18,7 @@ class BeanDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isFavorited = false
+    private var isSeeMoreVisible = false
     private val args: BeanDetailsFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +45,25 @@ class BeanDetailsFragment : Fragment() {
             btnSizeSmall.setOnClickListener { setSelectedButton(btnSizeSmall) }
             btnSizeMedium.setOnClickListener { setSelectedButton(btnSizeMedium) }
             btnSizeLarge.setOnClickListener { setSelectedButton(btnSizeLarge) }
+
+            tvDescriptionContent.post {
+                if (tvDescriptionContent.lineCount > 3) {
+                    tvSeeMore.visibility = View.VISIBLE
+                    tvDescriptionContent.maxLines = 3
+                } else {
+                    tvSeeMore.visibility = View.GONE
+                }
+            }
+
+            tvSeeMore.setOnClickListener {
+                if (tvDescriptionContent.maxLines == 3) {
+                    tvDescriptionContent.maxLines = Int.MAX_VALUE
+                    tvSeeMore.text = "See Less"
+                } else {
+                    tvDescriptionContent.maxLines = 3
+                    tvSeeMore.text = "See More"
+                }
+            }
         }
     }
     private fun setSelectedButton(selectedButton: Button) {

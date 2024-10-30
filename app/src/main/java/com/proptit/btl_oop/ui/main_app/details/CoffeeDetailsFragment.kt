@@ -43,6 +43,25 @@ class CoffeeDetailsFragment : Fragment() {
             btnSizeS.setOnClickListener { setSelectedButton(btnSizeS) }
             btnSizeM.setOnClickListener { setSelectedButton(btnSizeM) }
             btnSizeL.setOnClickListener { setSelectedButton(btnSizeL) }
+
+            tvDescriptionContent.post {
+                if (tvDescriptionContent.lineCount > 3) {
+                    tvSeeMore.visibility = View.VISIBLE
+                    tvDescriptionContent.maxLines = 3
+                } else {
+                    tvSeeMore.visibility = View.GONE
+                }
+            }
+
+            tvSeeMore.setOnClickListener {
+                if (tvDescriptionContent.maxLines == 3) {
+                    tvDescriptionContent.maxLines = Int.MAX_VALUE
+                    tvSeeMore.text = "See Less"
+                } else {
+                    tvDescriptionContent.maxLines = 3
+                    tvSeeMore.text = "See More"
+                }
+            }
         }
     }
     private fun setSelectedButton(selectedButton: Button) {

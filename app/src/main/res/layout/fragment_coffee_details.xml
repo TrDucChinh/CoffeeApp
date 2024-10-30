@@ -10,10 +10,11 @@
     <ImageView
         android:id="@+id/imgCoffee"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:src="@drawable/cappuccino"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,13 +148,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:fontFamily="@font/poppins_medium"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_regular"
         android:text="@string/cappuccino_description_content"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+
+    <TextView
+        android:id="@+id/tvSeeMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_more"
+        android:textColor="@color/orange"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium"
+        android:visibility="gone"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionContent" />
 
     <TextView
         android:id="@+id/tvSize"
@@ -167,8 +182,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDescriptionContent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@id/tvSeeMore"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnSizeS"
@@ -183,8 +198,10 @@
         android:text="S"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSize" />
+        app:layout_constraintTop_toBottomOf="@id/tvSize"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnSizeM"
@@ -198,9 +215,11 @@
         android:text="M"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSize" />
+        app:layout_constraintTop_toBottomOf="@id/tvSize"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnSizeL"
@@ -215,10 +234,12 @@
         android:text="L"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/btnSizeM"
-        app:layout_constraintTop_toBottomOf="@id/tvSize" />
+        app:layout_constraintTop_toBottomOf="@id/tvSize"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvPriceLabel"
