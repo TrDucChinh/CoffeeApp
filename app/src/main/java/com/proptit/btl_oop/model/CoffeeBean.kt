@@ -6,4 +6,5 @@ data class CoffeeBean(
     val imageResId: Int,
     val description: String,
     val price: Int,
+    var isFavorite: Boolean = false
 )

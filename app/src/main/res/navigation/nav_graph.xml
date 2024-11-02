@@ -80,4 +80,9 @@
             android:name="beanId"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteScreenFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.favourite.FavouriteScreenFragment"
+        android:label="fragment_favourite_screen"
+        tools:layout="@layout/fragment_favourite_screen" />
 </navigation>

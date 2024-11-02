@@ -16,7 +16,6 @@ class CoffeeDetailsFragment : Fragment() {
 
     private var _binding: FragmentCoffeeDetailsBinding? = null
     private val binding get() = _binding!!
-
     private var isFavorited = false
     private val args: CoffeeDetailsFragmentArgs by navArgs()
     override fun onCreateView(
@@ -44,6 +43,12 @@ class CoffeeDetailsFragment : Fragment() {
             btnSizeM.setOnClickListener { setSelectedButton(btnSizeM) }
             btnSizeL.setOnClickListener { setSelectedButton(btnSizeL) }
 
+            setupSeeMoreText()
+
+        }
+    }
+    private fun setupSeeMoreText(){
+        binding.apply {
             tvDescriptionContent.post {
                 if (tvDescriptionContent.lineCount > 3) {
                     tvSeeMore.visibility = View.VISIBLE
@@ -64,6 +69,7 @@ class CoffeeDetailsFragment : Fragment() {
             }
         }
     }
+
     private fun setSelectedButton(selectedButton: Button) {
         binding.apply {
             btnSizeS.isSelected = (btnSizeS == selectedButton)

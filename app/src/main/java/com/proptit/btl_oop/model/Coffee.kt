@@ -7,4 +7,5 @@ data class Coffee(
     val description: String,
     val price: Int,
     val categoryId: Long,
+    var isFavorite: Boolean = false
 )

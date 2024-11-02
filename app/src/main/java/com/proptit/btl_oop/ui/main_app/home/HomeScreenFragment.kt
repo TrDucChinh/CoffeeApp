@@ -47,10 +47,10 @@ class HomeScreenFragment : Fragment() {
 
     private fun setupTabsWithRecycler() {
         val allCoffees = listOf(
-            Coffee(1L, "Cappuccino", R.drawable.cappuccino, "With steamed milk", 50000, 2L),
-            Coffee(2L, "Mocha", R.drawable.bean_mocha, "Medium Roasted", 50000, 1L),
-            Coffee(3L, "Cherry", R.drawable.bean_cherry, "Medium Roasted", 60000, 2L),
-            Coffee(4L, "Bac xiu", R.drawable.bean_robusta, "Dark Roasted", 40000, 3L)
+            Coffee(1L, "Cappuccino", R.drawable.cappuccino, "With steamed milk", 50000, 2L, false),
+            Coffee(2L, "Mocha", R.drawable.bean_mocha, "Medium Roasted", 50000, 1L, false),
+            Coffee(3L, "Cherry", R.drawable.bean_cherry, "Medium Roasted", 60000, 2L, false),
+            Coffee(4L, "Bac xiu", R.drawable.bean_robusta, "Dark Roasted", 40000, 3L, false)
         )
 
         val coffeeByCategory = allCoffees.groupBy { it.categoryId }
@@ -105,9 +105,9 @@ class HomeScreenFragment : Fragment() {
         }
 
         val coffeeBeans = listOf(
-            CoffeeBean(1, "Bean 1", R.drawable.bean_arabica, "Description 1", 30000),
-            CoffeeBean(2, "Bean 2", R.drawable.bean_mocha, "Description 2", 35000),
-            CoffeeBean(3, "Bean 3", R.drawable.bean_robusta, "Description 3", 40000)
+            CoffeeBean(1, "Bean 1", R.drawable.bean_arabica, "Description 1", 30000, false),
+            CoffeeBean(2, "Bean 2", R.drawable.bean_mocha, "Description 2", 35000, false),
+            CoffeeBean(3, "Bean 3", R.drawable.bean_robusta, "Description 3", 40000, false)
         )
 
         beanAdapter.updateData(coffeeBeans)
