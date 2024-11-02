@@ -27,4 +27,9 @@
     <string name="send">Send</string>
     <string name="notify_send_link">We have sent an email to\nsarah.jansen@gmail.com with instructions to\nreset your password.</string>
     <string name="back_to_sign_in">Back to Sign in</string>
+    <string name="find_the_best_coffee_for_you">Find the best\ncoffee for you</string>
+    <string name="find_your_coffee">Find your coffee</string>
+    <string name="coffee">Coffee</string>
+    <string name="cappuccino">Cappuccino</string>
+    <string name="coffee_bean">Coffee Bean</string>
 </resources>
