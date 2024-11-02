@@ -73,6 +73,7 @@
             app:argType="long" />
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_bean_details"
         android:id="@+id/beanDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.BeanDetailsFragment"
         android:label="BeanDetailsFragment">
