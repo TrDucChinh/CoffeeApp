@@ -18,7 +18,6 @@ class BeanDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isFavorited = false
-    private var isSeeMoreVisible = false
     private val args: BeanDetailsFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
