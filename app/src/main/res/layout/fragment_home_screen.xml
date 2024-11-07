@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.main_app.HomeScreenFragment">
+    tools:context=".ui.main_app.home.HomeScreenFragment">
 
     <ImageButton
         android:id="@+id/ic_overview"
@@ -119,7 +119,8 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:paddingEnd="8dp"
-                tools:listitem="@layout/item_beans" />
+                tools:listitem="@layout/item_beans"
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
     </ScrollView>

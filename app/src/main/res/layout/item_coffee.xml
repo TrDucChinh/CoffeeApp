@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -76,7 +77,9 @@
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_add_item"
+            android:src="@drawable/ic_add"
+            android:background="@drawable/rounded_button_background"
+            android:backgroundTint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
