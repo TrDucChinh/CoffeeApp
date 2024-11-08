@@ -86,4 +86,9 @@
         android:name="com.proptit.btl_oop.ui.main_app.favourite.FavouriteScreenFragment"
         android:label="fragment_favourite_screen"
         tools:layout="@layout/fragment_favourite_screen" />
+    <fragment
+        android:id="@+id/cartScreenFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
+        android:label="fragment_cart_screen"
+        tools:layout="@layout/fragment_cart_screen" />
 </navigation>

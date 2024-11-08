@@ -30,6 +30,11 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.favouriteScreenFragment)
                     true
                 }
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.cartScreenFragment)
+                    true
+                }
+
                 else -> false
             }
         }
