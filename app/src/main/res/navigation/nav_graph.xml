@@ -90,5 +90,14 @@
         android:id="@+id/cartScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
         android:label="fragment_cart_screen"
-        tools:layout="@layout/fragment_cart_screen" />
+        tools:layout="@layout/fragment_cart_screen" >
+        <action
+            android:id="@+id/action_cartScreenFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/paymentFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.payment.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
 </navigation>

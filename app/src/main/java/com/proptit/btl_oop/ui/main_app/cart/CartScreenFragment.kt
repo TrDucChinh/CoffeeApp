@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.adapter.CartAdapter
@@ -30,6 +31,10 @@ class CartScreenFragment : Fragment() {
 
         cartAdapter = CartAdapter(coffeeList)
         binding.rvCartItems.adapter = cartAdapter
+
+        binding.btnPay.setOnClickListener{
+            findNavController().navigate(R.id.action_cartScreenFragment_to_paymentFragment)
+        }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
