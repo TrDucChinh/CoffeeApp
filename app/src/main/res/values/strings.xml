@@ -55,4 +55,5 @@
     <string name="shopeepay">ShopeePay</string>
     <string name="cards">Cards</string>
     <string name="pay">Pay</string>
+    <string name="order_history">Order History</string>
 </resources>

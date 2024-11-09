@@ -30,7 +30,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/payment_method"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <ImageButton
                 android:id="@+id/icClose"

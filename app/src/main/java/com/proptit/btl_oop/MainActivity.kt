@@ -34,7 +34,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.cartScreenFragment)
                     true
                 }
-
+                R.id.nav_orderHistory -> {
+                    navController.navigate(R.id.orderHistoryFragment)
+                    true
+                }
                 else -> false
             }
         }
