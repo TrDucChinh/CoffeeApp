@@ -100,4 +100,9 @@
         android:name="com.proptit.btl_oop.ui.main_app.payment.PaymentFragment"
         android:label="fragment_payment"
         tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.order_history.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
 </navigation>
