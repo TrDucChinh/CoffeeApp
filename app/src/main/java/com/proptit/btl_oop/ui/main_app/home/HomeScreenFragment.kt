@@ -55,8 +55,6 @@ class HomeScreenFragment : Fragment() {
 
         val coffeeByCategory = allCoffees.groupBy { it.categoryId }
         val coffeeTitles = listOf("All", "Machine Brewed", "Cold Brew", "Vietnamese Coffee")
-
-
         coffeeTitles.forEach { title ->
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(title))
         }
