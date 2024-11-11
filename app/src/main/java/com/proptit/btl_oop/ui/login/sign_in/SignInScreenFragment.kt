@@ -17,6 +17,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.proptit.btl_oop.Firebase
+import com.proptit.btl_oop.MainActivity
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentSignInScreenBinding
@@ -27,7 +29,7 @@ class SignInScreenFragment : Fragment() {
     private var _binding: FragmentSignInScreenBinding? = null
     private val binding get() = _binding!!
 
-    private val auth = FirebaseAuth.getInstance()
+    private val auth = Firebase.auth
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100
