@@ -45,4 +45,16 @@
     <string name="robusta_description_content">Arabica beans are by far the most popular type of coffee beans, making up about 60% of the world’s coffee. These tasty beans originated many centuries ago in the highlands of Ethiopia, and may even be the first coffee beans ever consumed!</string>
     <string name="see_more">See More</string>
     <string name="favourites">Favourites</string>
+    <string name="cart">Cart</string>
+    <string name="payment">Payment</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="please_select_the_appropriate_payment_method_for_your_order">Please select the appropriate payment method for your order.</string>
+    <string name="cash">Cash</string>
+    <string name="vnpay">VNPAY</string>
+    <string name="momo">MoMo</string>
+    <string name="zalopay">ZaloPay</string>
+    <string name="shopeepay">ShopeePay</string>
+    <string name="cards">Cards</string>
+    <string name="pay">Pay</string>
+    <string name="order_history">Order History</string>
 </resources>

@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeScreenFragment)
                     true
                 }
-
                 R.id.nav_favourite -> {
                     navController.navigate(R.id.favouriteScreenFragment)
                     true
@@ -52,6 +51,14 @@ class MainActivity : AppCompatActivity() {
 //                    Log.e("Logout", "${auth.currentUser}")
                     navController.navigate(R.id.action_homeScreenFragment_to_signInScreenFragment)
 
+                    true
+                }
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.cartScreenFragment)
+                    true
+                }
+                R.id.nav_orderHistory -> {
+                    navController.navigate(R.id.orderHistoryFragment)
                     true
                 }
 

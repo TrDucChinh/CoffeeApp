@@ -78,6 +78,7 @@
             app:argType="long" />
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_bean_details"
         android:id="@+id/beanDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.BeanDetailsFragment"
         android:label="BeanDetailsFragment">
@@ -90,4 +91,23 @@
         android:name="com.proptit.btl_oop.ui.main_app.favourite.FavouriteScreenFragment"
         android:label="fragment_favourite_screen"
         tools:layout="@layout/fragment_favourite_screen" />
+    <fragment
+        android:id="@+id/cartScreenFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
+        android:label="fragment_cart_screen"
+        tools:layout="@layout/fragment_cart_screen" >
+        <action
+            android:id="@+id/action_cartScreenFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/paymentFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.payment.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.order_history.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
 </navigation>
