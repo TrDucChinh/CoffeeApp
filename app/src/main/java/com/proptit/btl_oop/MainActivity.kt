@@ -30,9 +30,17 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.favouriteScreenFragment)
                     true
                 }
-
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.cartScreenFragment)
+                    true
+                }
+                R.id.nav_orderHistory -> {
+                    navController.navigate(R.id.orderHistoryFragment)
+                    true
+                }
                 else -> false
             }
+
         }
         binding.drawerNavigation.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.closeDrawers()
@@ -53,15 +61,6 @@ class MainActivity : AppCompatActivity() {
 
                     true
                 }
-                R.id.nav_cart -> {
-                    navController.navigate(R.id.cartScreenFragment)
-                    true
-                }
-                R.id.nav_orderHistory -> {
-                    navController.navigate(R.id.orderHistoryFragment)
-                    true
-                }
-
                 else -> false
             }
         }
