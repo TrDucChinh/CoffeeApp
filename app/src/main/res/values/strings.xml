@@ -14,7 +14,8 @@
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up">Sign Up And Sign In</string>
+    <string name="sign_up_1">Sign Up</string>
     <string name="create_an_account_to_continue">Create an account to continue!</string>
     <string name="full_name">Full Name</string>
     <string name="enter_your_full_name">Enter your full name</string>

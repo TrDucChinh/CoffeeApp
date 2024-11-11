@@ -12,7 +12,6 @@ import com.proptit.btl_oop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    auth.signOut()
+                    Firebase.auth.signOut()
 //                    Log.e("Logout", "${auth.currentUser}")
                     navController.navigate(R.id.action_homeScreenFragment_to_signInScreenFragment)
 
