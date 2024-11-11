@@ -52,6 +52,10 @@ dependencies {
     // Firebase google auth
     implementation(libs.play.services.auth)
 
+    // Gson for JSON parsing
+    implementation (libs.gson)
+
+
     val nav_version = "2.7.2"
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation(libs.androidx.core.ktx)

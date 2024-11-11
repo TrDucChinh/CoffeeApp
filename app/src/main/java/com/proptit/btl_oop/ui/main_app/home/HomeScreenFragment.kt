@@ -1,26 +1,35 @@
 package com.proptit.btl_oop.ui.main_app.home
 
 import android.os.Bundle
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayout
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.adapter.BeanAdapter
 import com.proptit.btl_oop.adapter.CoffeeAdapter
 import com.proptit.btl_oop.databinding.FragmentHomeScreenBinding
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
+import com.proptit.btl_oop.model.CoffeeCategory
+import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class HomeScreenFragment : Fragment() {
 
     private var _binding: FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
+    private val homeViewModel: HomeViewModel by activityViewModels {
+        HomeViewModel.HomeViewModelFactory(requireActivity().application)
+    }
+    private var category = mutableListOf<CoffeeCategory>()
+    private var coffeeList = mutableListOf<Coffee>()
 
     private lateinit var coffeeAdapter: CoffeeAdapter
     private lateinit var beanAdapter: BeanAdapter
@@ -30,6 +39,7 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+        homeViewModel.loadCategory()
         setupCoffeeRecycler()
         setupCoffeeBeanRecycler()
         return binding.root
@@ -38,7 +48,6 @@ class HomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawerLayout)
-
         binding.icOverview.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -46,6 +55,21 @@ class HomeScreenFragment : Fragment() {
     }
 
     private fun setupTabsWithRecycler() {
+        //Load category and setup Tab Layout
+        homeViewModel.categories.observe(viewLifecycleOwner, Observer {
+           it.forEach { category ->
+                binding.tabLayout.addTab(binding.tabLayout.newTab().setText(category.name))
+            }
+        })
+        //Load coffee to recycle view
+        homeViewModel.coffees.observe(viewLifecycleOwner, Observer {
+            coffeeList = it
+        })
+        coffeeList.groupBy { it.categoryId }
+
+
+    }
+    /*private fun setupTabsWithRecycler() {
         val allCoffees = listOf(
             Coffee(1L, "Cappuccino", R.drawable.cappuccino, "With steamed milk", 50000, 2L, false),
             Coffee(2L, "Mocha", R.drawable.bean_mocha, "Medium Roasted", 50000, 1L, false),
@@ -77,7 +101,7 @@ class HomeScreenFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-    }
+    }*/
 
     private fun setupCoffeeRecycler() {
         coffeeAdapter = CoffeeAdapter(mutableListOf()) { coffeeId ->
