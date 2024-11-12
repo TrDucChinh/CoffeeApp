@@ -51,7 +51,8 @@ dependencies {
     implementation (libs.firebase.auth)
     // Firebase google auth
     implementation(libs.play.services.auth)
-
+    // Glide for image loading and caching
+    implementation (libs.glide)
     // Gson for JSON parsing
     implementation (libs.gson)
 

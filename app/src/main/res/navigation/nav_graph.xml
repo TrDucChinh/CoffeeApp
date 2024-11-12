@@ -75,7 +75,7 @@
         tools:layout="@layout/fragment_coffee_details">
         <argument
             android:name="coffeeId"
-            app:argType="long" />
+            app:argType="integer" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_bean_details"
