@@ -54,7 +54,7 @@
                     android:background="@drawable/details_background"
                     app:layout_constraintBottom_toBottomOf="@id/imgBean"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_percent="0.3"
+                    app:layout_constraintHeight_percent="0.25"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -72,7 +72,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/detailsBackground"
-                    app:layout_constraintVertical_bias="0.2" />
+                    app:layout_constraintVertical_bias="0.35" />
 
                 <TextView
                     android:id="@+id/tvCoffeeRecipe"
@@ -90,35 +90,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tvBeanName"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <include
-                    android:id="@+id/icon_bean_layout"
-                    layout="@layout/icon_bean_layout"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.77"
-                    app:layout_constraintStart_toEndOf="@id/tvBeanName"
-                    app:layout_constraintTop_toTopOf="@id/detailsBackground"
-                    app:layout_constraintVertical_bias="0.2" />
-
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button_background"
-                    android:backgroundTint="@color/dark_blue"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/medium_roasted"
-                    android:textAllCaps="false"
-                    android:textColor="@color/light_gray"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.915"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/icon_bean_layout"
-                    app:layout_constraintVertical_bias="0.2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -149,9 +120,11 @@
             android:text="@string/cappuccino_description_content"
             android:textColor="@color/light_gray"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvSeeMore"
