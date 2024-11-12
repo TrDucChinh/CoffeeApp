@@ -3,6 +3,7 @@ package com.proptit.btl_oop.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.proptit.btl_oop.databinding.ItemCoffeeFavouriteBinding
 import com.proptit.btl_oop.model.Coffee
 
@@ -12,7 +13,9 @@ class FavouriteAdapter(private var coffeeList: List<Coffee>) : RecyclerView.Adap
         fun bind(coffee: Coffee) {
             binding.tvCoffeeName.text = coffee.name
             binding.tvDescriptionContent.text = coffee.description
-            binding.imgCoffee.setImageResource(coffee.imageResId)
+            Glide.with(binding.root)
+                .load(coffee.image_url)
+                .into(binding.imgCoffee)
         }
     }
 
