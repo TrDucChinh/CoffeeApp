@@ -19,8 +19,8 @@ import com.proptit.btl_oop.model.CoffeeCategory
 
 class HomeViewModel(application: Application) : ViewModel() {
     private val firebaseDatabase = Firebase.database
-    private val preferences: SharedPreferences =
-        application.getSharedPreferences("firebase_cache", Context.MODE_PRIVATE)
+    /*private val preferences: SharedPreferences =
+        application.getSharedPreferences("firebase_cache", Context.MODE_PRIVATE)*/
 
     private val _categories = MutableLiveData<MutableList<CoffeeCategory>>()
     private val _coffees = MutableLiveData<MutableList<Coffee>>()
@@ -29,7 +29,7 @@ class HomeViewModel(application: Application) : ViewModel() {
     val categories: LiveData<MutableList<CoffeeCategory>> = _categories
 
     // Hàm generic để lưu vào cache
-    private inline fun <reified T> saveToCache(key: String, data: T) {
+    /*private inline fun <reified T> saveToCache(key: String, data: T) {
         val jsonString = Gson().toJson(data)
         preferences.edit().putString(key, jsonString).apply()
     }
@@ -43,60 +43,60 @@ class HomeViewModel(application: Application) : ViewModel() {
         } else {
             null
         }
-    }
+    }*/
 
     // Hàm sử dụng generic cache cho danh mục
     fun loadCategory() {
-        val cachedCategories = getFromCache<List<CoffeeCategory>>("category_data")
+        /*val cachedCategories = getFromCache<List<CoffeeCategory>>("category_data")
         if (cachedCategories != null) {
             _categories.value = cachedCategories.toMutableList()
-        } else {
-            val ref = firebaseDatabase.getReference("Categories")
-            ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val lists = mutableListOf<CoffeeCategory>()
-                    for (data in snapshot.children) {
-                        val category = data.getValue(CoffeeCategory::class.java)
-                        if (category != null) {
-                            lists.add(category)
-                        }
+        } else {*/
+        val ref = firebaseDatabase.getReference("Categories")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<CoffeeCategory>()
+                for (data in snapshot.children) {
+                    val category = data.getValue(CoffeeCategory::class.java)
+                    if (category != null) {
+                        lists.add(category)
                     }
-                    _categories.value = lists
-                    Log.d("HomeViewModel", "Categories loaded: $lists")
-                    saveToCache("category_data", lists) // Lưu cache sau khi tải từ Firebase
                 }
+                _categories.value = lists
+                Log.d("HomeViewModel", "Categories loaded: $lists")
+//                    saveToCache("category_data", lists) // Lưu cache sau khi tải từ Firebase
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("Firebase", "Load category failed: ${error.message}")
-                }
-            })
-        }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Load category failed: ${error.message}")
+            }
+        })
+//        }
     }
 
     fun loadCoffee() {
-        val cachedCoffees = getFromCache<List<Coffee>>("coffee_data")
-        if (cachedCoffees != null) {
-            _coffees.value = cachedCoffees.toMutableList()
-        } else {
-            val ref = firebaseDatabase.getReference("Items")
-            ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val lists = mutableListOf<Coffee>()
-                    for (data in snapshot.children) {
-                        val coffee = data.getValue(Coffee::class.java)
-                        if (coffee != null) {
-                            lists.add(coffee)
-                        }
+        /* val cachedCoffees = getFromCache<List<Coffee>>("coffee_data")
+         if (cachedCoffees != null) {
+             _coffees.value = cachedCoffees.toMutableList()
+         } else {*/
+        val ref = firebaseDatabase.getReference("Items")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<Coffee>()
+                for (data in snapshot.children) {
+                    val coffee = data.getValue(Coffee::class.java)
+                    if (coffee != null) {
+                        lists.add(coffee)
                     }
-                    _coffees.value = lists
-                    saveToCache("coffee_data", lists) // Lưu cache sau khi tải từ Firebase
                 }
+                _coffees.value = lists
+//                    saveToCache("coffee_data", lists) // Lưu cache sau khi tải từ Firebase
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("Firebase", "Load coffee failed: ${error.message}")
-                }
-            })
-        }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Load coffee failed: ${error.message}")
+            }
+        })
+//        }
     }
 
     class HomeViewModelFactory(private val application: Application) :
@@ -110,4 +110,3 @@ class HomeViewModel(application: Application) : ViewModel() {
         }
     }
 }
-
