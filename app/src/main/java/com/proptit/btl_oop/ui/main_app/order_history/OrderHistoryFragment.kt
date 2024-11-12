@@ -21,5 +21,13 @@ class OrderHistoryFragment : Fragment() {
         _binding = FragmentOrderHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawerLayout)
+
+        binding.icOverview.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+    }
 
 }
