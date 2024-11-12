@@ -9,7 +9,7 @@
         android:id="@+id/signInScreenFragment"
         android:name="com.proptit.btl_oop.ui.login.sign_in.SignInScreenFragment"
         android:label="fragment_sign_in_screen"
-        tools:layout="@layout/fragment_sign_in_screen" >
+        tools:layout="@layout/fragment_sign_in_screen">
         <action
             android:id="@+id/action_signInScreenFragment_to_signUpScreenFragment"
             app:destination="@id/signUpScreenFragment" />
@@ -20,8 +20,7 @@
             android:id="@+id/action_signInScreenFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/signInScreenFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreenFragment"
@@ -65,8 +64,7 @@
             android:id="@+id/action_homeScreenFragment_to_signInScreenFragment"
             app:destination="@id/signInScreenFragment"
             app:popUpTo="@id/homeScreenFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/coffeeDetailsFragment"
@@ -78,10 +76,10 @@
             app:argType="long" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_bean_details"
         android:id="@+id/beanDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.BeanDetailsFragment"
-        android:label="BeanDetailsFragment">
+        android:label="BeanDetailsFragment"
+        tools:layout="@layout/fragment_bean_details">
         <argument
             android:name="beanId"
             app:argType="long" />
@@ -95,7 +93,7 @@
         android:id="@+id/cartScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
         android:label="fragment_cart_screen"
-        tools:layout="@layout/fragment_cart_screen" >
+        tools:layout="@layout/fragment_cart_screen">
         <action
             android:id="@+id/action_cartScreenFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
@@ -114,7 +112,7 @@
         android:id="@+id/profileFragment"
         android:name="com.proptit.btl_oop.ui.sidebar.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_signInScreenFragment"
             app:destination="@id/signInScreenFragment" />
