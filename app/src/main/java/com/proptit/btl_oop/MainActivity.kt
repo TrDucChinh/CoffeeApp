@@ -1,12 +1,9 @@
 package com.proptit.btl_oop
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.proptit.btl_oop.databinding.ActivityMainBinding
 
@@ -45,14 +42,13 @@ class MainActivity : AppCompatActivity() {
         binding.drawerNavigation.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.closeDrawers()
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    navController.navigate(R.id.homeScreenFragment)
-                    true
+                R.id.nav_profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    false
                 }
-
-                R.id.nav_favourite -> {
-                    navController.navigateUp()
-                    true
+                R.id.nav_order -> {
+                    navController.navigate(R.id.orderHistoryFragment)
+                    false
                 }
                 R.id.nav_logout -> {
                     Firebase.auth.signOut()
