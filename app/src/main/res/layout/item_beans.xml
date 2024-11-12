@@ -1,5 +1,4 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="250dp"
@@ -12,19 +11,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardviewImg"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="4dp"
             android:radius="8dp"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imgBean"
@@ -38,22 +37,28 @@
             android:id="@+id/tvBeanName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:fontFamily="@font/poppins_regular"
             android:text="Arabica"
-            android:layout_margin="10dp"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardviewImg" />
+
         <TextView
             android:id="@+id/tvBeanDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Medium Roasted"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="1"
+            android:text="Medium Roasted"
             android:textColor="@color/white"
             android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/cardviewImg"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvBeanName" />
 
@@ -61,24 +66,24 @@
             android:id="@+id/tvBeanPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_bold"
             android:text="40.000đ"
-            android:layout_marginStart="10dp"
-            app:layout_constraintVertical_bias="0.8"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBeanDescription" />
+            app:layout_constraintTop_toBottomOf="@id/tvBeanDescription"
+            app:layout_constraintVertical_bias="0.8" />
 
         <ImageButton
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_add"
             android:background="@drawable/rounded_button_background"
             android:backgroundTint="@color/orange"
+            android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
