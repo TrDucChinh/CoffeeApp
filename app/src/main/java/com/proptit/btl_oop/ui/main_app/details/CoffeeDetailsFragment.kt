@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentCoffeeDetailsBinding
+import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class CoffeeDetailsFragment : Fragment() {
 
@@ -18,9 +21,13 @@ class CoffeeDetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private var isFavorited = false
     private val args: CoffeeDetailsFragmentArgs by navArgs()
+    private val homeViewModel: HomeViewModel by activityViewModels {
+        HomeViewModel.HomeViewModelFactory(requireActivity().application)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentCoffeeDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,7 +35,23 @@ class CoffeeDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnFavourite: ImageButton = view.findViewById(R.id.btnFavourite)
+        val btnFavourite: ImageButton = binding.btnFavourite
+        args.coffeeId.let {
+            homeViewModel.coffees.observe(viewLifecycleOwner) { coffees ->
+                val coffee = coffees.find { it.id == args.coffeeId }
+                if (coffee != null) {
+                    binding.apply {
+                        tvCoffeeName.text = coffee.name
+                        tvDescriptionContent.text = coffee.description
+                        tvCoffeeRecipe.text = coffee.ingredients
+                        tvPriceProduct.text = "${"%,d".format(coffee.price)}đ"
+                        Glide.with(binding.root)
+                            .load(coffee.image_url)
+                            .into(imgCoffee)
+                    }
+                }
+            }
+        }
         binding.apply {
             btnBack.setOnClickListener { findNavController().popBackStack() }
             btnFavourite.setOnClickListener {
@@ -47,7 +70,8 @@ class CoffeeDetailsFragment : Fragment() {
 
         }
     }
-    private fun setupSeeMoreText(){
+
+    private fun setupSeeMoreText() {
         binding.apply {
             tvDescriptionContent.post {
                 if (tvDescriptionContent.lineCount > 3) {
