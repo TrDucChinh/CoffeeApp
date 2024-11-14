@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
@@ -30,7 +31,6 @@ class HomeScreenFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
     }
-    private var category = mutableListOf<CoffeeCategory>()
     private var coffeeList = mutableListOf<Coffee>()
 
     private lateinit var coffeeAdapter: CoffeeAdapter
@@ -42,14 +42,8 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         homeViewModel.loadCategory()
-        val categories = homeViewModel.categories.value
-        Log.d("HomeScreenFragment", "Category: $categories")
         homeViewModel.loadCoffee()
-        val coffee = homeViewModel.coffees.value
-        Log.d("HomeScreenFragment", "Coffe: $coffee")
         homeViewModel.loadCoffeeBean()
-        setupCoffeeRecycler()
-        setupCoffeeBeanRecycler()
         return binding.root
     }
 
@@ -59,6 +53,8 @@ class HomeScreenFragment : Fragment() {
         binding.icOverview.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
+        setupCoffeeRecycler()
+        setupCoffeeBeanRecycler()
         setupTabsWithRecycler()
     }
 
@@ -100,75 +96,6 @@ class HomeScreenFragment : Fragment() {
 
     }
 
-    /*private fun setupTabsWithRecycler() {
-        // Load categories and setup Tab Layout
-        homeViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
-            categories.forEach { category ->
-                binding.tabLayout.addTab(binding.tabLayout.newTab().setText(category.name))
-            }
-
-            // Đặt listener cho TabLayout để cập nhật danh sách cà phê khi tab được chọn
-            binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    tab?.let {
-                        // Lấy categoryId của tab được chọn
-                        val selectedCategoryId = categories[it.position].id
-                        // Lọc danh sách cà phê theo categoryId
-                        val filteredCoffees = coffeeList.filter { coffee ->
-                            coffee.categoryId == selectedCategoryId
-                        }
-                        // Cập nhật adapter với danh sách cà phê đã lọc
-                        coffeeAdapter.updateData(filteredCoffees)
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
-        })
-
-        // Load toàn bộ danh sách cà phê từ ViewModel
-        homeViewModel.coffees.observe(viewLifecycleOwner, Observer { coffees ->
-            coffeeList = coffees.toMutableList()
-            // Hiển thị tất cả cà phê khi không chọn tab cụ thể nào
-            coffeeAdapter.updateData(coffeeList)
-        })
-    }*/
-
-    /*private fun setupTabsWithRecycler() {
-        val allCoffees = listOf(
-            Coffee(1L, "Cappuccino", R.drawable.cappuccino, "With steamed milk", 50000, 2L, false),
-            Coffee(2L, "Mocha", R.drawable.bean_mocha, "Medium Roasted", 50000, 1L, false),
-            Coffee(3L, "Cherry", R.drawable.bean_cherry, "Medium Roasted", 60000, 2L, false),
-            Coffee(4L, "Bac xiu", R.drawable.bean_robusta, "Dark Roasted", 40000, 3L, false)
-        )
-
-        val coffeeByCategory = allCoffees.groupBy { it.categoryId }
-        val coffeeTitles = listOf("All", "Machine Brewed", "Cold Brew", "Vietnamese Coffee")
-        coffeeTitles.forEach { title ->
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(title))
-        }
-
-        coffeeAdapter.updateData(allCoffees)
-
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                val selectedIndex = tab?.position ?: 0
-                val selectedCoffees = when (selectedIndex) {
-                    0 -> allCoffees // All coffees
-                    1 -> coffeeByCategory[1] ?: emptyList() // Machine Brewed
-                    2 -> coffeeByCategory[2] ?: emptyList() // Cold Brew
-                    3 -> coffeeByCategory[3] ?: emptyList() // Vietnamese Coffee
-                    else -> emptyList()
-                }
-                coffeeAdapter.updateData(selectedCoffees)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-    }*/
-
     private fun setupCoffeeRecycler() {
         coffeeAdapter = CoffeeAdapter(mutableListOf()) { coffeeId ->
             val action = HomeScreenFragmentDirections
@@ -191,12 +118,6 @@ class HomeScreenFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = beanAdapter
         }
-
-//        val coffeeBeans = listOf(
-//            CoffeeBean(1, "Bean 1", R.drawable.bean_arabica, "Description 1", 30000, false),
-//            CoffeeBean(2, "Bean 2", R.drawable.bean_mocha, "Description 2", 35000, false),
-//            CoffeeBean(3, "Bean 3", R.drawable.bean_robusta, "Description 3", 40000, false)
-//        )
 
         homeViewModel.beans.observe(viewLifecycleOwner, Observer { beans ->
             beanAdapter.updateData(beans)
