@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.proptit.btl_oop.Firebase
 import com.proptit.btl_oop.model.Coffee
+import com.proptit.btl_oop.model.CoffeeBean
 import com.proptit.btl_oop.model.CoffeeCategory
 
 class HomeViewModel(application: Application) : ViewModel() {
@@ -24,8 +25,10 @@ class HomeViewModel(application: Application) : ViewModel() {
 
     private val _categories = MutableLiveData<MutableList<CoffeeCategory>>()
     private val _coffees = MutableLiveData<MutableList<Coffee>>()
+    private val _beans = MutableLiveData<MutableList<CoffeeBean>>()
 
     val coffees: LiveData<MutableList<Coffee>> = _coffees
+    val beans: LiveData<MutableList<CoffeeBean>> = _beans
     val categories: LiveData<MutableList<CoffeeCategory>> = _categories
 
     // Hàm generic để lưu vào cache
@@ -97,6 +100,27 @@ class HomeViewModel(application: Application) : ViewModel() {
             }
         })
 //        }
+    }
+    fun loadCoffeeBean(){
+        val ref = firebaseDatabase.getReference("Beans")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<CoffeeBean>()
+                for (data in snapshot.children) {
+                    val bean = data.getValue(CoffeeBean::class.java)
+                    if (bean != null) {
+                        lists.add(bean)
+                    }
+                }
+                _beans.value = lists
+                Log.d("HomeViewModel", "Bean loaded: $lists")
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Load coffee failed: ${error.message}")
+            }
+        })
     }
 
     class HomeViewModelFactory(private val application: Application) :

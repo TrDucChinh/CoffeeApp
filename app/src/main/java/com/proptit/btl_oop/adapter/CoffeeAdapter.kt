@@ -14,8 +14,8 @@ class CoffeeAdapter(private var coffeeList: List<Coffee>, private val onCoffeeCl
     class CoffeeViewHolder(private val binding: ItemCoffeeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coffee: Coffee) {
             binding.tvCoffeeName.text = coffee.name
-            binding.tvCoffeeDescription.text = coffee.description
-            binding.tvCoffeePrice.text = "${coffee.price}đ"
+            binding.tvCoffeeIngredients.text = coffee.ingredients
+            binding.tvCoffeePrice.text = "${"%,d".format(coffee.price)}đ"
             Glide.with(binding.root)
                 .load(coffee.image_url)
                 .into(binding.imgCoffee)

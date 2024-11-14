@@ -47,6 +47,7 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.loadCoffee()
         val coffee = homeViewModel.coffees.value
         Log.d("HomeScreenFragment", "Coffe: $coffee")
+        homeViewModel.loadCoffeeBean()
         setupCoffeeRecycler()
         setupCoffeeBeanRecycler()
         return binding.root
@@ -191,13 +192,15 @@ class HomeScreenFragment : Fragment() {
             adapter = beanAdapter
         }
 
-        val coffeeBeans = listOf(
-            CoffeeBean(1, "Bean 1", R.drawable.bean_arabica, "Description 1", 30000, false),
-            CoffeeBean(2, "Bean 2", R.drawable.bean_mocha, "Description 2", 35000, false),
-            CoffeeBean(3, "Bean 3", R.drawable.bean_robusta, "Description 3", 40000, false)
-        )
+//        val coffeeBeans = listOf(
+//            CoffeeBean(1, "Bean 1", R.drawable.bean_arabica, "Description 1", 30000, false),
+//            CoffeeBean(2, "Bean 2", R.drawable.bean_mocha, "Description 2", 35000, false),
+//            CoffeeBean(3, "Bean 3", R.drawable.bean_robusta, "Description 3", 40000, false)
+//        )
 
-        beanAdapter.updateData(coffeeBeans)
+        homeViewModel.beans.observe(viewLifecycleOwner, Observer { beans ->
+            beanAdapter.updateData(beans)
+        })
     }
 
     override fun onDestroyView() {

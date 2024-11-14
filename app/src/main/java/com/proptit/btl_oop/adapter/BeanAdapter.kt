@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.proptit.btl_oop.databinding.ItemBeansBinding
 import com.proptit.btl_oop.model.CoffeeBean
 
@@ -13,9 +14,11 @@ class BeanAdapter(private var beanList: List<CoffeeBean>, private val onBeanClic
     class BeanViewHolder(private val binding: ItemBeansBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bean: CoffeeBean) {
             binding.tvBeanName.text = bean.name
-            binding.tvBeanDescription.text = bean.description
-            binding.tvBeanPrice.text = "${bean.price}đ"
-            binding.imgBean.setImageResource(bean.imageResId)
+            binding.tvLocation.text = bean.location
+            binding.tvBeanPrice.text = "${"%,d".format( bean.price.get(0))}đ"
+            Glide.with(binding.root)
+                .load(bean.image_url)
+                .into(binding.imgBean)
         }
     }
 
