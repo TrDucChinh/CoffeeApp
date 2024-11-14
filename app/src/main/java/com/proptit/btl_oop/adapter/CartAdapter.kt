@@ -8,7 +8,7 @@ import com.proptit.btl_oop.model.Coffee
 
 class CartAdapter(private var coffeeList: List<Coffee>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    private val coffeeQuantities = mutableMapOf<Long, Long>()
+    private val coffeeQuantities = mutableMapOf<Int, Int>()
 
     inner class CartViewHolder(private val binding: ItemCoffeeCartBinding) : RecyclerView.ViewHolder(binding.root) {
 
