@@ -41,10 +41,14 @@ class CoffeeDetailsFragment : Fragment() {
                 val coffee = coffees.find { it.id == args.coffeeId }
                 if (coffee != null) {
                     binding.apply {
+                        btnSizeS.text = coffee.size.get(0)
+                        btnSizeM.text = coffee.size.get(1)
+                        btnSizeL.text = coffee.size.get(2)
+                        btnSizeS.isSelected = true
                         tvCoffeeName.text = coffee.name
                         tvDescriptionContent.text = coffee.description
                         tvCoffeeRecipe.text = coffee.ingredients
-                        tvPriceProduct.text = "${"%,d".format(coffee.price)}đ"
+                        tvPriceProduct.text = "${"%,d".format(coffee.price.get(0))}đ"
                         Glide.with(binding.root)
                             .load(coffee.image_url)
                             .into(imgCoffee)
@@ -99,6 +103,17 @@ class CoffeeDetailsFragment : Fragment() {
             btnSizeS.isSelected = (btnSizeS == selectedButton)
             btnSizeM.isSelected = (btnSizeM == selectedButton)
             btnSizeL.isSelected = (btnSizeL == selectedButton)
+        }
+        when (selectedButton) {
+            binding.btnSizeS -> {
+                binding.tvPriceProduct.text = "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(0))}đ"
+            }
+            binding.btnSizeM -> {
+                binding.tvPriceProduct.text = "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(1))}đ"
+            }
+            binding.btnSizeL -> {
+                binding.tvPriceProduct.text = "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(2))}đ"
+            }
         }
     }
 }

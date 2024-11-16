@@ -1,7 +1,7 @@
 package com.proptit.btl_oop.model
 
 data class CoffeeBean(
-    val id: Long=0,
+    val id: Int=0,
     val name: String,
     val image_url: String,
     val description: String,

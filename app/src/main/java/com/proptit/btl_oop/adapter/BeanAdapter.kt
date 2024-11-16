@@ -9,7 +9,7 @@ import com.proptit.btl_oop.databinding.ItemBeansBinding
 import com.proptit.btl_oop.model.CoffeeBean
 
 
-class BeanAdapter(private var beanList: List<CoffeeBean>, private val onBeanClick: (Long) -> Unit) : RecyclerView.Adapter<BeanAdapter.BeanViewHolder>() {
+class BeanAdapter(private var beanList: List<CoffeeBean>, private val onBeanClick: (Int) -> Unit) : RecyclerView.Adapter<BeanAdapter.BeanViewHolder>() {
 
     class BeanViewHolder(private val binding: ItemBeansBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bean: CoffeeBean) {

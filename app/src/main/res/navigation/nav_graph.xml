@@ -84,7 +84,7 @@
         android:label="BeanDetailsFragment">
         <argument
             android:name="beanId"
-            app:argType="long" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/favouriteScreenFragment"

@@ -15,7 +15,7 @@ class CoffeeAdapter(private var coffeeList: List<Coffee>, private val onCoffeeCl
         fun bind(coffee: Coffee) {
             binding.tvCoffeeName.text = coffee.name
             binding.tvCoffeeIngredients.text = coffee.ingredients
-            binding.tvCoffeePrice.text = "${"%,d".format(coffee.price)}đ"
+            binding.tvCoffeePrice.text = "${"%,d".format(coffee.price.get(0))}đ"
             Glide.with(binding.root)
                 .load(coffee.image_url)
                 .into(binding.imgCoffee)
