@@ -3,24 +3,21 @@ package com.proptit.btl_oop
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.proptit.btl_oop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var drawerLayout: DrawerLayout
-
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.drawerLayout)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
-        drawerLayout = findViewById(R.id.drawerLayout)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     navController.navigate(R.id.homeScreenFragment)
@@ -40,6 +37,28 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+
+        }
+        binding.drawerNavigation.setNavigationItemSelectedListener { menuItem ->
+            binding.drawerLayout.closeDrawers()
+            when (menuItem.itemId) {
+                R.id.nav_profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    false
+                }
+                R.id.nav_order -> {
+                    navController.navigate(R.id.orderHistoryFragment)
+                    false
+                }
+                R.id.nav_logout -> {
+                    Firebase.auth.signOut()
+//                    Log.e("Logout", "${auth.currentUser}")
+                    navController.navigate(R.id.action_homeScreenFragment_to_signInScreenFragment)
+
+                    true
+                }
+                else -> false
+            }
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -47,7 +66,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.signUpScreenFragment,
                 R.id.forgotPasswordFragment,
                 R.id.coffeeDetailsFragment,
-                R.id.beanDetailsFragment -> hideBottomNavigation()
+                R.id.beanDetailsFragment,
+                R.id.detailsOrderHistoryFragment,
+                -> hideBottomNavigation()
 
                 else -> showBottomNavigation()
             }
@@ -55,10 +76,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideBottomNavigation() {
-        bottomNavigationView.visibility = View.GONE
+        binding.bottomNavigation.visibility = View.GONE
     }
 
     private fun showBottomNavigation() {
-        bottomNavigationView.visibility = View.VISIBLE
+        binding.bottomNavigation.visibility = View.VISIBLE
     }
 }

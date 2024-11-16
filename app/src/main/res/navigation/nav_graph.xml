@@ -18,17 +18,15 @@
             app:destination="@id/forgotPasswordFragment" />
         <action
             android:id="@+id/action_signInScreenFragment_to_homeScreenFragment"
-            app:destination="@id/homeScreenFragment" />
+            app:destination="@id/homeScreenFragment"
+            app:popUpTo="@id/signInScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreenFragment"
         android:name="com.proptit.btl_oop.ui.login.sign_up.SignUpScreenFragment"
         android:label="fragment_sign_up_screen"
-        tools:layout="@layout/fragment_sign_up_screen">
-        <action
-            android:id="@+id/action_signUpScreenFragment_to_signInScreenFragment"
-            app:destination="@id/signInScreenFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_sign_up_screen" />
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.proptit.btl_oop.ui.login.forgot_password.ForgotPasswordFragment"
@@ -62,6 +60,11 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_beanDetailsFragment"
             app:destination="@id/beanDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_signInScreenFragment"
+            app:destination="@id/signInScreenFragment"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/coffeeDetailsFragment"
@@ -73,10 +76,10 @@
             app:argType="long" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_bean_details"
         android:id="@+id/beanDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.BeanDetailsFragment"
-        android:label="BeanDetailsFragment">
+        android:label="BeanDetailsFragment"
+        tools:layout="@layout/fragment_bean_details">
         <argument
             android:name="beanId"
             app:argType="long" />
@@ -90,7 +93,7 @@
         android:id="@+id/cartScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
         android:label="fragment_cart_screen"
-        tools:layout="@layout/fragment_cart_screen" >
+        tools:layout="@layout/fragment_cart_screen">
         <action
             android:id="@+id/action_cartScreenFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
@@ -104,5 +107,39 @@
         android:id="@+id/orderHistoryFragment"
         android:name="com.proptit.btl_oop.ui.main_app.order_history.OrderHistoryFragment"
         android:label="fragment_order_history"
-        tools:layout="@layout/fragment_order_history" />
+        tools:layout="@layout/fragment_order_history" >
+        <action
+            android:id="@+id/action_orderHistoryFragment_to_detailsOrderHistoryFragment"
+            app:destination="@id/detailsOrderHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.proptit.btl_oop.ui.sidebar.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_signInScreenFragment"
+            app:destination="@id/signInScreenFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.proptit.btl_oop.ui.sidebar.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.proptit.btl_oop.ui.sidebar.profile.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/detailsOrderHistoryFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.order_history.DetailsOrderHistoryFragment"
+        android:label="fragment_details_order_history"
+        tools:layout="@layout/fragment_details_order_history" />
 </navigation>

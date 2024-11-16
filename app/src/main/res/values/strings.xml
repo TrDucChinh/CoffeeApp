@@ -14,7 +14,8 @@
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up">Sign Up And Sign In</string>
+    <string name="sign_up_1">Sign Up</string>
     <string name="create_an_account_to_continue">Create an account to continue!</string>
     <string name="full_name">Full Name</string>
     <string name="enter_your_full_name">Enter your full name</string>
@@ -56,4 +57,14 @@
     <string name="cards">Cards</string>
     <string name="pay">Pay</string>
     <string name="order_history">Order History</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="security">Security</string>
+    <string name="log_out">Log Out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="total">Total</string>
+    <string name="ordered_item">Ordered Item</string>
 </resources>
