@@ -33,7 +33,7 @@
                 android:textSize="22sp" />
 
             <ImageButton
-                android:id="@+id/icBack"
+                android:id="@+id/icClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
