@@ -65,4 +65,6 @@
     <string name="save_changes">Save Changes</string>
     <string name="change_password">Change Password</string>
     <string name="new_password">New Password</string>
+    <string name="total">Total</string>
+    <string name="ordered_item">Ordered Item</string>
 </resources>

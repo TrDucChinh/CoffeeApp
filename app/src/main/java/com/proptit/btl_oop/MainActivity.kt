@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.forgotPasswordFragment,
                 R.id.coffeeDetailsFragment,
                 R.id.beanDetailsFragment,
+                R.id.detailsOrderHistoryFragment,
                 -> hideBottomNavigation()
 
                 else -> showBottomNavigation()

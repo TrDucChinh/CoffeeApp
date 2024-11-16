@@ -107,7 +107,11 @@
         android:id="@+id/orderHistoryFragment"
         android:name="com.proptit.btl_oop.ui.main_app.order_history.OrderHistoryFragment"
         android:label="fragment_order_history"
-        tools:layout="@layout/fragment_order_history" />
+        tools:layout="@layout/fragment_order_history" >
+        <action
+            android:id="@+id/action_orderHistoryFragment_to_detailsOrderHistoryFragment"
+            app:destination="@id/detailsOrderHistoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.proptit.btl_oop.ui.sidebar.profile.ProfileFragment"
@@ -133,4 +137,9 @@
         android:name="com.proptit.btl_oop.ui.sidebar.profile.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/detailsOrderHistoryFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.order_history.DetailsOrderHistoryFragment"
+        android:label="fragment_details_order_history"
+        tools:layout="@layout/fragment_details_order_history" />
 </navigation>
