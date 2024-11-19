@@ -85,7 +85,6 @@
                 android:layout_height="260dp"
                 android:layout_marginStart="20dp"
                 android:orientation="horizontal"
-                android:paddingEnd="8dp"
                 tools:listitem="@layout/item_coffee" />
 
             <TextView

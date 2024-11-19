@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="250dp"
-    android:layout_margin="8dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
     android:backgroundTint="@color/dark_gray"
     android:radius="8dp"
     app:cardCornerRadius="8dp"
@@ -39,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingHorizontal="5dp"
             android:layout_marginHorizontal="4dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Arabica"
@@ -55,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
-            android:paddingHorizontal="5dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="1"
@@ -79,7 +78,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBeanDescription"
+            app:layout_constraintTop_toBottomOf="@id/tvLocation"
             app:layout_constraintVertical_bias="0.8" />
 
         <ImageButton
