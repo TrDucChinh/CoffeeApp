@@ -7,20 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
+import com.proptit.btl_oop.SaveToDB
+import com.proptit.btl_oop.TypeFavourite
 import com.proptit.btl_oop.databinding.FragmentCoffeeDetailsBinding
+import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class CoffeeDetailsFragment : Fragment() {
 
     private var _binding: FragmentCoffeeDetailsBinding? = null
     private val binding get() = _binding!!
-    private var isFavorited = false
+    private var isFavourited = false
     private val args: CoffeeDetailsFragmentArgs by navArgs()
+    private val homeViewModel: HomeViewModel by activityViewModels {
+        HomeViewModel.HomeViewModelFactory(requireActivity().application)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentCoffeeDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,26 +38,78 @@ class CoffeeDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnFavourite: ImageButton = view.findViewById(R.id.btnFavourite)
+        isFavourited = args.isFavourite
+        /*args.coffeeId.let {
+            homeViewModel.coffees.observe(viewLifecycleOwner) { coffees ->
+                val coffee = coffees.find { it.id == args.coffeeId }
+                if (coffee != null) {
+                    binding.apply {
+                        btnSizeS.text = coffee.size.get(0)
+                        btnSizeM.text = coffee.size.get(1)
+                        btnSizeL.text = coffee.size.get(2)
+                        btnSizeS.isSelected = true
+                        tvCoffeeName.text = coffee.name
+                        tvDescriptionContent.text = coffee.description
+                        tvCoffeeRecipe.text = coffee.ingredients
+                        tvPriceProduct.text = "${"%,d".format(coffee.price.get(0))}đ"
+                        Glide.with(binding.root)
+                            .load(coffee.image_url)
+                            .into(imgCoffee)
+                    }
+                }
+            }
+        }*/
+        choseSize()
+        fetchData()
         binding.apply {
             btnBack.setOnClickListener { findNavController().popBackStack() }
             btnFavourite.setOnClickListener {
-                isFavorited = !isFavorited
-                if (isFavorited) {
-                    btnFavourite.setImageResource(R.drawable.ic_heart_selected)
-                } else {
-                    btnFavourite.setImageResource(R.drawable.ic_heart_default)
-                }
+                isFavourited = !isFavourited
+                updateFavouriteButton(isFavourited)
+                val favouriteItem = FavouriteItem(TypeFavourite.COFFEE.toString(), args.coffeeId)
+                SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
             }
-            btnSizeS.setOnClickListener { setSelectedButton(btnSizeS) }
-            btnSizeM.setOnClickListener { setSelectedButton(btnSizeM) }
-            btnSizeL.setOnClickListener { setSelectedButton(btnSizeL) }
-
-            setupSeeMoreText()
-
+        }
+        setupSeeMoreText()
+    }
+    private fun choseSize() {
+        binding.apply {
+            btnSizeS.setOnClickListener {
+                setSelectedButton(btnSizeS)
+                tvPriceProduct.text = "${"%,d".format(homeViewModel.coffees.value?.find { it.id == args.coffeeId }?.price?.get(0))}đ"
+            }
+            btnSizeM.setOnClickListener {
+                setSelectedButton(btnSizeM)
+                tvPriceProduct.text = "${"%,d".format(homeViewModel.coffees.value?.find { it.id == args.coffeeId }?.price?.get(1))}đ"
+            }
+            btnSizeL.setOnClickListener {
+                setSelectedButton(btnSizeL)
+                tvPriceProduct.text = "${"%,d".format(homeViewModel.coffees.value?.find { it.id == args.coffeeId }?.price?.get(2))}đ"
+            }
         }
     }
-    private fun setupSeeMoreText(){
+
+    private fun fetchData() {
+        val selectedCoffee = homeViewModel.coffees.value?.find { it.id == args.coffeeId}
+        if (selectedCoffee != null) {
+            binding.apply {
+                btnSizeS.isSelected = true
+                tvCoffeeName.text = selectedCoffee.name
+                tvDescriptionContent.text = selectedCoffee.description
+                tvPriceProduct.text = "${"%,d".format(selectedCoffee.price[0])}đ"
+                btnFavourite.setImageResource(if (args.isFavourite) R.drawable.ic_heart_selected else R.drawable.ic_heart_default)
+                Glide.with(binding.root)
+                    .load(selectedCoffee.image_url)
+                    .into(imgCoffee)
+                btnSizeS.text = "${selectedCoffee.size[0]}"
+                btnSizeM.text = "${selectedCoffee.size[1]}"
+                btnSizeL.text = "${selectedCoffee.size[2]}"
+                tvCoffeeRecipe.text = selectedCoffee.ingredients
+            }
+        }
+    }
+
+    private fun setupSeeMoreText() {
         binding.apply {
             tvDescriptionContent.post {
                 if (tvDescriptionContent.lineCount > 3) {
@@ -75,6 +137,29 @@ class CoffeeDetailsFragment : Fragment() {
             btnSizeS.isSelected = (btnSizeS == selectedButton)
             btnSizeM.isSelected = (btnSizeM == selectedButton)
             btnSizeL.isSelected = (btnSizeL == selectedButton)
+        }
+        when (selectedButton) {
+            binding.btnSizeS -> {
+                binding.tvPriceProduct.text =
+                    "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(0))}đ"
+            }
+
+            binding.btnSizeM -> {
+                binding.tvPriceProduct.text =
+                    "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(1))}đ"
+            }
+
+            binding.btnSizeL -> {
+                binding.tvPriceProduct.text =
+                    "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(2))}đ"
+            }
+        }
+    }
+    private fun updateFavouriteButton(isFavourite: Boolean) {
+        if (isFavourite) {
+            binding.btnFavourite.setImageResource(R.drawable.ic_heart_selected)
+        } else {
+            binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
         }
     }
 }

@@ -17,43 +17,22 @@ import com.proptit.btl_oop.Firebase
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
 import com.proptit.btl_oop.model.CoffeeCategory
+import com.proptit.btl_oop.model.FavouriteItem
 
 class HomeViewModel(application: Application) : ViewModel() {
     private val firebaseDatabase = Firebase.database
-    /*private val preferences: SharedPreferences =
-        application.getSharedPreferences("firebase_cache", Context.MODE_PRIVATE)*/
 
     private val _categories = MutableLiveData<MutableList<CoffeeCategory>>()
     private val _coffees = MutableLiveData<MutableList<Coffee>>()
     private val _beans = MutableLiveData<MutableList<CoffeeBean>>()
+    private val _favourites = MutableLiveData<MutableList<FavouriteItem>>()
 
     val coffees: LiveData<MutableList<Coffee>> = _coffees
     val beans: LiveData<MutableList<CoffeeBean>> = _beans
     val categories: LiveData<MutableList<CoffeeCategory>> = _categories
+    val favourites : LiveData<MutableList<FavouriteItem>> = _favourites
 
-    // Hàm generic để lưu vào cache
-    /*private inline fun <reified T> saveToCache(key: String, data: T) {
-        val jsonString = Gson().toJson(data)
-        preferences.edit().putString(key, jsonString).apply()
-    }
-
-    // Hàm generic để lấy từ cache
-    private inline fun <reified T> getFromCache(key: String): T? {
-        val jsonString = preferences.getString(key, null)
-        return if (jsonString != null) {
-            val type = object : TypeToken<T>() {}.type
-            Gson().fromJson(jsonString, type)
-        } else {
-            null
-        }
-    }*/
-
-    // Hàm sử dụng generic cache cho danh mục
     fun loadCategory() {
-        /*val cachedCategories = getFromCache<List<CoffeeCategory>>("category_data")
-        if (cachedCategories != null) {
-            _categories.value = cachedCategories.toMutableList()
-        } else {*/
         val ref = firebaseDatabase.getReference("Categories")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -66,21 +45,15 @@ class HomeViewModel(application: Application) : ViewModel() {
                 }
                 _categories.value = lists
                 Log.d("HomeViewModel", "Categories loaded: $lists")
-//                    saveToCache("category_data", lists) // Lưu cache sau khi tải từ Firebase
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.e("Firebase", "Load category failed: ${error.message}")
             }
         })
-//        }
     }
 
     fun loadCoffee() {
-        /* val cachedCoffees = getFromCache<List<Coffee>>("coffee_data")
-         if (cachedCoffees != null) {
-             _coffees.value = cachedCoffees.toMutableList()
-         } else {*/
         val ref = firebaseDatabase.getReference("Items")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -92,7 +65,6 @@ class HomeViewModel(application: Application) : ViewModel() {
                     }
                 }
                 _coffees.value = lists
-//                    saveToCache("coffee_data", lists) // Lưu cache sau khi tải từ Firebase
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -100,6 +72,25 @@ class HomeViewModel(application: Application) : ViewModel() {
             }
         })
 //        }
+    }
+    fun loadFavourite(){
+        val ref = firebaseDatabase.getReference("Users").child(Firebase.auth.currentUser?.uid.toString()).child("favourites")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<FavouriteItem>()
+                for (data in snapshot.children) {
+                    val favourite = data.getValue(FavouriteItem::class.java)
+                    if (favourite != null) {
+                        lists.add(favourite)
+                    }
+                }
+                _favourites.value = lists
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Load coffee failed: ${error.message}")
+            }
+        })
     }
     fun loadCoffeeBean(){
         val ref = firebaseDatabase.getReference("Beans")
