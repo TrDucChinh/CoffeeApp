@@ -76,6 +76,9 @@
         <argument
             android:name="coffeeId"
             app:argType="integer" />
+        <argument
+            android:name="isFavourite"
+            app:argType="boolean" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_bean_details"
@@ -85,6 +88,9 @@
         <argument
             android:name="beanId"
             app:argType="integer" />
+        <argument
+            android:name="isFavourite"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/favouriteScreenFragment"

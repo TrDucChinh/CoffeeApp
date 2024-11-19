@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.proptit.btl_oop.Firebase
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.SaveToDB
+import com.proptit.btl_oop.TypeFavourite
 import com.proptit.btl_oop.databinding.FragmentBeanDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
 import com.proptit.btl_oop.viewmodel.HomeViewModel
@@ -44,13 +45,15 @@ class BeanDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isFavourited = args.isFavourite
         fetchData()
         choseSize()
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
         binding.btnFavourite.setOnClickListener {
             isFavourited = !isFavourited
             updateFavouriteButton(isFavourited)
-
+            val favouriteItem = FavouriteItem(TypeFavourite.BEANS.toString(), args.beanId)
+            SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
         }
         showMoreDescription()
     }
@@ -71,6 +74,7 @@ class BeanDetailsFragment : Fragment() {
                 tvBeanName.text = selectedBean.name
                 tvDescriptionContent.text = selectedBean.description
                 tvPriceProduct.text = "${"%,d".format(selectedBean.price[0])}đ"
+                btnFavourite.setImageResource(if (args.isFavourite) R.drawable.ic_heart_selected else R.drawable.ic_heart_default)
                 Glide.with(binding.root)
                     .load(selectedBean.image_url)
                     .into(imgBean)

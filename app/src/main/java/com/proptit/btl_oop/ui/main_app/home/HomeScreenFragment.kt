@@ -16,12 +16,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.proptit.btl_oop.R
+import com.proptit.btl_oop.TypeFavourite
 import com.proptit.btl_oop.adapter.BeanAdapter
 import com.proptit.btl_oop.adapter.CoffeeAdapter
 import com.proptit.btl_oop.databinding.FragmentHomeScreenBinding
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
 import com.proptit.btl_oop.model.CoffeeCategory
+import com.proptit.btl_oop.model.FavouriteItem
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class HomeScreenFragment : Fragment() {
@@ -32,7 +34,7 @@ class HomeScreenFragment : Fragment() {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
     }
     private var coffeeList = mutableListOf<Coffee>()
-
+    private var favouriteItems = mutableListOf<FavouriteItem>()
     private lateinit var coffeeAdapter: CoffeeAdapter
     private lateinit var beanAdapter: BeanAdapter
 
@@ -44,6 +46,11 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.loadCategory()
         homeViewModel.loadCoffee()
         homeViewModel.loadCoffeeBean()
+        homeViewModel.loadFavourite()
+
+        homeViewModel.favourites.observe(viewLifecycleOwner, Observer { favourites ->
+            favouriteItems = favourites.toMutableList()
+        })
         return binding.root
     }
 
@@ -98,8 +105,9 @@ class HomeScreenFragment : Fragment() {
 
     private fun setupCoffeeRecycler() {
         coffeeAdapter = CoffeeAdapter(mutableListOf()) { coffeeId ->
+            val isFavourite = favouriteItems.any { it.id == coffeeId && it.type == TypeFavourite.COFFEE.toString() }
             val action = HomeScreenFragmentDirections
-                .actionHomeScreenFragmentToCoffeeDetailsFragment(coffeeId)
+                .actionHomeScreenFragmentToCoffeeDetailsFragment(coffeeId, isFavourite)
             findNavController().navigate(action)
         }
         binding.recyclerViewCoffeeTabs.apply {
@@ -110,8 +118,11 @@ class HomeScreenFragment : Fragment() {
 
     private fun setupCoffeeBeanRecycler() {
         beanAdapter = BeanAdapter(mutableListOf()) { beanId ->
+            val isFavourite = favouriteItems.any { it.id == beanId && it.type == TypeFavourite.BEANS.toString() }
+            Log.e("HomeScreenFragment", "isFavourite: $isFavourite")
+
             val action = HomeScreenFragmentDirections
-                .actionHomeScreenFragmentToBeanDetailsFragment(beanId)
+                .actionHomeScreenFragmentToBeanDetailsFragment(beanId, isFavourite)
             findNavController().navigate(action)
         }
         binding.recyclerViewBean.apply {
