@@ -26,18 +26,22 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeScreenFragment)
                     true
                 }
+
                 R.id.nav_favourite -> {
                     navController.navigate(R.id.favouriteScreenFragment)
                     true
                 }
+
                 R.id.nav_cart -> {
                     navController.navigate(R.id.cartScreenFragment)
                     true
                 }
+
                 R.id.nav_orderHistory -> {
                     navController.navigate(R.id.orderHistoryFragment)
                     true
                 }
+
                 else -> false
             }
 
@@ -54,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigateUp()
                     true
                 }
+
                 R.id.nav_logout -> {
                     Firebase.auth.signOut()
 //                    Log.e("Logout", "${auth.currentUser}")
@@ -61,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
                     true
                 }
+
                 else -> false
             }
         }
@@ -71,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.forgotPasswordFragment,
                 R.id.coffeeDetailsFragment,
                 R.id.beanDetailsFragment,
+                R.id.addToCartFragment,
                 -> hideBottomNavigation()
 
                 else -> showBottomNavigation()

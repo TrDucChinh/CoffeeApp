@@ -6,16 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.TypeFavourite
+import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.FragmentCoffeeDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.model.Order
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class CoffeeDetailsFragment : Fragment() {
@@ -39,26 +39,6 @@ class CoffeeDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isFavourited = args.isFavourite
-        /*args.coffeeId.let {
-            homeViewModel.coffees.observe(viewLifecycleOwner) { coffees ->
-                val coffee = coffees.find { it.id == args.coffeeId }
-                if (coffee != null) {
-                    binding.apply {
-                        btnSizeS.text = coffee.size.get(0)
-                        btnSizeM.text = coffee.size.get(1)
-                        btnSizeL.text = coffee.size.get(2)
-                        btnSizeS.isSelected = true
-                        tvCoffeeName.text = coffee.name
-                        tvDescriptionContent.text = coffee.description
-                        tvCoffeeRecipe.text = coffee.ingredients
-                        tvPriceProduct.text = "${"%,d".format(coffee.price.get(0))}đ"
-                        Glide.with(binding.root)
-                            .load(coffee.image_url)
-                            .into(imgCoffee)
-                    }
-                }
-            }
-        }*/
         choseSize()
         fetchData()
         binding.apply {
@@ -66,11 +46,39 @@ class CoffeeDetailsFragment : Fragment() {
             btnFavourite.setOnClickListener {
                 isFavourited = !isFavourited
                 updateFavouriteButton(isFavourited)
-                val favouriteItem = FavouriteItem(TypeFavourite.COFFEE.toString(), args.coffeeId)
+                val favouriteItem = FavouriteItem(Type.COFFEE.toString(), args.coffeeId)
                 SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
+            }
+            btnAddToCart.setOnClickListener {
+                addToCart()
             }
         }
         setupSeeMoreText()
+    }
+    private fun addToCart() {
+        val selectedCoffee = homeViewModel.coffees.value?.find { it.id == args.coffeeId }
+        if (selectedCoffee != null) {
+            val sizeIdx = when {
+                binding.btnSizeS.isSelected -> 0
+                binding.btnSizeM.isSelected -> 1
+                binding.btnSizeL.isSelected -> 2
+                else -> 0 // Default chọn size S
+            }
+            val price = selectedCoffee.price[sizeIdx]
+            val quantity = 1
+
+            // Tạo đối tượng Order
+            val order = Order(
+                type = Type.COFFEE.toString(),
+                id = selectedCoffee.id,
+                sizeIdx = sizeIdx,
+                price = price,
+                quantity = quantity
+            )
+
+            // Điều hướng đến CartFragment với SafeArgs
+            SaveToDB.updateOderInFirebase(order)
+        }
     }
     private fun choseSize() {
         binding.apply {

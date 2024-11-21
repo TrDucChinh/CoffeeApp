@@ -3,12 +3,11 @@ package com.proptit.btl_oop
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
 import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.model.Order
 import com.proptit.btl_oop.model.User
-import kotlinx.coroutines.flow.combine
 
 object SaveToDB {
     fun saveUserToDB(user : User){
@@ -44,5 +43,34 @@ object SaveToDB {
             }
         })
     }
+    fun updateOderInFirebase(order: Order) {
+        val userId = Firebase.auth.currentUser?.uid ?: return
+        val oderRef = Firebase.database.reference.child("Users").child(userId).child("Oders")
+
+        oderRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val orderType = object : GenericTypeIndicator<MutableList<Order>>() {}
+                val oders = snapshot.getValue(orderType) ?: mutableListOf()
+
+                // Tìm xem đã có sản phẩm cùng id và sizeIdx chưa
+                val existingOder = oders.find { it.id == order.id && it.sizeIdx == order.sizeIdx }
+
+                if (existingOder != null) {
+                    // Nếu đã tồn tại (cùng id và sizeIdx), cập nhật số lượng
+                    existingOder.quantity += order.quantity
+                } else {
+                    // Nếu khác size hoặc chưa tồn tại, thêm đơn hàng mới
+                    oders.add(order)
+                }
+                // Ghi dữ liệu lại Firebase
+                oderRef.setValue(oders)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Failed to read orders: ${error.message}")
+            }
+        })
+    }
+
 
 }

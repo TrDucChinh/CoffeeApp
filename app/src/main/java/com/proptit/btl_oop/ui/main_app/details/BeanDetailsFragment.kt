@@ -1,25 +1,18 @@
 package com.proptit.btl_oop.ui.main_app.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.GenericTypeIndicator
-import com.google.firebase.database.ValueEventListener
-import com.proptit.btl_oop.Firebase
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.TypeFavourite
+import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.FragmentBeanDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
 import com.proptit.btl_oop.viewmodel.HomeViewModel
@@ -52,7 +45,7 @@ class BeanDetailsFragment : Fragment() {
         binding.btnFavourite.setOnClickListener {
             isFavourited = !isFavourited
             updateFavouriteButton(isFavourited)
-            val favouriteItem = FavouriteItem(TypeFavourite.BEANS.toString(), args.beanId)
+            val favouriteItem = FavouriteItem(Type.BEANS.toString(), args.beanId)
             SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
         }
         showMoreDescription()

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_margin="10dp"
@@ -137,7 +138,7 @@
                 android:paddingVertical="3dp"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
-                android:text="1"
+                tools:text="1"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 

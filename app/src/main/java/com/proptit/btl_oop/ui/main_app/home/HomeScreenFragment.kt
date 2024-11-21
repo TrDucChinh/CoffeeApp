@@ -11,18 +11,15 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.TypeFavourite
+import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.adapter.BeanAdapter
 import com.proptit.btl_oop.adapter.CoffeeAdapter
 import com.proptit.btl_oop.databinding.FragmentHomeScreenBinding
 import com.proptit.btl_oop.model.Coffee
-import com.proptit.btl_oop.model.CoffeeBean
-import com.proptit.btl_oop.model.CoffeeCategory
 import com.proptit.btl_oop.model.FavouriteItem
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
@@ -105,7 +102,7 @@ class HomeScreenFragment : Fragment() {
 
     private fun setupCoffeeRecycler() {
         coffeeAdapter = CoffeeAdapter(mutableListOf()) { coffeeId ->
-            val isFavourite = favouriteItems.any { it.id == coffeeId && it.type == TypeFavourite.COFFEE.toString() }
+            val isFavourite = favouriteItems.any { it.id == coffeeId && it.type == Type.COFFEE.toString() }
             val action = HomeScreenFragmentDirections
                 .actionHomeScreenFragmentToCoffeeDetailsFragment(coffeeId, isFavourite)
             findNavController().navigate(action)
@@ -118,7 +115,7 @@ class HomeScreenFragment : Fragment() {
 
     private fun setupCoffeeBeanRecycler() {
         beanAdapter = BeanAdapter(mutableListOf()) { beanId ->
-            val isFavourite = favouriteItems.any { it.id == beanId && it.type == TypeFavourite.BEANS.toString() }
+            val isFavourite = favouriteItems.any { it.id == beanId && it.type == Type.BEANS.toString() }
             Log.e("HomeScreenFragment", "isFavourite: $isFavourite")
 
             val action = HomeScreenFragmentDirections

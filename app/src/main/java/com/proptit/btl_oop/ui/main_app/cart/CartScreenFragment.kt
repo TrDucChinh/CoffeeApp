@@ -29,7 +29,7 @@ class CartScreenFragment : Fragment() {
 
         binding.rvCartItems.layoutManager = LinearLayoutManager(context)
 
-        cartAdapter = CartAdapter(coffeeList)
+//        cartAdapter = CartAdapter(coffeeList)
         binding.rvCartItems.adapter = cartAdapter
 
         binding.btnPay.setOnClickListener{
