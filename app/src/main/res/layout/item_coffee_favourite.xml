@@ -2,21 +2,22 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="600dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:background="@color/black"
     app:cardCornerRadius="16dp"
-    android:paddingBottom="8dp"
     app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_blue">
+        android:background="@color/dark_blue"
+        android:paddingBottom="20dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardviewImg"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="450dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             app:layout_constraintHeight_percent="0.75"
@@ -29,7 +30,7 @@
                 <ImageView
                     android:id="@+id/imgCoffee"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="450dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/cappuccino"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +74,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/detailsBackground"
-                    app:layout_constraintVertical_bias="0.2" />
+                    app:layout_constraintVertical_bias="0.35" />
 
                 <TextView
                     android:id="@+id/tvCoffeeRecipe"
@@ -90,50 +91,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvCoffeeName"
                     app:layout_constraintVertical_bias="0.0" />
-
-                <include
-                    android:id="@+id/icon_coffee_layout"
-                    layout="@layout/icon_coffee_layout"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.518"
-                    app:layout_constraintStart_toEndOf="@id/tvCoffeeName"
-                    app:layout_constraintTop_toTopOf="@id/detailsBackground"
-                    app:layout_constraintVertical_bias="0.2" />
-
-                <include
-                    android:id="@+id/icon_milk_layout"
-                    layout="@layout/icon_milk_layout"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.2"
-                    app:layout_constraintStart_toEndOf="@id/icon_coffee_layout"
-                    app:layout_constraintTop_toTopOf="@id/detailsBackground"
-                    app:layout_constraintVertical_bias="0.2" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button_background"
-                    android:backgroundTint="@color/dark_blue"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/medium_roasted"
-                    android:textAllCaps="false"
-                    android:textColor="@color/light_gray"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.915"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/icon_coffee_layout"
-                    app:layout_constraintVertical_bias="0.2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -162,7 +119,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/cappuccino_description_content"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
