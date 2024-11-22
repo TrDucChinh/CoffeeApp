@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.proptit.btl_oop.R
+import com.proptit.btl_oop.SaveToDB
 import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.ItemBeanFavouriteBinding
 import com.proptit.btl_oop.databinding.ItemCoffeeFavouriteBinding
@@ -27,6 +29,11 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
             Glide.with(binding.root)
                 .load(coffee.image_url)
                 .into(binding.imgCoffee)
+            binding.btnFavourite.setOnClickListener {
+                binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
+                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.COFFEE.toString(),coffee.id), false)
+                removeItem(adapterPosition)
+            }
         }
     }
 
@@ -39,6 +46,12 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
             Glide.with(binding.root)
                 .load(bean.image_url)
                 .into(binding.imgBean)
+            binding.btnFavourite.setOnClickListener {
+                binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
+                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.BEANS.toString(),bean.id), false)
+                removeItem(adapterPosition)
+            }
+
         }
     }
 
@@ -84,7 +97,10 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
 
     // Trả về số lượng mục trong danh sách
     override fun getItemCount(): Int = itemList.size
-
+    fun removeItem(position: Int) {
+        itemList = itemList.filterIndexed { index, _ -> index != position }
+        notifyItemRemoved(position)
+    }
     // Cập nhật lại dữ liệu
     fun updateData(newList: List<FavouriteItem>, newCoffeeList: List<Coffee>, newBeanList: List<CoffeeBean>) {
         itemList = newList
