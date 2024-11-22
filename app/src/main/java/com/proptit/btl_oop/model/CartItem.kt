@@ -1,6 +1,6 @@
 package com.proptit.btl_oop.model
 
-data class Order(
+data class CartItem(
     val type: String,
     val id: Int,
     val sizeIdx: Int,

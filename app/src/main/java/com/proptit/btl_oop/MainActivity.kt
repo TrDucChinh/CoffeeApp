@@ -46,14 +46,13 @@ class MainActivity : AppCompatActivity() {
         binding.drawerNavigation.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.closeDrawers()
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    navController.navigate(R.id.homeScreenFragment)
-                    true
+                R.id.nav_profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    false
                 }
-
-                R.id.nav_favourite -> {
-                    navController.navigateUp()
-                    true
+                R.id.nav_order -> {
+                    navController.navigate(R.id.orderHistoryFragment)
+                    false
                 }
 
                 R.id.nav_logout -> {

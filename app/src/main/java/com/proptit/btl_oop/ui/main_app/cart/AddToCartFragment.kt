@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.proptit.btl_oop.SaveToDB
 import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.FragmentAddToCartBinding
-import com.proptit.btl_oop.model.Order
+import com.proptit.btl_oop.model.CartItem
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 
@@ -83,14 +83,14 @@ class AddToCartFragment : BottomSheetDialogFragment() {
                 val price = selectedCoffee.price[args.sizeIdx]
                 val quantity = binding.tvQuantity.text.toString().toInt()
                 // Tạo đối tượng Order
-                val order = Order(
+                val cartItem = CartItem(
                     type = Type.COFFEE.toString(),
                     id = selectedCoffee.id,
                     sizeIdx = args.sizeIdx,
                     price = price,
                     quantity = quantity
                 )
-                SaveToDB.updateOderInFirebase(order)
+                SaveToDB.updateOderInFirebase(cartItem)
             }
         } else {
             val selectedCoffee = homeViewModel.beans.value?.find { it.id == args.id }
@@ -99,7 +99,7 @@ class AddToCartFragment : BottomSheetDialogFragment() {
                 val quantity = binding.tvQuantity.text.toString().toInt()
 
                 // Tạo đối tượng Order
-                val order = Order(
+                val cartItem = CartItem(
                     type = Type.BEANS.toString(),
                     id = selectedCoffee.id,
                     sizeIdx = args.sizeIdx,
@@ -107,7 +107,7 @@ class AddToCartFragment : BottomSheetDialogFragment() {
                     quantity = quantity
                 )
 
-                SaveToDB.updateOderInFirebase(order)
+                SaveToDB.updateOderInFirebase(cartItem)
             }
         }
         dismiss()

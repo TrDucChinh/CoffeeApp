@@ -1,6 +1,5 @@
 package com.proptit.btl_oop.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,13 +12,13 @@ import com.proptit.btl_oop.databinding.ItemBeanCartBinding
 import com.proptit.btl_oop.databinding.ItemCoffeeCartBinding
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
-import com.proptit.btl_oop.model.Order
+import com.proptit.btl_oop.model.CartItem
 
 
 class CartAdapter(
     private var coffeeList: List<Coffee>,
     private var coffeeBeanList: List<CoffeeBean>
-) : ListAdapter<Order, RecyclerView.ViewHolder>(OrderDiffCallback()) {
+) : ListAdapter<CartItem, RecyclerView.ViewHolder>(OrderDiffCallback()) {
 
     private val VIEW_TYPE_COFFEE = 1
     private val VIEW_TYPE_BEAN = 2
@@ -27,11 +26,11 @@ class CartAdapter(
     inner class CoffeeViewHolder(private val binding: ItemCoffeeCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(order: Order, coffee: Coffee, payload: Map<String, Any>? = null) {
+        fun bind(cartItem: CartItem, coffee: Coffee, payload: Map<String, Any>? = null) {
             if (payload == null) {
                 binding.tvCoffeeName.text = coffee.name
                 binding.tvCoffeeDescription.text = coffee.ingredients
-                binding.tvSize.text = coffee.size[order.sizeIdx]
+                binding.tvSize.text = coffee.size[cartItem.sizeIdx]
                 Glide.with(binding.root)
                     .load(coffee.image_url)
                     .into(binding.imgProduct)
@@ -40,23 +39,23 @@ class CartAdapter(
             payload?.get("quantity")?.let {
                 binding.tvQuantity.text = it.toString()
             } ?: run {
-                binding.tvQuantity.text = order.quantity.toString()
+                binding.tvQuantity.text = cartItem.quantity.toString()
             }
 
             payload?.get("price")?.let {
                 binding.tvCoffeePrice.text = "${"%,d".format(it as Int)}đ"
             } ?: run {
-                val totalPrice = coffee.price[order.sizeIdx] * order.quantity
+                val totalPrice = coffee.price[cartItem.sizeIdx] * cartItem.quantity
                 binding.tvCoffeePrice.text = "${"%,d".format(totalPrice)}đ"
             }
 
             binding.btnIncrease.setOnClickListener {
-                val newQuantity = order.quantity + 1
+                val newQuantity = cartItem.quantity + 1
                 updateOrderQuantity(adapterPosition, newQuantity)
             }
 
             binding.btnDecrease.setOnClickListener {
-                val newQuantity = order.quantity - 1
+                val newQuantity = cartItem.quantity - 1
                 updateOrderQuantity(adapterPosition, newQuantity)
 
             }
@@ -66,11 +65,11 @@ class CartAdapter(
     inner class CoffeeBeanViewHolder(private val binding: ItemBeanCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(order: Order, coffeeBean: CoffeeBean, payload: Map<String, Any>? = null) {
+        fun bind(cartItem: CartItem, coffeeBean: CoffeeBean, payload: Map<String, Any>? = null) {
             if (payload == null) {
                 binding.tvBeanName.text = coffeeBean.name
                 binding.tvBeanDescription.text = coffeeBean.location
-                binding.tvSize.text = coffeeBean.quantity[order.sizeIdx]
+                binding.tvSize.text = coffeeBean.quantity[cartItem.sizeIdx]
                 Glide.with(binding.root)
                     .load(coffeeBean.image_url)
                     .into(binding.imgProduct)
@@ -79,23 +78,23 @@ class CartAdapter(
             payload?.get("quantity")?.let {
                 binding.tvQuantity.text = it.toString()
             } ?: run {
-                binding.tvQuantity.text = order.quantity.toString()
+                binding.tvQuantity.text = cartItem.quantity.toString()
             }
 
             payload?.get("price")?.let {
                 binding.tvCoffeePrice.text = "${"%,d".format(it as Int)}đ"
             } ?: run {
-                val totalPrice = coffeeBean.price[order.sizeIdx] * order.quantity
+                val totalPrice = coffeeBean.price[cartItem.sizeIdx] * cartItem.quantity
                 binding.tvCoffeePrice.text = "${"%,d".format(totalPrice)}đ"
             }
 
             binding.btnIncrease.setOnClickListener {
-                val newQuantity = order.quantity + 1
+                val newQuantity = cartItem.quantity + 1
                 updateOrderQuantity(adapterPosition, newQuantity)
             }
 
             binding.btnDecrease.setOnClickListener {
-                val newQuantity = order.quantity - 1
+                val newQuantity = cartItem.quantity - 1
                 updateOrderQuantity(adapterPosition, newQuantity)
             }
         }
@@ -248,16 +247,16 @@ class CartAdapter(
     }
 
 
-    class OrderDiffCallback : DiffUtil.ItemCallback<Order>() {
-        override fun areItemsTheSame(oldItem: Order, newItem: Order): Boolean {
+    class OrderDiffCallback : DiffUtil.ItemCallback<CartItem>() {
+        override fun areItemsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Order, newItem: Order): Boolean {
+        override fun areContentsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return oldItem == newItem
         }
 
-        override fun getChangePayload(oldItem: Order, newItem: Order): Any? {
+        override fun getChangePayload(oldItem: CartItem, newItem: CartItem): Any? {
             val diff = mutableMapOf<String, Any>()
             if (oldItem.quantity != newItem.quantity) {
                 diff["quantity"] = newItem.quantity

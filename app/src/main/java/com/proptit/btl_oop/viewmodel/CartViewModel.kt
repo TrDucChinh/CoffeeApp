@@ -4,23 +4,18 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.proptit.btl_oop.Firebase
-import com.proptit.btl_oop.model.Order
+import com.proptit.btl_oop.model.CartItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 
 class CartViewModel(application: Application) : ViewModel() {
     private val firebaseDatabase = Firebase.database
-    private val _order = MutableStateFlow<MutableList<Order>>(mutableListOf())
-    val order: StateFlow<MutableList<Order>> = _order
+    private val _cartItem = MutableStateFlow<MutableList<CartItem>>(mutableListOf())
+    val cartItem: StateFlow<MutableList<CartItem>> = _cartItem
     init {
         loadCart()
     }
@@ -29,19 +24,19 @@ class CartViewModel(application: Application) : ViewModel() {
         if (userId != null) {
             val ref = firebaseDatabase.getReference("Users")
                 .child(userId)
-                .child("orders")
+                .child("carts")
 
             // Lắng nghe sự thay đổi trong giỏ hàng
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val cartItems = mutableListOf<Order>()
+                    val cartItems = mutableListOf<CartItem>()
                     for (data in snapshot.children) {
-                        val order = data.getValue(Order::class.java)
-                        if (order != null) {
-                            cartItems.add(order)
+                        val cartItem = data.getValue(CartItem::class.java)
+                        if (cartItem != null) {
+                            cartItems.add(cartItem)
                         }
                     }
-                    _order.value = cartItems // Cập nhật giỏ hàng
+                    _cartItem.value = cartItems // Cập nhật giỏ hàng
                     Log.e("CartViewModel", "Cart updated: $cartItems")
                 }
 

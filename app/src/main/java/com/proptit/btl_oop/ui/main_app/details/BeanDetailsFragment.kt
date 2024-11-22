@@ -15,7 +15,6 @@ import com.proptit.btl_oop.SaveToDB
 import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.FragmentBeanDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
-import com.proptit.btl_oop.model.Order
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class BeanDetailsFragment : Fragment() {

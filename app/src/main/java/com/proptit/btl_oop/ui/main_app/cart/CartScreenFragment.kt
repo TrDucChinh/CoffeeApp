@@ -17,7 +17,6 @@ import com.proptit.btl_oop.adapter.CartAdapter
 import com.proptit.btl_oop.databinding.FragmentCartScreenBinding
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CartScreenFragment : Fragment() {
@@ -58,7 +57,7 @@ class CartScreenFragment : Fragment() {
 
     private fun updateTotalPrice() {
         lifecycleScope.launch {
-            cartViewModel.order.collect { orders ->
+            cartViewModel.cartItem.collect { orders ->
                 var totalPrice = 0
                 orders.forEach {
                     totalPrice += it.price * it.quantity
@@ -79,7 +78,7 @@ class CartScreenFragment : Fragment() {
 
         // Lắng nghe sự thay đổi trong giỏ hàng
         lifecycleScope.launch {
-            cartViewModel.order.collect { orders ->
+            cartViewModel.cartItem.collect { orders ->
                 // Cập nhật adapter mỗi khi dữ liệu giỏ hàng thay đổi
                 cartAdapter.submitList(orders)
                 Log.e("CartScreenFragment", "Cart updated: $orders")

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentSuccessDialogBinding
 
@@ -27,6 +28,7 @@ class SuccessDialogFragment : DialogFragment() {
             binding.apply {
                 btnBackToHome.setOnClickListener {
                     dismiss()
+                    findNavController().navigate(R.id.action_successFragment_to_homeScreenFragment)
                 }
             }
         }

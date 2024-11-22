@@ -23,6 +23,7 @@ import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.FavouriteItem
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
+import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
 
 class HomeScreenFragment : Fragment() {
 
@@ -33,6 +34,9 @@ class HomeScreenFragment : Fragment() {
     }
     private val cartViewModel: CartViewModel by activityViewModels {
         CartViewModel.CartViewModelFactory(requireActivity().application)
+    }
+    private val orderHistoryViewModel: OrderHistoryViewModel by activityViewModels {
+        OrderHistoryViewModel.OrderHistoryViewModelFactory(requireActivity().application)
     }
 
     private var coffeeList = mutableListOf<Coffee>()
@@ -49,6 +53,7 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.loadCoffee()
         homeViewModel.loadCoffeeBean()
         homeViewModel.loadFavourite()
+        orderHistoryViewModel.loadOrderHistory()
         cartViewModel.loadCart()
 
         homeViewModel.favourites.observe(viewLifecycleOwner, Observer { favourites ->

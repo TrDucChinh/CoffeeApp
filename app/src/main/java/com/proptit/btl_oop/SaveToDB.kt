@@ -3,13 +3,12 @@ package com.proptit.btl_oop
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
 import com.proptit.btl_oop.model.FavouriteItem
-import com.proptit.btl_oop.model.Order
+import com.proptit.btl_oop.model.CartItem
+import com.proptit.btl_oop.model.OrderHistory
 import com.proptit.btl_oop.model.User
-import kotlinx.coroutines.flow.combine
 
 object SaveToDB {
     fun saveUserToDB(user: User) {
@@ -47,25 +46,30 @@ object SaveToDB {
             }
         })
     }
-
-    fun updateOderInFirebase(order: Order) {
+    fun clearCart(){
         val userId = Firebase.auth.currentUser?.uid ?: return
-        val oderRef = Firebase.database.reference.child("Users").child(userId).child("orders")
+        val cartRef = Firebase.database.reference.child("Users").child(userId).child("carts")
+        cartRef.removeValue()
+    }
+
+    fun updateOderInFirebase(cartItem: CartItem) {
+        val userId = Firebase.auth.currentUser?.uid ?: return
+        val oderRef = Firebase.database.reference.child("Users").child(userId).child("carts")
 
         oderRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val orderTypeIndicator = object : GenericTypeIndicator<MutableList<Order>>() {}
-                val orders = snapshot.getValue(orderTypeIndicator) ?: mutableListOf()
+                val cartItemTypeIndicator = object : GenericTypeIndicator<MutableList<CartItem>>() {}
+                val orders = snapshot.getValue(cartItemTypeIndicator) ?: mutableListOf()
 
                 // Tìm sản phẩm có cùng id, sizeIdx và type
                 val existingOrderIndex = orders.indexOfFirst {
-                    it.id == order.id && it.sizeIdx == order.sizeIdx && it.type == order.type
+                    it.id == cartItem.id && it.sizeIdx == cartItem.sizeIdx && it.type == cartItem.type
                 }
 
                 if (existingOrderIndex != -1) {
-                    orders[existingOrderIndex].quantity = order.quantity
+                    orders[existingOrderIndex].quantity = cartItem.quantity
                 } else {
-                    orders.add(order)
+                    orders.add(cartItem)
                 }
 
 
@@ -79,13 +83,13 @@ object SaveToDB {
     }
 
 
-    fun removeOderInFirebase(oder: Order) {
+    fun removeOderInFirebase(oder: CartItem) {
         val userId = Firebase.auth.currentUser?.uid ?: return
-        val oderRef = Firebase.database.reference.child("Users").child(userId).child("orders")
+        val oderRef = Firebase.database.reference.child("Users").child(userId).child("carts")
 
         oderRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val oderType = object : GenericTypeIndicator<MutableList<Order>>() {}
+                val oderType = object : GenericTypeIndicator<MutableList<CartItem>>() {}
                 val orders = snapshot.getValue(oderType) ?: mutableListOf()
 
                 // Tìm xem đã có sản phẩm cùng id và sizeIdx chưa
@@ -104,6 +108,25 @@ object SaveToDB {
 
             override fun onCancelled(error: DatabaseError) {
                 Log.e("Firebase", "Failed to read orders: ${error.message}")
+            }
+        })
+    }
+    fun saveOrderHistoryToDB(orderHistory: OrderHistory) {
+        val userId = Firebase.auth.currentUser?.uid ?: return
+        val orderHistoryRef = Firebase.database.reference.child("Users").child(userId).child("order_history")
+
+        orderHistoryRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val orderHistoryType = object : GenericTypeIndicator<MutableList<OrderHistory>>() {}
+                val orderHistories = snapshot.getValue(orderHistoryType) ?: mutableListOf()
+
+                orderHistories.add(orderHistory)
+
+                orderHistoryRef.setValue(orderHistories)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Failed to read order history: ${error.message}")
             }
         })
     }
