@@ -1,27 +1,21 @@
 package com.proptit.btl_oop.ui.main_app.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.GenericTypeIndicator
-import com.google.firebase.database.ValueEventListener
-import com.proptit.btl_oop.Firebase
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.TypeFavourite
+import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.FragmentBeanDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.model.Order
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class BeanDetailsFragment : Fragment() {
@@ -34,7 +28,7 @@ class BeanDetailsFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
     }
-
+    private var sizeIdx = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,8 +46,12 @@ class BeanDetailsFragment : Fragment() {
         binding.btnFavourite.setOnClickListener {
             isFavourited = !isFavourited
             updateFavouriteButton(isFavourited)
-            val favouriteItem = FavouriteItem(TypeFavourite.BEANS.toString(), args.beanId)
+            val favouriteItem = FavouriteItem(Type.BEANS.toString(), args.beanId)
             SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
+        }
+        binding.btnAddToCart.setOnClickListener {
+            val action = BeanDetailsFragmentDirections.actionBeanDetailsFragmentToAddToCartFragment(args.beanId, Type.BEANS.toString(), sizeIdx)
+            findNavController().navigate(action)
         }
         showMoreDescription()
     }
@@ -90,14 +88,17 @@ class BeanDetailsFragment : Fragment() {
         binding.apply {
             btnSizeSmall.setOnClickListener {
                 setSelectedButton(btnSizeSmall)
+                sizeIdx = 0
                 tvPriceProduct.text = "${"%,d".format(homeViewModel.beans.value?.find { it.id == args.beanId }?.price?.get(0))}đ"
             }
             btnSizeMedium.setOnClickListener {
                 setSelectedButton(btnSizeMedium)
+                sizeIdx = 1
                 tvPriceProduct.text = "${"%,d".format(homeViewModel.beans.value?.find { it.id == args.beanId }?.price?.get(1))}đ"
             }
             btnSizeLarge.setOnClickListener {
                 setSelectedButton(btnSizeLarge)
+                sizeIdx = 2
                 tvPriceProduct.text = "${"%,d".format(homeViewModel.beans.value?.find { it.id == args.beanId }?.price?.get(2))}đ"
             }
         }

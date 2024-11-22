@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    tools:context=".ui.main_app.cart.AddToCartFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.32">
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cappuccino" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:autoSizeMaxTextSize="28sp"
+        android:autoSizeMinTextSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/cappuccino"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintBottom_toTopOf="@id/tvPriceProduct"
+        app:layout_constraintStart_toEndOf="@id/cardImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPriceProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="8sp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/cardImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/cardImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="40.000đ" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/dark_gray"
+        app:layout_constraintEnd_toEndOf="@id/tvPriceProduct"
+        app:layout_constraintTop_toBottomOf="@id/tvPriceProduct" />
+
+    <TextView
+        android:id="@+id/tvQuantityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:autoSizeMaxTextSize="24sp"
+        android:autoSizeMinTextSize="12sp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/quantity"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/divider"
+        app:layout_constraintBottom_toBottomOf="@id/btnDecrease"/>
+
+    <ImageButton
+        android:id="@+id/btnIncrease"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_add_icon_bg"
+        android:backgroundTint="@color/orange"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/dark_blue"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnIncrease"
+        app:layout_constraintEnd_toStartOf="@id/btnIncrease"
+        app:layout_constraintTop_toTopOf="@id/btnDecrease">
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingVertical="5dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="1" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/btnDecrease"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_add_icon_bg"
+        android:backgroundTint="@color/orange"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/cardQuantity"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnAddToCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_button_background"
+        android:backgroundTint="@color/orange"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/add_to_cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvQuantityLabel"
+        app:layout_constraintVertical_bias="0.15" />
+</androidx.constraintlayout.widget.ConstraintLayout>

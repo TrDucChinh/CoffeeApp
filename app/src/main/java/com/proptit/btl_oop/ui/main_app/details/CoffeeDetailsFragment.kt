@@ -6,16 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.TypeFavourite
+import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.FragmentCoffeeDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.model.Order
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class CoffeeDetailsFragment : Fragment() {
@@ -27,6 +27,7 @@ class CoffeeDetailsFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
     }
+    private var sizeIdx = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,26 +40,6 @@ class CoffeeDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isFavourited = args.isFavourite
-        /*args.coffeeId.let {
-            homeViewModel.coffees.observe(viewLifecycleOwner) { coffees ->
-                val coffee = coffees.find { it.id == args.coffeeId }
-                if (coffee != null) {
-                    binding.apply {
-                        btnSizeS.text = coffee.size.get(0)
-                        btnSizeM.text = coffee.size.get(1)
-                        btnSizeL.text = coffee.size.get(2)
-                        btnSizeS.isSelected = true
-                        tvCoffeeName.text = coffee.name
-                        tvDescriptionContent.text = coffee.description
-                        tvCoffeeRecipe.text = coffee.ingredients
-                        tvPriceProduct.text = "${"%,d".format(coffee.price.get(0))}đ"
-                        Glide.with(binding.root)
-                            .load(coffee.image_url)
-                            .into(imgCoffee)
-                    }
-                }
-            }
-        }*/
         choseSize()
         fetchData()
         binding.apply {
@@ -66,12 +47,17 @@ class CoffeeDetailsFragment : Fragment() {
             btnFavourite.setOnClickListener {
                 isFavourited = !isFavourited
                 updateFavouriteButton(isFavourited)
-                val favouriteItem = FavouriteItem(TypeFavourite.COFFEE.toString(), args.coffeeId)
+                val favouriteItem = FavouriteItem(Type.COFFEE.toString(), args.coffeeId)
                 SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
+            }
+            btnAddToCart.setOnClickListener {
+                val action = CoffeeDetailsFragmentDirections.actionCoffeeDetailsFragmentToAddToCartFragment(args.coffeeId, Type.COFFEE.toString(), sizeIdx)
+                findNavController().navigate(action)
             }
         }
         setupSeeMoreText()
     }
+
     private fun choseSize() {
         binding.apply {
             btnSizeS.setOnClickListener {
@@ -140,16 +126,19 @@ class CoffeeDetailsFragment : Fragment() {
         }
         when (selectedButton) {
             binding.btnSizeS -> {
+                sizeIdx = 0
                 binding.tvPriceProduct.text =
                     "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(0))}đ"
             }
 
             binding.btnSizeM -> {
+                sizeIdx = 1
                 binding.tvPriceProduct.text =
                     "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(1))}đ"
             }
 
             binding.btnSizeL -> {
+                sizeIdx = 2
                 binding.tvPriceProduct.text =
                     "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(2))}đ"
             }

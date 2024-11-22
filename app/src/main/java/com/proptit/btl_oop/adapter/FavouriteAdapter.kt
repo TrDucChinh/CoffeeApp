@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.proptit.btl_oop.TypeFavourite
+import com.proptit.btl_oop.Type
 import com.proptit.btl_oop.databinding.ItemBeanFavouriteBinding
 import com.proptit.btl_oop.databinding.ItemCoffeeFavouriteBinding
 import com.proptit.btl_oop.model.Coffee
@@ -44,7 +44,7 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
 
     // Phương thức trả về view type cho từng mục
     override fun getItemViewType(position: Int): Int {
-        return if (itemList[position].type == TypeFavourite.COFFEE.toString()) {
+        return if (itemList[position].type == Type.COFFEE.toString()) {
             VIEW_TYPE_COFFEE
         } else {
             VIEW_TYPE_BEAN
