@@ -1,12 +1,9 @@
 package com.proptit.btl_oop
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.proptit.btl_oop.databinding.ActivityMainBinding
 
@@ -78,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.coffeeDetailsFragment,
                 R.id.beanDetailsFragment,
                 R.id.addToCartFragment,
+                R.id.detailsOrderHistoryFragment,
                 -> hideBottomNavigation()
 
                 else -> showBottomNavigation()
