@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentPaymentBinding
+import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
 
 class PaymentFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentPaymentBinding? = null
@@ -23,6 +24,12 @@ class PaymentFragment : BottomSheetDialogFragment() {
     private fun setupUI() {
         binding.apply {
             icClose.setOnClickListener { dismiss() }
+            btnPay.setOnClickListener {
+                SuccessDialogFragment().show(
+                    parentFragmentManager,
+                    "SuccessDialog"
+                )
+            }
             paymentMethodGroup.setOnCheckedChangeListener { group, checkedId ->
                 when (checkedId) {
                     R.id.cashRadioButton -> {
@@ -43,6 +50,7 @@ class PaymentFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

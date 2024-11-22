@@ -78,122 +78,102 @@
 
         <RadioGroup
             android:id="@+id/paymentMethodGroup"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/paymentMethodsLabel">
 
-            <androidx.cardview.widget.CardView
+            <RadioButton
+                android:id="@+id/cashRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/black"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                android:buttonTint="@color/white"
+                android:drawableStart="@drawable/custom_cash_icon"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="16dp"
+                android:text="@string/cash"
+                android:textColor="@color/white"
+                android:background="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/cashRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:drawableStart="@drawable/custom_cash_icon"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:padding="16dp"
-                    android:text="@string/cash"
-                    android:textColor="@color/white" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <RadioButton
+                android:id="@+id/vnPayRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/black"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                android:buttonTint="@color/white"
+                android:drawableStart="@drawable/custom_vnpay_icon"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="16dp"
+                android:text="@string/vnpay"
+                android:textColor="@color/white"
+                android:background="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/vnPayRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:drawableStart="@drawable/custom_vnpay_icon"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:padding="16dp"
-                    android:text="@string/vnpay"
-                    android:textColor="@color/white" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <RadioButton
+                android:id="@+id/momoRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/black"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                android:buttonTint="@color/white"
+                android:drawableStart="@drawable/custom_momo_icon"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="16dp"
+                android:text="@string/momo"
+                android:textColor="@color/white"
+                android:background="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/momoRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:drawableStart="@drawable/custom_momo_icon"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:padding="16dp"
-                    android:text="@string/momo"
-                    android:textColor="@color/white" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <RadioButton
+                android:id="@+id/zaloPayRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/black"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                android:buttonTint="@color/white"
+                android:drawableStart="@drawable/custom_zalopay_icon"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="16dp"
+                android:text="@string/zalopay"
+                android:textColor="@color/white"
+                android:background="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/zaloPayRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:drawableStart="@drawable/custom_zalopay_icon"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:padding="16dp"
-                    android:text="@string/zalopay"
-                    android:textColor="@color/white" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <RadioButton
+                android:id="@+id/cardsRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/black"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
-
-                <RadioButton
-                    android:id="@+id/cardsRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:drawableStart="@drawable/custom_card_icon"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:text="@string/cards" />
-            </androidx.cardview.widget.CardView>
+                android:layout_margin="8dp"
+                android:buttonTint="@color/white"
+                android:drawableStart="@drawable/custom_card_icon"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="16dp"
+                android:text="@string/cards"
+                android:textColor="@color/white"
+                android:background="@color/black" />
 
         </RadioGroup>
+
+        <Button
+            android:id="@+id/btnPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rounded_button_background"
+            android:backgroundTint="@color/orange"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/pay"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentMethodGroup" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
