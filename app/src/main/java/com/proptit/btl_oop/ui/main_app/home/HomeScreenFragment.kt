@@ -21,6 +21,7 @@ import com.proptit.btl_oop.adapter.CoffeeAdapter
 import com.proptit.btl_oop.databinding.FragmentHomeScreenBinding
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class HomeScreenFragment : Fragment() {
@@ -30,6 +31,10 @@ class HomeScreenFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
     }
+    private val cartViewModel: CartViewModel by activityViewModels {
+        CartViewModel.CartViewModelFactory(requireActivity().application)
+    }
+
     private var coffeeList = mutableListOf<Coffee>()
     private var favouriteItems = mutableListOf<FavouriteItem>()
     private lateinit var coffeeAdapter: CoffeeAdapter
@@ -44,6 +49,7 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.loadCoffee()
         homeViewModel.loadCoffeeBean()
         homeViewModel.loadFavourite()
+        cartViewModel.loadCart()
 
         homeViewModel.favourites.observe(viewLifecycleOwner, Observer { favourites ->
             favouriteItems = favourites.toMutableList()

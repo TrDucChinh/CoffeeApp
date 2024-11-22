@@ -162,7 +162,7 @@ class CartAdapter(
         val currentOrder = getItem(position)
 
         // Kiểm tra nếu số lượng mới là 0 thì xóa sản phẩm khỏi giỏ và Firebase
-        if (newQuantity == 0) {
+        if (newQuantity <= 0) {
             removeOrder(position)
 
             // Xóa sản phẩm khỏi Firebase

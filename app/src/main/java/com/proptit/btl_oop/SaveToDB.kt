@@ -12,14 +12,16 @@ import com.proptit.btl_oop.model.User
 import kotlinx.coroutines.flow.combine
 
 object SaveToDB {
-    fun saveUserToDB(user : User){
+    fun saveUserToDB(user: User) {
         val database = Firebase.database
         val userRef = database.getReference("Users").child(user.id)
         userRef.setValue(user)
     }
+
     fun updateFavouriteInFirebase(favouriteItem: FavouriteItem, isFavourite: Boolean) {
         val userId = Firebase.auth.currentUser?.uid ?: return
-        val favouritesRef = Firebase.database.reference.child("Users").child(userId).child("favourites")
+        val favouritesRef =
+            Firebase.database.reference.child("Users").child(userId).child("favourites")
 
         favouritesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -45,27 +47,28 @@ object SaveToDB {
             }
         })
     }
+
     fun updateOderInFirebase(order: Order) {
         val userId = Firebase.auth.currentUser?.uid ?: return
         val oderRef = Firebase.database.reference.child("Users").child(userId).child("orders")
 
         oderRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val oderType = object : GenericTypeIndicator<MutableList<Order>>() {}
-                val orders = snapshot.getValue(oderType) ?: mutableListOf()
+                val orderTypeIndicator = object : GenericTypeIndicator<MutableList<Order>>() {}
+                val orders = snapshot.getValue(orderTypeIndicator) ?: mutableListOf()
 
-                // Tìm xem đã có sản phẩm cùng id và sizeIdx chưa
-                val existingOder = orders.find { it.id == order.id && it.sizeIdx == order.sizeIdx && it.type == order.type }
+                // Tìm sản phẩm có cùng id, sizeIdx và type
+                val existingOrderIndex = orders.indexOfFirst {
+                    it.id == order.id && it.sizeIdx == order.sizeIdx && it.type == order.type
+                }
 
-                if (existingOder != null) {
-                    // Nếu đã tồn tại (cùng id và sizeIdx), cập nhật số lượng
-                    existingOder.quantity += order.quantity
+                if (existingOrderIndex != -1) {
+                    orders[existingOrderIndex].quantity = order.quantity
                 } else {
-                    // Nếu khác size hoặc chưa tồn tại, thêm đơn hàng mới
                     orders.add(order)
                 }
 
-                // Ghi dữ liệu lại Firebase
+
                 oderRef.setValue(orders)
             }
 
@@ -74,6 +77,8 @@ object SaveToDB {
             }
         })
     }
+
+
     fun removeOderInFirebase(oder: Order) {
         val userId = Firebase.auth.currentUser?.uid ?: return
         val oderRef = Firebase.database.reference.child("Users").child(userId).child("orders")
@@ -84,7 +89,8 @@ object SaveToDB {
                 val orders = snapshot.getValue(oderType) ?: mutableListOf()
 
                 // Tìm xem đã có sản phẩm cùng id và sizeIdx chưa
-                val existingOder = orders.find { it.id == oder.id && it.sizeIdx == oder.sizeIdx && it.type == oder.type }
+                val existingOder =
+                    orders.find { it.id == oder.id && it.sizeIdx == oder.sizeIdx && it.type == oder.type }
 
                 if (existingOder != null) {
                     existingOder.quantity -= oder.quantity
@@ -95,6 +101,7 @@ object SaveToDB {
                 // Ghi dữ liệu lại Firebase
                 oderRef.setValue(orders)
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Log.e("Firebase", "Failed to read orders: ${error.message}")
             }

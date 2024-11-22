@@ -27,6 +27,7 @@ class CoffeeDetailsFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
     }
+    private var sizeIdx = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,36 +51,13 @@ class CoffeeDetailsFragment : Fragment() {
                 SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
             }
             btnAddToCart.setOnClickListener {
-                addToCart()
+                val action = CoffeeDetailsFragmentDirections.actionCoffeeDetailsFragmentToAddToCartFragment(args.coffeeId, Type.COFFEE.toString(), sizeIdx)
+                findNavController().navigate(action)
             }
         }
         setupSeeMoreText()
     }
-    private fun addToCart() {
-        val selectedCoffee = homeViewModel.coffees.value?.find { it.id == args.coffeeId }
-        if (selectedCoffee != null) {
-            val sizeIdx = when {
-                binding.btnSizeS.isSelected -> 0
-                binding.btnSizeM.isSelected -> 1
-                binding.btnSizeL.isSelected -> 2
-                else -> 0 // Default chọn size S
-            }
-            val price = selectedCoffee.price[sizeIdx]
-            val quantity = 1
 
-            // Tạo đối tượng Order
-            val order = Order(
-                type = Type.COFFEE.toString(),
-                id = selectedCoffee.id,
-                sizeIdx = sizeIdx,
-                price = price,
-                quantity = quantity
-            )
-
-            // Điều hướng đến CartFragment với SafeArgs
-            SaveToDB.updateOderInFirebase(order)
-        }
-    }
     private fun choseSize() {
         binding.apply {
             btnSizeS.setOnClickListener {
@@ -148,16 +126,19 @@ class CoffeeDetailsFragment : Fragment() {
         }
         when (selectedButton) {
             binding.btnSizeS -> {
+                sizeIdx = 0
                 binding.tvPriceProduct.text =
                     "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(0))}đ"
             }
 
             binding.btnSizeM -> {
+                sizeIdx = 1
                 binding.tvPriceProduct.text =
                     "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(1))}đ"
             }
 
             binding.btnSizeL -> {
+                sizeIdx = 2
                 binding.tvPriceProduct.text =
                     "${"%,d".format(homeViewModel.coffees.value?.get(args.coffeeId)?.price?.get(2))}đ"
             }

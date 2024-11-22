@@ -38,9 +38,6 @@ class CartScreenFragment : Fragment() {
     ): View? {
         _binding = FragmentCartScreenBinding.inflate(inflater, container, false)
 
-        // Load cart data
-        cartViewModel.loadCart()
-
         return binding.root
     }
 
@@ -53,12 +50,25 @@ class CartScreenFragment : Fragment() {
 
 
         setUpAdapter()
-
-
         binding.btnPay.setOnClickListener {
             findNavController().navigate(R.id.action_cartScreenFragment_to_paymentFragment)
         }
+        updateTotalPrice()
     }
+
+    private fun updateTotalPrice() {
+        lifecycleScope.launch {
+            cartViewModel.order.collect { orders ->
+                var totalPrice = 0
+                orders.forEach {
+                    totalPrice += it.price * it.quantity
+                }
+                binding.tvPriceProduct.text = "${"%,d".format(totalPrice)}đ"
+                Log.e("CartScreenFragment", "Total price updated: $totalPrice")
+            }
+        }
+    }
+
 
     private fun setUpAdapter() {
         cartAdapter = CartAdapter(homeViewModel.coffees.value!!, homeViewModel.beans.value!!)
@@ -67,11 +77,14 @@ class CartScreenFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
+        // Lắng nghe sự thay đổi trong giỏ hàng
         lifecycleScope.launch {
             cartViewModel.order.collect { orders ->
+                // Cập nhật adapter mỗi khi dữ liệu giỏ hàng thay đổi
                 cartAdapter.submitList(orders)
                 Log.e("CartScreenFragment", "Cart updated: $orders")
             }
         }
     }
+
 }

@@ -14,46 +14,45 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class CartViewModel(application: Application) : ViewModel() {
     private val firebaseDatabase = Firebase.database
     private val _order = MutableStateFlow<MutableList<Order>>(mutableListOf())
     val order: StateFlow<MutableList<Order>> = _order
-
-    // Load cart data using StateFlow
+    init {
+        loadCart()
+    }
     fun loadCart() {
-        // Fetch the data in a background thread using coroutine
-        viewModelScope.launch {
-            val ref =
-                firebaseDatabase.getReference("Users")
-                    .child(Firebase.auth.currentUser?.uid.toString())
-                    .child("orders")
+        val userId = Firebase.auth.currentUser?.uid
+        if (userId != null) {
+            val ref = firebaseDatabase.getReference("Users")
+                .child(userId)
+                .child("orders")
 
-            // Use ValueEventListener to listen for data from Firebase
-            val listener = object : ValueEventListener {
+            // Lắng nghe sự thay đổi trong giỏ hàng
+            ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val lists = mutableListOf<Order>()
+                    val cartItems = mutableListOf<Order>()
                     for (data in snapshot.children) {
                         val order = data.getValue(Order::class.java)
                         if (order != null) {
-                            lists.add(order)
+                            cartItems.add(order)
                         }
                     }
-                    // Update the MutableStateFlow with new data
-                    _order.value = lists
-                    Log.e("CartViewModel", "Cart loaded: $lists")
+                    _order.value = cartItems // Cập nhật giỏ hàng
+                    Log.e("CartViewModel", "Cart updated: $cartItems")
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e("CartViewModel", "Load cart failed: ${error.message}")
+                    Log.e("CartViewModel", "Error loading cart: ${error.message}")
                 }
-            }
-
-            // Add the listener to the database reference
-            ref.addListenerForSingleValueEvent(listener)
+            })
         }
     }
+
+
 
     class CartViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

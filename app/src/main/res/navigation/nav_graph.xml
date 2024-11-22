@@ -80,9 +80,6 @@
             android:name="isFavourite"
             app:argType="boolean" />
         <action
-            android:id="@+id/action_coffeeDetailsFragment_to_cartScreenFragment"
-            app:destination="@id/cartScreenFragment" />
-        <action
             android:id="@+id/action_coffeeDetailsFragment_to_addToCartFragment"
             app:destination="@id/addToCartFragment" />
     </fragment>
@@ -98,8 +95,8 @@
             android:name="isFavourite"
             app:argType="boolean" />
         <action
-            android:id="@+id/action_beanDetailsFragment_to_cartScreenFragment"
-            app:destination="@id/cartScreenFragment" />
+            android:id="@+id/action_beanDetailsFragment_to_addToCartFragment"
+            app:destination="@id/addToCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteScreenFragment"
@@ -129,5 +126,15 @@
         android:id="@+id/addToCartFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.AddToCartFragment"
         android:label="fragment_add_to_cart"
-        tools:layout="@layout/fragment_add_to_cart" />
+        tools:layout="@layout/fragment_add_to_cart" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="sizeIdx"
+            app:argType="integer" />
+    </dialog>
 </navigation>
