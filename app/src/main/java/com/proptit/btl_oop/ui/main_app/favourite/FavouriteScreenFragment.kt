@@ -1,6 +1,7 @@
 package com.proptit.btl_oop.ui.main_app.favourite
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,6 @@ class FavouriteScreenFragment : Fragment() {
         setupRecyclerView()
     }
     private fun fetchData() {
-        favouriteViewModel.loadFavourite()
         favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer{
             val adapter = FavouriteAdapter(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
             binding.rvFavouriteItems.adapter = adapter

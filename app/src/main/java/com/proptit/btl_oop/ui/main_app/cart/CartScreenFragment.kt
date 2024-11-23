@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.adapter.CartAdapter
 import com.proptit.btl_oop.databinding.FragmentCartScreenBinding
+import com.proptit.btl_oop.ui.main_app.payment.PaymentFragment
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch

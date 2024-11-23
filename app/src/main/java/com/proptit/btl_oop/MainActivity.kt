@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.proptit.btl_oop.databinding.ActivityMainBinding
 
@@ -16,33 +17,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    navController.navigate(R.id.homeScreenFragment)
-                    true
-                }
-
-                R.id.nav_favourite -> {
-                    navController.navigate(R.id.favouriteScreenFragment)
-                    true
-                }
-
-                R.id.nav_cart -> {
-                    navController.navigate(R.id.cartScreenFragment)
-                    true
-                }
-
-                R.id.nav_orderHistory -> {
-                    navController.navigate(R.id.orderHistoryFragment)
-                    true
-                }
-
-                else -> false
-            }
-
-        }
+        binding.bottomNavigation.setupWithNavController(navController)
         binding.drawerNavigation.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.closeDrawers()
             when (menuItem.itemId) {
@@ -75,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.beanDetailsFragment,
                 R.id.addToCartFragment,
                 R.id.detailsOrderHistoryFragment,
+                R.id.profileFragment
                 -> hideBottomNavigation()
 
                 else -> showBottomNavigation()
