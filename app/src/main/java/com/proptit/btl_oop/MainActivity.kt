@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.profileFragment)
                     false
                 }
+
                 R.id.nav_order -> {
                     navController.navigate(R.id.orderHistoryFragment)
                     false
@@ -75,6 +76,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.beanDetailsFragment,
                 R.id.addToCartFragment,
                 R.id.detailsOrderHistoryFragment,
+                R.id.paymentFragment,
+                R.id.profileFragment,
                 -> hideBottomNavigation()
 
                 else -> showBottomNavigation()

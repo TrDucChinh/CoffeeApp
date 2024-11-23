@@ -24,14 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/cappuccino" />
+            android:src="@drawable/ic_logo" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/orderName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:autoSizeMaxTextSize="22sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:autoSizeMinTextSize="12sp"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -46,6 +51,8 @@
         android:id="@+id/orderDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="10sp"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/white"
         android:textSize="14sp"
@@ -59,15 +66,16 @@
         android:id="@+id/orderPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/poppins_regular"
+        android:layout_marginEnd="10dp"
+        android:autoSizeMaxTextSize="22sp"
+        android:autoSizeMinTextSize="12sp"
+        android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/orderDateTime"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/orderDateTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/orderName"
-        app:layout_constraintTop_toBottomOf="@id/orderName"
+        app:layout_constraintTop_toTopOf="@id/orderDateTime"
         tools:text="40.000đ" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,22 +42,27 @@ class FavouriteScreenFragment : Fragment() {
     }
     private fun fetchData() {
         favouriteViewModel.loadFavourite()
-        favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer{
-            val adapter = FavouriteAdapter(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
-            binding.rvFavouriteItems.adapter = adapter
-            adapter.updateData(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
-        })
+            favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer{
+                val adapter = FavouriteAdapter(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
+                binding.rvFavouriteItems.adapter = adapter
+                adapter.updateData(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
+            })
     }
 
     private fun setupRecyclerView() {
         val adapter = FavouriteAdapter(listOf(), listOf(), listOf())
-        binding.rvFavouriteItems.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
+        if (favouriteViewModel.favourites.value==null){
+            binding.tvEmpty.visibility = View.VISIBLE
         }
-        favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer {
-            adapter.updateData(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
-        })
+        else{
+            binding.rvFavouriteItems.apply {
+                layoutManager = LinearLayoutManager(context)
+                this.adapter = adapter
+            }
+            favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer {
+                adapter.updateData(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
+            })
+        }
     }
 
     override fun onDestroyView() {

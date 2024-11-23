@@ -36,8 +36,8 @@
         android:id="@+id/userAvatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_logo"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +45,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/tvCart"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="22sp"
+        android:autoSizeMinTextSize="12sp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/cart_empty_string"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btnPay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCart" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCartItems"
@@ -55,7 +71,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCart"
-        tools:listitem="@layout/item_coffee_cart"/>
+        tools:listitem="@layout/item_coffee_cart" />
+
     <TextView
         android:id="@+id/tvPriceLabel"
         android:layout_width="wrap_content"
