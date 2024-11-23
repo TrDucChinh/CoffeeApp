@@ -80,6 +80,11 @@ class CartScreenFragment : Fragment() {
         // Lắng nghe sự thay đổi trong giỏ hàng
         lifecycleScope.launch {
             cartViewModel.cartItem.collect { orders ->
+                if (orders.isEmpty()) {
+                    binding.tvEmpty.visibility = View.VISIBLE
+                } else {
+                    binding.tvEmpty.visibility = View.GONE
+                }
                 // Cập nhật adapter mỗi khi dữ liệu giỏ hàng thay đổi
                 cartAdapter.submitList(orders)
                 Log.e("CartScreenFragment", "Cart updated: $orders")
