@@ -15,14 +15,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.Type
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.adapter.BeanAdapter
 import com.proptit.btl_oop.adapter.CoffeeAdapter
 import com.proptit.btl_oop.databinding.FragmentHomeScreenBinding
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.FavouriteItem
 import com.proptit.btl_oop.viewmodel.CartViewModel
+import com.proptit.btl_oop.viewmodel.FavouriteViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
+import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
 
 class HomeScreenFragment : Fragment() {
 
@@ -33,6 +35,12 @@ class HomeScreenFragment : Fragment() {
     }
     private val cartViewModel: CartViewModel by activityViewModels {
         CartViewModel.CartViewModelFactory(requireActivity().application)
+    }
+    private val orderHistoryViewModel: OrderHistoryViewModel by activityViewModels {
+        OrderHistoryViewModel.OrderHistoryViewModelFactory(requireActivity().application)
+    }
+    private val favouriteViewModel: FavouriteViewModel by activityViewModels {
+        FavouriteViewModel.FavouriteViewModelFactory(requireActivity().application)
     }
 
     private var coffeeList = mutableListOf<Coffee>()
@@ -48,12 +56,12 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.loadCategory()
         homeViewModel.loadCoffee()
         homeViewModel.loadCoffeeBean()
-        homeViewModel.loadFavourite()
+        favouriteViewModel.loadFavourite()
+        orderHistoryViewModel.loadOrderHistory()
         cartViewModel.loadCart()
-
-        homeViewModel.favourites.observe(viewLifecycleOwner, Observer { favourites ->
-            favouriteItems = favourites.toMutableList()
-        })
+        favouriteViewModel.favouriteItem.value?.let {
+            favouriteItems = it
+        }
         return binding.root
     }
 

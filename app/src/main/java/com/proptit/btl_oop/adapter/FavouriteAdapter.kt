@@ -1,22 +1,22 @@
-package com.proptit.btl_oop.adapter
-
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.Type
+import com.proptit.btl_oop.utils.SaveToDB
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.databinding.ItemBeanFavouriteBinding
 import com.proptit.btl_oop.databinding.ItemCoffeeFavouriteBinding
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
 import com.proptit.btl_oop.model.FavouriteItem
 
-class FavouriteAdapter(private var itemList: List<FavouriteItem>,
-                       private var coffeeList: List<Coffee>,
-                       private var beanList: List<CoffeeBean>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FavouriteAdapter(
+    private var coffeeList: List<Coffee>,
+    private var beanList: List<CoffeeBean>
+) : ListAdapter<FavouriteItem, RecyclerView.ViewHolder>(FavouriteDiffCallback()) {
 
     private val VIEW_TYPE_COFFEE = 1
     private val VIEW_TYPE_BEAN = 2
@@ -31,7 +31,7 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
                 .into(binding.imgCoffee)
             binding.btnFavourite.setOnClickListener {
                 binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
-                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.COFFEE.toString(),coffee.id), false)
+                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.COFFEE.toString(), coffee.id), false)
                 removeItem(adapterPosition)
             }
         }
@@ -40,7 +40,6 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
     // ViewHolder cho Bean
     inner class BeanViewHolder(private val binding: ItemBeanFavouriteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bean: CoffeeBean) {
-            Log.e("FavouriteScreen", bean.image_url)
             binding.tvBeanName.text = bean.name
             binding.tvDescriptionContent.text = bean.description
             Glide.with(binding.root)
@@ -48,16 +47,15 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
                 .into(binding.imgBean)
             binding.btnFavourite.setOnClickListener {
                 binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
-                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.BEANS.toString(),bean.id), false)
+                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.BEANS.toString(), bean.id), false)
                 removeItem(adapterPosition)
             }
-
         }
     }
 
     // Phương thức trả về view type cho từng mục
     override fun getItemViewType(position: Int): Int {
-        return if (itemList[position].type == Type.COFFEE.toString()) {
+        return if (getItem(position).type == Type.COFFEE.toString()) {
             VIEW_TYPE_COFFEE
         } else {
             VIEW_TYPE_BEAN
@@ -83,29 +81,31 @@ class FavouriteAdapter(private var itemList: List<FavouriteItem>,
 
     // Gắn dữ liệu vào viewholder tương ứng
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val favouriteItem = itemList[position]
+        val favouriteItem = getItem(position)
         if (holder is CoffeeViewHolder) {
-            // Tìm Coffee trong danh sách dựa trên id
             val coffee = coffeeList.find { it.id == favouriteItem.id }
             coffee?.let { holder.bind(it) }
         } else if (holder is BeanViewHolder) {
-            // Tìm CoffeeBean trong danh sách dựa trên id
             val bean = beanList.find { it.id == favouriteItem.id }
             bean?.let { holder.bind(it) }
         }
     }
 
-    // Trả về số lượng mục trong danh sách
-    override fun getItemCount(): Int = itemList.size
+    // Xóa mục khỏi danh sách
     fun removeItem(position: Int) {
-        itemList = itemList.filterIndexed { index, _ -> index != position }
-        notifyItemRemoved(position)
+        val currentList = currentList.toMutableList()
+        currentList.removeAt(position)
+        submitList(currentList)
     }
-    // Cập nhật lại dữ liệu
-    fun updateData(newList: List<FavouriteItem>, newCoffeeList: List<Coffee>, newBeanList: List<CoffeeBean>) {
-        itemList = newList
-        coffeeList = newCoffeeList
-        beanList = newBeanList
-        notifyDataSetChanged()
+
+    class FavouriteDiffCallback : DiffUtil.ItemCallback<FavouriteItem>() {
+        override fun areItemsTheSame(oldItem: FavouriteItem, newItem: FavouriteItem): Boolean {
+            return oldItem.id == newItem.id && oldItem.type == newItem.type
+        }
+
+        override fun areContentsTheSame(oldItem: FavouriteItem, newItem: FavouriteItem): Boolean {
+            return oldItem == newItem
+        }
     }
+
 }

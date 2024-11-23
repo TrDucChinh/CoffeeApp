@@ -11,11 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.Type
+import com.proptit.btl_oop.utils.SaveToDB
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.databinding.FragmentCoffeeDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
-import com.proptit.btl_oop.model.Order
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class CoffeeDetailsFragment : Fragment() {
