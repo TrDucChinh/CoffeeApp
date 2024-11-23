@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.Type
+import com.proptit.btl_oop.utils.SaveToDB
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.databinding.ItemBeanFavouriteBinding
 import com.proptit.btl_oop.databinding.ItemCoffeeFavouriteBinding
 import com.proptit.btl_oop.model.Coffee

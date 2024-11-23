@@ -1,24 +1,16 @@
 package com.proptit.btl_oop.ui.login.sign_up
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.proptit.btl_oop.Firebase
-import com.proptit.btl_oop.MainActivity
-import com.proptit.btl_oop.SaveToDB
+import com.proptit.btl_oop.utils.Firebase
+import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentSignUpScreenBinding
 import com.proptit.btl_oop.model.User
 

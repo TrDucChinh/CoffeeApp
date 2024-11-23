@@ -1,15 +1,14 @@
 package com.proptit.btl_oop.ui.main_app.payment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.proptit.btl_oop.utils.Payment
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.SaveToDB
+import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentPaymentBinding
 import com.proptit.btl_oop.model.OrderHistory
 import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
@@ -40,9 +39,10 @@ class PaymentFragment : BottomSheetDialogFragment() {
             btnPay.setOnClickListener {
                 val orderItem = cartViewModel.cartItem.value
                 val orderHistory = OrderHistory(
-                    System.currentTimeMillis().toString(),
+                    System.currentTimeMillis(),
                     orderItem,
-                    orderItem.sumBy { it.price }
+                    orderItem.sumBy { it.price * it.quantity },
+                    checkPayment()
                 )
                 SaveToDB.saveOrderHistoryToDB(orderHistory)
                 SaveToDB.clearCart()
@@ -70,6 +70,16 @@ class PaymentFragment : BottomSheetDialogFragment() {
                     }
                 }
             }
+        }
+    }
+    private fun checkPayment(): String{
+        return when(binding.paymentMethodGroup.checkedRadioButtonId){
+            R.id.cashRadioButton -> Payment.Cash.toString()
+            R.id.vnPayRadioButton -> Payment.VNPAY.toString()
+            R.id.momoRadioButton -> Payment.MoMo.toString()
+            R.id.zaloPayRadioButton -> Payment.ZaloPay.toString()
+            R.id.cardsRadioButton -> Payment.Cards.toString()
+            else -> ""
         }
     }
 

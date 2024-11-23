@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.proptit.btl_oop.SaveToDB
-import com.proptit.btl_oop.Type
+import com.proptit.btl_oop.utils.SaveToDB
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.databinding.ItemBeanCartBinding
 import com.proptit.btl_oop.databinding.ItemCoffeeCartBinding
 import com.proptit.btl_oop.model.Coffee
@@ -18,7 +18,7 @@ import com.proptit.btl_oop.model.CartItem
 class CartAdapter(
     private var coffeeList: List<Coffee>,
     private var coffeeBeanList: List<CoffeeBean>
-) : ListAdapter<CartItem, RecyclerView.ViewHolder>(OrderDiffCallback()) {
+) : ListAdapter<CartItem, RecyclerView.ViewHolder>(CartDiffCallback()) {
 
     private val VIEW_TYPE_COFFEE = 1
     private val VIEW_TYPE_BEAN = 2
@@ -129,18 +129,18 @@ class CartAdapter(
         position: Int,
         payloads: MutableList<Any>
     ) {
-        val order = getItem(position)
+        val cart = getItem(position)
         val payload = if (payloads.isNotEmpty()) payloads[0] as? Map<String, Any> else null
 
         when (holder) {
             is CoffeeViewHolder -> {
-                val coffee = coffeeList.find { it.id == order.id }
-                coffee?.let { holder.bind(order, it, payload) }
+                val coffee = coffeeList.find { it.id == cart.id }
+                coffee?.let { holder.bind(cart, it, payload) }
             }
 
             is CoffeeBeanViewHolder -> {
-                val coffeeBean = coffeeBeanList.find { it.id == order.id }
-                coffeeBean?.let { holder.bind(order, it, payload) }
+                val coffeeBean = coffeeBeanList.find { it.id == cart.id }
+                coffeeBean?.let { holder.bind(cart, it, payload) }
             }
         }
     }
@@ -247,7 +247,7 @@ class CartAdapter(
     }
 
 
-    class OrderDiffCallback : DiffUtil.ItemCallback<CartItem>() {
+    class CartDiffCallback : DiffUtil.ItemCallback<CartItem>() {
         override fun areItemsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return oldItem.id == newItem.id
         }

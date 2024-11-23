@@ -11,12 +11,11 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.Type
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.adapter.BeanAdapter
 import com.proptit.btl_oop.adapter.CoffeeAdapter
 import com.proptit.btl_oop.databinding.FragmentHomeScreenBinding
@@ -26,7 +25,6 @@ import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.FavouriteViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
-import kotlinx.coroutines.launch
 
 class HomeScreenFragment : Fragment() {
 

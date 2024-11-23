@@ -162,7 +162,10 @@
         android:id="@+id/detailsOrderHistoryFragment"
         android:name="com.proptit.btl_oop.ui.main_app.order_history.DetailsOrderHistoryFragment"
         android:label="fragment_details_order_history"
-        tools:layout="@layout/fragment_details_order_history" />
+        tools:layout="@layout/fragment_details_order_history" >
+        <argument android:name="orderID"
+            app:argType="long" />
+    </fragment>
     <dialog
         android:id="@+id/addToCartFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.AddToCartFragment"

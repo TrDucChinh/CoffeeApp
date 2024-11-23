@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.proptit.btl_oop.Firebase
+import com.proptit.btl_oop.utils.Firebase
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
 import com.proptit.btl_oop.model.CoffeeCategory

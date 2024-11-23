@@ -1,4 +1,4 @@
-package com.proptit.btl_oop
+package com.proptit.btl_oop.utils
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
