@@ -51,13 +51,18 @@ class FavouriteScreenFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val adapter = FavouriteAdapter(listOf(), listOf(), listOf())
-        binding.rvFavouriteItems.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
+        if (favouriteViewModel.favourites.value==null){
+            binding.tvEmpty.visibility = View.VISIBLE
         }
-        favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer {
-            adapter.updateData(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
-        })
+        else{
+            binding.rvFavouriteItems.apply {
+                layoutManager = LinearLayoutManager(context)
+                this.adapter = adapter
+            }
+            favouriteViewModel.favourites.observe(viewLifecycleOwner, Observer {
+                adapter.updateData(it, favouriteViewModel.coffees.value!!, favouriteViewModel.beans.value!!)
+            })
+        }
     }
 
     override fun onDestroyView() {

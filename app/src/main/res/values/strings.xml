@@ -72,4 +72,7 @@
     <string name="thank_you_for_your_purchase">Thank you for your purchase!</string>
     <string name="success">Success</string>
     <string name="back_to_home">Back to Home</string>
+    <string name="cart_empty_string">Fill up your lonely cart with Coffee!</string>
+    <string name="favourite_empty_string">No Favourite Yet?\nDiscover more in our Home Screen!</string>
+    <string name="order_history_empty_string">No Orders Yet?\nDiscover more in our Home Screen!</string>
 </resources>

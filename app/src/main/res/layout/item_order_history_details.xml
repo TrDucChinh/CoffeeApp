@@ -32,10 +32,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:autoSizeMaxTextSize="22sp"
+        android:autoSizeMinTextSize="12sp"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/orderQuantity"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/cardImage"
         app:layout_constraintTop_toTopOf="@id/cardImage"
@@ -43,9 +45,27 @@
         tools:text="Cappuccino" />
 
     <TextView
+        android:id="@+id/orderQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:autoSizeMaxTextSize="22sp"
+        android:autoSizeMinTextSize="12sp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toTopOf="@id/orderName"
+
+        tools:text="x1" />
+
+    <TextView
         android:id="@+id/orderSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="10sp"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
@@ -60,14 +80,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:fontFamily="@font/poppins_regular"
+        android:autoSizeMaxTextSize="22sp"
+        android:autoSizeMinTextSize="12sp"
+        android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/orderSize"
+        app:layout_constraintBottom_toBottomOf="@id/orderSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/orderName"
-        app:layout_constraintTop_toBottomOf="@id/orderName"
+        app:layout_constraintTop_toTopOf="@id/orderSize"
         tools:text="40.000đ" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
