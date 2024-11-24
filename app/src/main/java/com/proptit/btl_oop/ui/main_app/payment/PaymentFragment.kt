@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.proptit.btl_oop.utils.Payment
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.utils.SaveToDB
@@ -38,6 +38,18 @@ class PaymentFragment : Fragment() {
     private fun setupUI() {
         binding.apply {
             btnBack.setOnClickListener { findNavController().popBackStack() }
+
+            paymentMethodGroup.setOnCheckedChangeListener { _, _ ->
+                // Nếu có radio button được chọn thì btnPay mới được enable
+                val isEnabled = paymentMethodGroup.checkedRadioButtonId != -1
+                btnPay.isEnabled = isEnabled
+
+                val backgroundColor = if (isEnabled) R.color.orange else R.color.light_orange
+                val textColor = if (isEnabled) R.color.white else R.color.white
+
+                btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
+                btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
+            }
             btnPay.setOnClickListener {
                 val orderItem = cartViewModel.cartItem.value
                 val orderHistory = OrderHistory(
@@ -54,24 +66,15 @@ class PaymentFragment : Fragment() {
                     "SuccessDialog"
                 )
             }
-            paymentMethodGroup.setOnCheckedChangeListener { group, checkedId ->
-                when (checkedId) {
-                    R.id.cashRadioButton -> {
-                    }
+            // disable btnPay neu khong duoc chon
+            val isEnabled = paymentMethodGroup.checkedRadioButtonId != -1
+            btnPay.isEnabled = isEnabled
+            val backgroundColor = if (isEnabled) R.color.orange else R.color.light_orange
+            val textColor = if (isEnabled) R.color.white else R.color.white
 
-                    R.id.vnPayRadioButton -> {
-                    }
+            btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
+            btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
 
-                    R.id.momoRadioButton -> {
-                    }
-
-                    R.id.zaloPayRadioButton -> {
-                    }
-
-                    R.id.cardsRadioButton -> {
-                    }
-                }
-            }
         }
     }
     private fun checkPayment(): String{

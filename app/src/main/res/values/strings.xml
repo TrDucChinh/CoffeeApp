@@ -78,4 +78,5 @@
     <string name="order_payment">Order Payment</string>
     <string name="add_your_address_details">Add your address details</string>
     <string name="deliver_to">Deliver to</string>
+    <string name="ok">OK</string>
 </resources>
