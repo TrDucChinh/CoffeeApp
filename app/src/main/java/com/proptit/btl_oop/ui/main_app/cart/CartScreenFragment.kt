@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.adapter.CartAdapter
 import com.proptit.btl_oop.databinding.FragmentCartScreenBinding
-import com.proptit.btl_oop.ui.main_app.payment.PaymentFragment
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
@@ -50,10 +49,28 @@ class CartScreenFragment : Fragment() {
 
 
         setUpAdapter()
+        lifecycleScope.launch {
+            cartViewModel.cartItem.collect { carts ->
+                if (carts.isEmpty()) {
+                    binding.tvEmpty.visibility = View.VISIBLE
+                    binding.btnPay.visibility = View.GONE
+                    binding.tvPriceLabel.visibility = View.GONE
+                    binding.tvPriceProduct.visibility = View.GONE
+                } else {
+                    binding.tvEmpty.visibility = View.GONE
+                    binding.btnPay.visibility = View.VISIBLE
+                    binding.tvPriceLabel.visibility = View.VISIBLE
+                    binding.tvPriceProduct.visibility = View.VISIBLE
+                    updateTotalPrice()
+                }
+                cartAdapter.submitList(carts)
+                Log.e("CartScreenFragment", "Cart updated: $carts")
+            }
+        }
         binding.btnPay.setOnClickListener {
             findNavController().navigate(R.id.action_cartScreenFragment_to_paymentFragment)
         }
-        updateTotalPrice()
+//        updateTotalPrice()
     }
 
     private fun updateTotalPrice() {

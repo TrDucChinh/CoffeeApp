@@ -35,6 +35,15 @@ class AddToCartFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val dialog = dialog as? com.google.android.material.bottomsheet.BottomSheetDialog
+        dialog?.behavior?.apply {
+            val displayMetrics = resources.displayMetrics
+            val screenHeight = displayMetrics.heightPixels
+            // peek la 50% screen
+            peekHeight = (screenHeight * 0.5).toInt()
+            state = com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+            isDraggable = false
+        }
         binding.btnAddToCart.setOnClickListener {
             addToCart()
         }

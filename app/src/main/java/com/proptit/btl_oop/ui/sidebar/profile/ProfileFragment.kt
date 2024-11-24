@@ -3,29 +3,23 @@ package com.proptit.btl_oop.ui.sidebar.profile
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.proptit.btl_oop.MainActivity
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentProfileBinding
+import com.proptit.btl_oop.ui.main_app.dialog.PasswordDialogFragment
 import com.proptit.btl_oop.utils.Firebase
-import com.proptit.btl_oop.viewmodel.HomeViewModel
 import com.proptit.btl_oop.viewmodel.UserProfileViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -49,8 +43,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        userViewModel = ViewModelProvider (requireActivity()).get(UserProfileViewModel::class.java)
-
+        userViewModel = ViewModelProvider(requireActivity()).get(UserProfileViewModel::class.java)
         return binding.root
 
     }
@@ -61,23 +54,22 @@ class ProfileFragment : Fragment() {
         setupUI()
 
     }
-    private fun setupUI(){
+    private fun setupUI() {
         binding.apply {
-            btnBack.setOnClickListener{ findNavController().popBackStack() }
-            icEdit.setOnClickListener{ }
-            cardYourProfile.setOnClickListener{ findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)}
-            cardChangePassword.setOnClickListener{ findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)}
-        }
-        binding.icEdit.setOnClickListener {
-            openGallery()
+            btnBack.setOnClickListener { findNavController().popBackStack() }
+            cardYourProfile.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
+            cardChangePassword.setOnClickListener { checkPasswordChangeEligibility() }
+            icEdit.setOnClickListener {
+                openGallery()
+            }
         }
     }
-    private fun setUserInfo(){
+    private fun setUserInfo() {
         val user = Firebase.auth.currentUser
         binding.apply {
             lifecycleScope.launch {
-                userViewModel.name.collect(){
-                    if (it.isNotEmpty()){
+                userViewModel.name.collect() {
+                    if (it.isNotEmpty()) {
                         tvProfileName.text = it
                     } else {
                         tvProfileName.text = user?.displayName
@@ -93,13 +85,15 @@ class ProfileFragment : Fragment() {
             .error(R.drawable.ic_logo)
             .into(binding.ivProfileImage)
     }
-    private fun openGallery(){
+
+    private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         pickImageLauncher.launch(intent)
     }
-    private fun updateProfileImage(uri: Uri){
+
+    private fun updateProfileImage(uri: Uri) {
         val user = Firebase.auth.currentUser
-        val profileChangeRequest  = UserProfileChangeRequest.Builder()
+        val profileChangeRequest = UserProfileChangeRequest.Builder()
             .setDisplayName(user?.displayName)
             .setPhotoUri(uri)
             .build()
@@ -111,4 +105,18 @@ class ProfileFragment : Fragment() {
         setUserInfo()
     }
 
+    private fun checkPasswordChangeEligibility() {
+        val user = Firebase.auth.currentUser
+        user?.providerData?.let { providerData ->
+            val isGoogleAccount = providerData.any { it.providerId == "google.com" }
+            if (isGoogleAccount) {
+                PasswordDialogFragment().show(
+                    parentFragmentManager,
+                    "PasswordDialog"
+                )
+            } else {
+                findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)
+            }
+        }
+    }
 }

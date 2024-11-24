@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:autoSizeMaxTextSize="22sp"
         android:autoSizeMinTextSize="12sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/poppins_regular"
         android:text="@string/cart_empty_string"
         android:textColor="@color/white"
         android:textSize="16sp"
