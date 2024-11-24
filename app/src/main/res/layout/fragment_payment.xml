@@ -64,14 +64,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAddress">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etCurrentPassword"
+        <AutoCompleteTextView
+            android:id="@+id/etAddress"
+            android:enabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="10sp"
             android:background="@drawable/rounded_button_background"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/add_your_address_details"
@@ -81,6 +80,7 @@
             android:textColorHint="@color/light_gray"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardDescriptionText"

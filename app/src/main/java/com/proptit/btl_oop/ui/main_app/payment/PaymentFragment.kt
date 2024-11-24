@@ -1,13 +1,19 @@
 package com.proptit.btl_oop.ui.main_app.payment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.proptit.btl_oop.api.APIKey
+/*import com.proptit.btl_oop.AutoCompleteResponse
+import com.proptit.btl_oop.GoongApiService*/
 import com.proptit.btl_oop.utils.Payment
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.utils.SaveToDB
@@ -16,6 +22,11 @@ import com.proptit.btl_oop.model.OrderHistory
 import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
+/*import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory*/
 
 class PaymentFragment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
@@ -26,6 +37,15 @@ class PaymentFragment : Fragment() {
     private val orderHistoryViewModel: OrderHistoryViewModel by activityViewModels(){
         OrderHistoryViewModel.OrderHistoryViewModelFactory(requireActivity().application)
     }
+
+    /*private val goongApiService by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://rsapi.goong.io/") // Base URL của Goong API
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        retrofit.create(GoongApiService::class.java)
+    }*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,8 +95,44 @@ class PaymentFragment : Fragment() {
             btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
             btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
 
+           /* binding.etAddress.setOnClickListener {
+
+            }*/
+
         }
+        /*binding.etAddress.addTextChangedListener {
+            val query = it.toString()
+            if (query.isNotEmpty()){
+                fetchAddressSuggestions(query)
+            }
+        }
+        binding.etAddress.setOnItemClickListener { parent, _, position, _ ->
+            val selectedAddress = parent.getItemAtPosition(position).toString()
+            binding.etAddress.setText(selectedAddress)
+        }*/
     }
+
+    /*private fun fetchAddressSuggestions(query: String) {
+        val call = goongApiService.getAutoCompleteSuggestions(query, APIKey.GOONG_API_KEY)
+
+        call.enqueue(object : Callback<AutoCompleteResponse> {
+            override fun onResponse(call: Call<AutoCompleteResponse>, response: Response<AutoCompleteResponse>) {
+                if (response.isSuccessful) {
+                    val predictions = response.body()?.predictions ?: emptyList()
+                    val addressList = predictions.map { it.description }
+
+                    val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, addressList)
+                     binding.etAddress.setAdapter(adapter)
+                } else {
+                    Log.e("Retrofit", "Failed to fetch suggestions: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<AutoCompleteResponse>, t: Throwable) {
+                Log.e("Retrofit", "Error fetching data", t)
+            }
+        })
+    }*/
     private fun checkPayment(): String{
         return when(binding.paymentMethodGroup.checkedRadioButtonId){
             R.id.cashRadioButton -> Payment.Cash.toString()
