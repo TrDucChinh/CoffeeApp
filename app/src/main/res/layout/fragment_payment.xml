@@ -51,37 +51,27 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardTitle" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addressInputLayout"
+    <Button
+        android:id="@+id/btnNavigate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endIconDrawable="@drawable/ic_location"
-        app:endIconMode="custom"
-        app:endIconTint="@color/light_gray"
-        app:hintEnabled="false"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_button_background"
+        android:backgroundTint="@color/white"
+        android:textAlignment="textStart"
+        android:drawableEnd="@drawable/ic_location"
+        android:text="@string/add_your_address_details"
+        android:textAllCaps="false"
+        android:textColor="@color/light_gray"
+        android:textSize="14sp"
+        android:padding="12dp"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintTop_toBottomOf="@id/tvAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAddress">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etCurrentPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="10sp"
-            android:background="@drawable/rounded_button_background"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/add_your_address_details"
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/light_gray"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
+        app:layout_constraintBottom_toTopOf="@id/cardDescriptionText"
+        app:layout_constraintVertical_bias="0.25" />
     <androidx.cardview.widget.CardView
         android:id="@+id/cardDescriptionText"
         android:layout_width="match_parent"
@@ -90,7 +80,7 @@
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addressInputLayout">
+        app:layout_constraintTop_toBottomOf="@id/btnNavigate">
 
         <TextView
             android:id="@+id/descriptionTextView"

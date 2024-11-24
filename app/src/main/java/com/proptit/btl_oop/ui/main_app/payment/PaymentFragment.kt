@@ -26,6 +26,7 @@ class PaymentFragment : Fragment() {
     private val orderHistoryViewModel: OrderHistoryViewModel by activityViewModels(){
         OrderHistoryViewModel.OrderHistoryViewModelFactory(requireActivity().application)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,8 +76,25 @@ class PaymentFragment : Fragment() {
             btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
             btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
 
+            btnNavigate.setOnClickListener {
+                val action = PaymentFragmentDirections.actionPaymentFragmentToChoseMapFragment()
+                findNavController().navigate(action)
+            }
+
         }
+        /*binding.etAddress.addTextChangedListener {
+            val query = it.toString()
+            if (query.isNotEmpty()){
+                fetchAddressSuggestions(query)
+            }
+        }*/
+        /*binding.etAddress.setOnItemClickListener { parent, _, position, _ ->
+            val selectedAddress = parent.getItemAtPosition(position).toString()
+            binding.etAddress.setText(selectedAddress)
+        }*/
     }
+
+
     private fun checkPayment(): String{
         return when(binding.paymentMethodGroup.checkedRadioButtonId){
             R.id.cashRadioButton -> Payment.Cash.toString()

@@ -56,16 +56,29 @@
         tools:layout="@layout/fragment_home_screen">
         <action
             android:id="@+id/action_homeScreenFragment_to_coffeeDetailsFragment"
-            app:destination="@id/coffeeDetailsFragment" />
+            app:destination="@id/coffeeDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeScreenFragment_to_beanDetailsFragment"
-            app:destination="@id/beanDetailsFragment" />
+            app:destination="@id/beanDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeScreenFragment_to_signInScreenFragment"
             app:destination="@id/signInScreenFragment"
             app:popUpTo="@id/homeScreenFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
+
     <fragment
         android:id="@+id/coffeeDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.CoffeeDetailsFragment"
@@ -122,6 +135,9 @@
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/homeScreenFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_paymentFragment_to_choseMapFragment"
+            app:destination="@id/choseMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderHistoryFragment"
@@ -188,5 +204,10 @@
         tools:layout="@layout/fragment_success_dialog">
 
     </fragment>
+    <fragment
+        android:id="@+id/choseMapFragment"
+        android:name="com.proptit.btl_oop.ui.ChoseMap"
+        android:label="fragment_chose_map"
+        tools:layout="@layout/fragment_chose_map"/>
 
 </navigation>
