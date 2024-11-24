@@ -1,5 +1,4 @@
-/*
-package com.proptit.btl_oop
+package com.proptit.btl_oop.response
 
 data class AutoCompleteResponse(
     val status: String,
@@ -9,4 +8,3 @@ data class AutoCompleteResponse(
 data class Prediction(
     val description: String
 )
-*/
