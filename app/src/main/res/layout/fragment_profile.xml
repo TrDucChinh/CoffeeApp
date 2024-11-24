@@ -160,26 +160,4 @@
             app:drawableStartCompat="@drawable/ic_logout" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardDeleteAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardLogOut"
-        app:layout_constraintVertical_bias="0.58">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/delete_account"
-            android:textColor="@color/light_gray"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_delete_forever" />
-    </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

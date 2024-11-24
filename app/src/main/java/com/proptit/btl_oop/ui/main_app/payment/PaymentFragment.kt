@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.proptit.btl_oop.utils.Payment
 import com.proptit.btl_oop.R
@@ -15,7 +17,7 @@ import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
 
-class PaymentFragment : BottomSheetDialogFragment() {
+class PaymentFragment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
     private val cartViewModel: CartViewModel by activityViewModels(){
@@ -35,7 +37,7 @@ class PaymentFragment : BottomSheetDialogFragment() {
 
     private fun setupUI() {
         binding.apply {
-            icClose.setOnClickListener { dismiss() }
+            btnBack.setOnClickListener { findNavController().popBackStack() }
             btnPay.setOnClickListener {
                 val orderItem = cartViewModel.cartItem.value
                 val orderHistory = OrderHistory(
@@ -46,7 +48,7 @@ class PaymentFragment : BottomSheetDialogFragment() {
                 )
                 SaveToDB.saveOrderHistoryToDB(orderHistory)
                 SaveToDB.clearCart()
-                dismiss()
+//                dismiss()
                 SuccessDialogFragment().show(
                     parentFragmentManager,
                     "SuccessDialog"

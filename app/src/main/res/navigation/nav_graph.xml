@@ -9,7 +9,7 @@
         android:id="@+id/signInScreenFragment"
         android:name="com.proptit.btl_oop.ui.login.sign_in.SignInScreenFragment"
         android:label="fragment_sign_in_screen"
-        tools:layout="@layout/fragment_sign_in_screen" >
+        tools:layout="@layout/fragment_sign_in_screen">
         <action
             android:id="@+id/action_signInScreenFragment_to_signUpScreenFragment"
             app:destination="@id/signUpScreenFragment" />
@@ -20,8 +20,7 @@
             android:id="@+id/action_signInScreenFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/signInScreenFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreenFragment"
@@ -65,8 +64,7 @@
             android:id="@+id/action_homeScreenFragment_to_signInScreenFragment"
             app:destination="@id/signInScreenFragment"
             app:popUpTo="@id/homeScreenFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/coffeeDetailsFragment"
@@ -111,24 +109,25 @@
         <action
             android:id="@+id/action_cartScreenFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.payment.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment">
         <action
             android:id="@+id/action_successFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/homeScreenFragment"
             app:popUpToInclusive="true" />
-
     </fragment>
-    <dialog
-        android:id="@+id/paymentFragment"
-        android:name="com.proptit.btl_oop.ui.main_app.payment.PaymentFragment"
-        android:label="fragment_payment"
-        tools:layout="@layout/fragment_payment" >
-    </dialog>
     <fragment
         android:id="@+id/orderHistoryFragment"
         android:name="com.proptit.btl_oop.ui.main_app.order_history.OrderHistoryFragment"
         android:label="fragment_order_history"
-        tools:layout="@layout/fragment_order_history" >
+        tools:layout="@layout/fragment_order_history">
         <action
             android:id="@+id/action_orderHistoryFragment_to_detailsOrderHistoryFragment"
             app:destination="@id/detailsOrderHistoryFragment" />
@@ -162,15 +161,16 @@
         android:id="@+id/detailsOrderHistoryFragment"
         android:name="com.proptit.btl_oop.ui.main_app.order_history.DetailsOrderHistoryFragment"
         android:label="fragment_details_order_history"
-        tools:layout="@layout/fragment_details_order_history" >
-        <argument android:name="orderID"
+        tools:layout="@layout/fragment_details_order_history">
+        <argument
+            android:name="orderID"
             app:argType="long" />
     </fragment>
     <dialog
         android:id="@+id/addToCartFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.AddToCartFragment"
         android:label="fragment_add_to_cart"
-        tools:layout="@layout/fragment_add_to_cart" >
+        tools:layout="@layout/fragment_add_to_cart">
         <argument
             android:name="id"
             app:argType="integer" />
