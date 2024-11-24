@@ -1,5 +1,6 @@
 package com.proptit.btl_oop.ui.login.sign_in
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -32,6 +33,12 @@ class SignInScreenFragment : Fragment() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100
+    private val progessDialog: ProgressDialog by lazy {
+        ProgressDialog(requireContext()).apply {
+            setCancelable(false)
+            setMessage("Please wait...")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,8 +93,10 @@ class SignInScreenFragment : Fragment() {
     }
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+        progessDialog.show()
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener { task ->
+                progessDialog.dismiss()
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
                     user?.let{
@@ -116,8 +125,10 @@ class SignInScreenFragment : Fragment() {
             }
             else -> {
                 // Đăng nhập
+                progessDialog.show()
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
+                        progessDialog.dismiss()
                         if (task.isSuccessful) {
                             Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
