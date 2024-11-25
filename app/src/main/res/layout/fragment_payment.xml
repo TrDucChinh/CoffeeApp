@@ -90,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintEnabled="false"
+        app:errorTextAppearance="@style/CustomErrorTextAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPhoneNumber">
@@ -100,14 +101,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="10sp"
             android:background="@drawable/rounded_button_background"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/enter_your_phone_number"
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:textColor="@color/black"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeMaxTextSize="20sp"
             android:textColorHint="@color/light_gray"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>

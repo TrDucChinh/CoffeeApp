@@ -86,7 +86,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment,
                 R.id.editProfileFragment,
                 R.id.sendLinkViaEmailFragment,
-                R.id.changePasswordFragment -> {
+                R.id.changePasswordFragment,
+                R.id.paymentFragment, -> {
                     hideBottomNavigation()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }

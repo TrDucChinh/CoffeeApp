@@ -61,22 +61,26 @@ class PaymentFragment : Fragment() {
                 btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
             }
             btnPay.setOnClickListener {
-                val orderItem = cartViewModel.cartItem.value
-                val orderHistory = OrderHistory(
-                    System.currentTimeMillis(),
-                    orderItem,
-                    orderItem.sumBy { it.price * it.quantity },
-                    checkPayment(),
-                    btnNavigate.text.toString(),
-                    etPhone.text.toString()
-                )
-                SaveToDB.saveOrderHistoryToDB(orderHistory)
-                SaveToDB.clearCart()
-//                dismiss()
-                SuccessDialogFragment().show(
-                    parentFragmentManager,
-                    "SuccessDialog"
-                )
+                if (isPhoneNumberValid(etPhone.text.toString())) {
+                    val orderItem = cartViewModel.cartItem.value
+                    val orderHistory = OrderHistory(
+                        System.currentTimeMillis(),
+                        orderItem,
+                        orderItem.sumBy { it.price * it.quantity },
+                        checkPayment(),
+                        btnNavigate.text.toString(),
+                        etPhone.text.toString()
+                    )
+                    SaveToDB.saveOrderHistoryToDB(orderHistory)
+                    SaveToDB.clearCart()
+                    SuccessDialogFragment().show(
+                        parentFragmentManager,
+                        "SuccessDialog"
+                    )
+                }
+                else{
+                    etPhone.error = "Invalid phone number."
+                }
             }
             // disable btnPay neu khong duoc chon
             val isEnabled = paymentMethodGroup.checkedRadioButtonId != -1
@@ -113,6 +117,11 @@ class PaymentFragment : Fragment() {
             else -> ""
         }
     }
+    private fun isPhoneNumberValid(phone: String): Boolean {
+        val regex = Regex("^[0-9]{10,11}$") // Chấp nhận số điện thoại từ 10-11 số
+        return phone.matches(regex)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

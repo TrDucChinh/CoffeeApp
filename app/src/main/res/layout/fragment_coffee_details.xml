@@ -156,10 +156,8 @@
         android:text="S"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSize"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/tvSize" />
 
     <Button
         android:id="@+id/btnSizeM"
@@ -174,8 +172,8 @@
         android:textColor="@color/light_gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSizeL"
+        app:layout_constraintStart_toEndOf="@id/btnSizeS"
         app:layout_constraintTop_toBottomOf="@id/tvSize"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -192,12 +190,8 @@
         android:text="L"
         android:textColor="@color/light_gray"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/btnAddToCart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@id/btnSizeM"
-        app:layout_constraintTop_toBottomOf="@id/tvSize"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/tvSize" />
 
     <TextView
         android:id="@+id/tvPriceLabel"
@@ -244,6 +238,8 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/tvPriceProduct"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

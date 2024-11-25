@@ -24,7 +24,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.32">
+            app:layout_constraintWidth_percent="0.34">
 
             <ImageView
                 android:id="@+id/imgProduct"
@@ -111,6 +111,7 @@
             android:id="@+id/btnDecrease"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/rounded_add_icon_bg"
             android:backgroundTint="@color/orange"
@@ -125,6 +126,7 @@
             android:id="@+id/cardQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
             android:backgroundTint="@color/black"
             app:cardCornerRadius="8dp"
@@ -153,6 +155,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_add_icon_bg"
             android:backgroundTint="@color/orange"
             android:src="@drawable/ic_add"

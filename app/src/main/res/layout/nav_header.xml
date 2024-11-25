@@ -30,31 +30,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:autoSizeMaxTextSize="26sp"
         android:autoSizeMinTextSize="14sp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Le Huong Giang"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ic_logo"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        tools:text="Le Huong Giang" />
 
     <TextView
         android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:autoSizeMaxTextSize="22sp"
         android:autoSizeMinTextSize="10sp"
+        android:ellipsize="end"
         android:fontFamily="@font/poppins_medium"
-        android:text="abc@gmail.com"
+        android:maxLines="1"
         android:textSize="14sp"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/ic_logo"
         app:layout_constraintTop_toBottomOf="@id/tvFullName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="abc@gmail.com" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
