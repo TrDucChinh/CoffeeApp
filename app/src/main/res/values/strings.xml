@@ -18,7 +18,7 @@
     <string name="sign_up_1">Sign Up</string>
     <string name="create_an_account_to_continue">Create an account to continue!</string>
     <string name="full_name">Full Name</string>
-    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="enter_your_username">Enter your username</string>
     <string name="set_password">Set Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -79,4 +79,9 @@
     <string name="add_your_address_details">Add your address details</string>
     <string name="deliver_to">Deliver to</string>
     <string name="ok">OK</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="destination">\tDestination</string>
+    <string name="suggestions_for_you">Suggestions For You</string>
 </resources>

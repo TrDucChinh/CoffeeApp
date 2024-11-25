@@ -81,22 +81,5 @@
             app:layout_constraintTop_toBottomOf="@id/tvCoffeeIngredients"
             app:layout_constraintVertical_bias="0.8" />
 
-        <ImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/rounded_button_background"
-            android:backgroundTint="@color/orange"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.13"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/tvCoffeePrice"
-            app:layout_constraintTop_toBottomOf="@id/tvCoffeeIngredients"
-            app:layout_constraintVertical_bias="0.8" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
