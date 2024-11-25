@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentFavouriteScreenBinding
@@ -29,6 +31,7 @@ class FavouriteScreenFragment : Fragment() {
         FavouriteViewModel.FavouriteViewModelFactory(requireActivity().application)
     }
     private lateinit var favouriteAdapter: FavouriteAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,34 +42,47 @@ class FavouriteScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawerLayout)
         binding.icOverview.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
-        setupRecyclerView()
-    }
 
+        setupRecyclerView()
+        observeFavourites()
+    }
 
     private fun setupRecyclerView() {
         Log.d("FavouriteAdapter", "Coffees: ${homeViewModel.coffees.value}")
         Log.d("FavouriteAdapter", "Beans: ${homeViewModel.beans.value}")
 
-        favouriteAdapter = FavouriteAdapter(homeViewModel.coffees.value ?: emptyList(), homeViewModel.beans.value ?: emptyList())
+        favouriteAdapter = FavouriteAdapter(
+            homeViewModel.coffees.value ?: emptyList(),
+            homeViewModel.beans.value ?: emptyList()
+        )
         binding.rvFavouriteItems.apply {
             adapter = favouriteAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
         }
+    }
 
-        lifecycleScope.launch {
-            favouriteViewModel.favouriteItem.collect { favourites ->
-                Log.d("FavouriteAdapter", "Favourite items: $favourites")
-                if (favourites.isEmpty()) {
-                    binding.tvEmpty.visibility = View.VISIBLE
-                } else {
-                    binding.tvEmpty.visibility = View.GONE
+    private fun observeFavourites() {
+        // Sử dụng viewLifecycleOwner.lifecycleScope để tự động hủy khi view bị gỡ
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                favouriteViewModel.favouriteItem.collect { favourites ->
+                    Log.d("FavouriteAdapter", "Favourite items: $favourites")
+
+                    // Đảm bảo binding không null trước khi cập nhật giao diện
+                    _binding?.let {
+                        if (favourites.isEmpty()) {
+                            it.tvEmpty.visibility = View.VISIBLE
+                        } else {
+                            it.tvEmpty.visibility = View.GONE
+                        }
+                        favouriteAdapter.submitList(favourites)
+                    }
                 }
-                favouriteAdapter.submitList(favourites)
             }
         }
     }
@@ -76,3 +92,4 @@ class FavouriteScreenFragment : Fragment() {
         _binding = null
     }
 }
+

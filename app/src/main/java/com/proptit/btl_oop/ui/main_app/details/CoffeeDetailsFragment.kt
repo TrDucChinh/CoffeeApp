@@ -15,6 +15,7 @@ import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.databinding.FragmentCoffeeDetailsBinding
 import com.proptit.btl_oop.model.FavouriteItem
+import com.proptit.btl_oop.viewmodel.FavouriteViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 
 class CoffeeDetailsFragment : Fragment() {
@@ -25,6 +26,9 @@ class CoffeeDetailsFragment : Fragment() {
     private val args: CoffeeDetailsFragmentArgs by navArgs()
     private val homeViewModel: HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(requireActivity().application)
+    }
+    private val favouriteViewModel: FavouriteViewModel by activityViewModels {
+        FavouriteViewModel.FavouriteViewModelFactory(requireActivity().application)
     }
     private var sizeIdx = 0
 
@@ -48,6 +52,11 @@ class CoffeeDetailsFragment : Fragment() {
                 updateFavouriteButton(isFavourited)
                 val favouriteItem = FavouriteItem(Type.COFFEE.toString(), args.coffeeId)
                 SaveToDB.updateFavouriteInFirebase(favouriteItem, isFavourited)
+                if (isFavourited) {
+                    favouriteViewModel.favouriteItem.value += favouriteItem
+                } else {
+                    favouriteViewModel.favouriteItem.value -= favouriteItem
+                }
             }
             btnAddToCart.setOnClickListener {
                 val action = CoffeeDetailsFragmentDirections.actionCoffeeDetailsFragmentToAddToCartFragment(args.coffeeId, Type.COFFEE.toString(), sizeIdx)

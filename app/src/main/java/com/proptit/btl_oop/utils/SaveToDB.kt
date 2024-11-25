@@ -18,27 +18,35 @@ object SaveToDB {
     }
 
     fun updateFavouriteInFirebase(favouriteItem: FavouriteItem, isFavourite: Boolean) {
-        val userId = Firebase.auth.currentUser?.uid ?: return
-        val favouritesRef =
-            Firebase.database.reference.child("Users").child(userId).child("favourites")
+        val userId = Firebase.auth.currentUser?.uid
+        if (userId == null) {
+            Log.e("Firebase", "No user logged in, cannot update favourites.")
+            return
+        }
+
+        val favouritesRef = Firebase.database.reference
+            .child("Users")
+            .child(userId)
+            .child("favourites")
 
         favouritesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val favouriteType = object : GenericTypeIndicator<MutableList<FavouriteItem>>() {}
-                val favourites = snapshot.getValue(favouriteType) ?: mutableListOf()
+                val favourites = snapshot.children.mapNotNull { it.getValue(FavouriteItem::class.java) }.toMutableList()
 
                 if (isFavourite) {
-                    // Add to favourites if it doesn't already exist
                     if (!favourites.any { it.type == favouriteItem.type && it.id == favouriteItem.id }) {
                         favourites.add(favouriteItem)
                     }
                 } else {
-                    // Remove from favourites
                     favourites.removeIf { it.type == favouriteItem.type && it.id == favouriteItem.id }
                 }
-
-                // Update the favourites list in Firebase
                 favouritesRef.setValue(favourites)
+                    .addOnSuccessListener {
+                        Log.d("Firebase", "Favourites updated successfully.")
+                    }
+                    .addOnFailureListener { error ->
+                        Log.e("Firebase", "Failed to update favourites: ${error.message}")
+                    }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -46,6 +54,7 @@ object SaveToDB {
             }
         })
     }
+
     fun clearCart(){
         val userId = Firebase.auth.currentUser?.uid ?: return
         val cartRef = Firebase.database.reference.child("Users").child(userId).child("carts")

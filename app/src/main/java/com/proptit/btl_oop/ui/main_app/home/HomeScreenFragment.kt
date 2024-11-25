@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
@@ -25,6 +26,7 @@ import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.FavouriteViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
+import kotlinx.coroutines.launch
 
 class HomeScreenFragment : Fragment() {
 
@@ -59,8 +61,10 @@ class HomeScreenFragment : Fragment() {
         favouriteViewModel.loadFavourite()
         orderHistoryViewModel.loadOrderHistory()
         cartViewModel.loadCart()
-        favouriteViewModel.favouriteItem.value?.let {
-            favouriteItems = it
+        lifecycleScope.launch {
+            favouriteViewModel.favouriteItem.collect {
+                favouriteItems = it
+            }
         }
         return binding.root
     }
