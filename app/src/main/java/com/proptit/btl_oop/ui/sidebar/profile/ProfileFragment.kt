@@ -76,7 +76,6 @@ class ProfileFragment : Fragment() {
                     }
                 }
             }
-//            tvProfileName.text = user?.displayName
             tvProfileEmail.text = user?.email
         }
         val photoUrl = user?.photoUrl

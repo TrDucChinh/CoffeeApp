@@ -1,14 +1,12 @@
 package com.proptit.btl_oop
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -92,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                     showBottomNavigation()
-                    showUserInfo() // Cập nhật thông tin người dùng
+                    showUserInfo()
                 }
             }
         }

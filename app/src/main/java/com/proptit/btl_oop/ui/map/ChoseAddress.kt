@@ -98,17 +98,14 @@ class ChoseAddress : Fragment() {
 
         binding.etAddress.addTextChangedListener { editable ->
             val query = editable.toString()
-
-            // Hủy bỏ yêu cầu trước đó nếu người dùng vẫn đang gõ
             searchRunnable?.let { handler.removeCallbacks(it) }
 
-            // Thêm Runnable mới để gọi API sau 3 giây
             if (query.isNotEmpty() && ::currentLocation.isInitialized) {
                 searchRunnable = Runnable {
                     fetchAddressSuggestions(query)
                     binding.rvAddressSuggestions.visibility = View.VISIBLE
                 }
-                handler.postDelayed(searchRunnable!!, 1000)  // Delay 3 giây
+                handler.postDelayed(searchRunnable!!, 1000)
             } else {
                 binding.rvAddressSuggestions.visibility = View.GONE
             }
@@ -126,7 +123,6 @@ class ChoseAddress : Fragment() {
             .addOnSuccessListener { location ->
                 if (location != null) {
                     currentLocation = location
-                    Log.d("Location", "Lat: ${location.latitude}, Long: ${location.longitude}")
                 } else {
                     Toast.makeText(context, "Location not available", Toast.LENGTH_SHORT).show()
                 }
@@ -155,7 +151,7 @@ class ChoseAddress : Fragment() {
                         val firstChar = getFirstPartOfAddress(it.description)
                         addressSuggestions.add(Address(firstChar, it.description))
                     }
-                    addressAdapter.notifyDataSetChanged()  // Notify adapter to update the list
+                    addressAdapter.notifyDataSetChanged()
                 } else {
                     Log.e("Retrofit", "Failed to fetch suggestions: ${response.message()}")
                 }

@@ -11,9 +11,7 @@ import com.proptit.btl_oop.utils.Firebase
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.model.CoffeeBean
 import com.proptit.btl_oop.model.CoffeeCategory
-import com.proptit.btl_oop.model.FavouriteItem
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -24,7 +22,6 @@ class HomeViewModel(application: Application) : ViewModel() {
     private val _categories = MutableLiveData<MutableList<CoffeeCategory>>()
     private val _coffees = MutableLiveData<MutableList<Coffee>>()
     private val _beans = MutableLiveData<MutableList<CoffeeBean>>()
-    private val _favourites = MutableStateFlow<MutableList<FavouriteItem>>(mutableListOf())
 
     val coffees: LiveData<MutableList<Coffee>> = _coffees
     val beans: LiveData<MutableList<CoffeeBean>> = _beans
@@ -65,7 +62,7 @@ class HomeViewModel(application: Application) : ViewModel() {
         }
     }
 
-    // Firebase fetch functions with suspend
+    // Bất đồng bộ load
     private suspend fun fetchCategoriesFromFirebase(): List<CoffeeCategory> {
         return withContext(Dispatchers.IO) {
             val snapshot = firebaseDatabase.reference.child("Categories").get().await()

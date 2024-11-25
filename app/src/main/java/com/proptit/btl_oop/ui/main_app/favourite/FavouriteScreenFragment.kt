@@ -2,7 +2,6 @@ package com.proptit.btl_oop.ui.main_app.favourite
 
 import FavouriteAdapter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,9 +52,6 @@ class FavouriteScreenFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        Log.d("FavouriteAdapter", "Coffees: ${homeViewModel.coffees.value}")
-        Log.d("FavouriteAdapter", "Beans: ${homeViewModel.beans.value}")
-
         favouriteAdapter = FavouriteAdapter(
             homeViewModel.coffees.value ?: emptyList(),
             homeViewModel.beans.value ?: emptyList()
@@ -71,8 +67,6 @@ class FavouriteScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 favouriteViewModel.favouriteItem.collect { favourites ->
-                    Log.d("FavouriteAdapter", "Favourite items: $favourites")
-
                     // Đảm bảo binding không null trước khi cập nhật giao diện
                     _binding?.let {
                         if (favourites.isEmpty()) {

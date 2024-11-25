@@ -1,7 +1,6 @@
 package com.proptit.btl_oop.ui.main_app.cart
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -64,13 +63,11 @@ class CartScreenFragment : Fragment() {
                     updateTotalPrice()
                 }
                 cartAdapter.submitList(carts)
-                Log.e("CartScreenFragment", "Cart updated: $carts")
             }
         }
         binding.btnPay.setOnClickListener {
             findNavController().navigate(R.id.action_cartScreenFragment_to_paymentFragment)
         }
-//        updateTotalPrice()
     }
 
     private fun updateTotalPrice() {
@@ -81,7 +78,6 @@ class CartScreenFragment : Fragment() {
                     totalPrice += it.price * it.quantity
                 }
                 binding.tvPriceProduct.text = "${"%,d".format(totalPrice)}đ"
-                Log.e("CartScreenFragment", "Total price updated: $totalPrice")
             }
         }
     }
@@ -104,7 +100,6 @@ class CartScreenFragment : Fragment() {
                 }
                 // Cập nhật adapter mỗi khi dữ liệu giỏ hàng thay đổi
                 cartAdapter.submitList(carts)
-                Log.e("CartScreenFragment", "Cart updated: $carts")
             }
         }
     }

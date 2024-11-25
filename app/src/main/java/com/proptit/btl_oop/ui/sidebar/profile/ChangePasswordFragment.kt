@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.EmailAuthProvider
-import com.proptit.btl_oop.R
 import com.proptit.btl_oop.databinding.FragmentChangePasswordBinding
 import com.proptit.btl_oop.utils.Check
 import com.proptit.btl_oop.utils.Firebase

@@ -46,7 +46,6 @@ class ForgotPasswordFragment : Fragment() {
                             val action =
                                 ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToSendLinkViaEmailFragment(email)
                             findNavController().navigate(action)
-                            Toast.makeText(requireContext(), "Email sent", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(requireContext(), "Email not found", Toast.LENGTH_SHORT)
                                 .show()

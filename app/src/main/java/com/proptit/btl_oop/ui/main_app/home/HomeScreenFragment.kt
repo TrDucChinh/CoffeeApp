@@ -1,8 +1,6 @@
 package com.proptit.btl_oop.ui.main_app.home
 
 import android.os.Bundle
-import android.util.Log
-
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -134,7 +132,6 @@ class HomeScreenFragment : Fragment() {
     private fun setupCoffeeBeanRecycler() {
         beanAdapter = BeanAdapter(mutableListOf()) { beanId ->
             val isFavourite = favouriteItems.any { it.id == beanId && it.type == Type.BEANS.toString() }
-            Log.e("HomeScreenFragment", "isFavourite: $isFavourite")
 
             val action = HomeScreenFragmentDirections
                 .actionHomeScreenFragmentToBeanDetailsFragment(beanId, isFavourite)

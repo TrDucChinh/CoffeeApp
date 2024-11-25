@@ -1,7 +1,6 @@
 package com.proptit.btl_oop.ui.main_app.payment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +18,6 @@ import com.proptit.btl_oop.model.OrderHistory
 import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
-import com.proptit.btl_oop.viewmodel.OrderHistoryViewModel
-import com.proptit.btl_oop.viewmodel.UserProfileViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class PaymentFragment : Fragment() {
@@ -71,7 +67,8 @@ class PaymentFragment : Fragment() {
                     orderItem,
                     orderItem.sumBy { it.price * it.quantity },
                     checkPayment(),
-                    btnNavigate.text.toString()
+                    btnNavigate.text.toString(),
+                    etPhone.text.toString()
                 )
                 SaveToDB.saveOrderHistoryToDB(orderHistory)
                 SaveToDB.clearCart()

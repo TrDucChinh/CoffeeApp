@@ -8,7 +8,7 @@ import com.proptit.btl_oop.model.Address
 
 class AddressAdapter(
     private val suggestions: List<Address>,
-    private val onItemClick: (Address) -> Unit // Hàm callback khi nhấn vào item
+    private val onItemClick: (Address) -> Unit
 ) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
