@@ -42,7 +42,7 @@
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="8sp"
         android:fontFamily="@font/poppins_regular"
-        android:text="@string/full_name"
+        android:text="@string/username"
         android:textColor="@color/light_gray"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,6 +112,7 @@
             android:fontFamily="@font/poppins_regular"
             android:inputType="textEmailAddress"
             android:padding="12dp"
+            android:backgroundTint="@color/light_gray"
             android:textColor="@color/black"
             android:textColorHint="@color/light_gray"
             android:textSize="12sp" />
