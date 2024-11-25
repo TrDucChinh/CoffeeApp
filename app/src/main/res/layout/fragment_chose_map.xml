@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +15,7 @@
         android:padding="16dp">
 
         <ImageView
+            android:id="@+id/icBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_back3" />
@@ -24,38 +24,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="\tNơi nhận"
-            android:textSize="18sp"
             android:gravity="left"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chọn từ bản đồ"
-            android:textColor="#2196F3"
-            android:textSize="14sp" />
+            android:text="\tNơi nhận"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addressInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/ic_location"
-        app:startIconTint="#FFC107"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAddress">
+        app:layout_constraintTop_toBottomOf="@id/tvAddress"
+        app:startIconDrawable="@drawable/ic_location"
+        app:startIconTint="#FFC107">
 
         <AutoCompleteTextView
             android:id="@+id/etAddress"
-            android:enabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_button_background"
+            android:enabled="true"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/add_your_address_details"
             android:inputType="text"
@@ -65,23 +58,21 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Suggested Places -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Địa điểm được đề xuất"
-        android:textStyle="bold"
         android:paddingHorizontal="16dp"
         android:paddingTop="8dp"
-        android:textColor="@color/black" />
+        android:text="Địa điểm được đề xuất"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
-    <!-- List of Places -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAddressSuggestions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:paddingHorizontal="5dp"
-        tools:listitem="@layout/item_place"
-        android:clipToPadding="false" />
+        tools:listitem="@layout/item_place" />
 
 </LinearLayout>
