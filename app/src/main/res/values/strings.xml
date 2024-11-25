@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BTL_OOP</string>
+    <string name="app_name">CoffeeApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in_to_your_account">Sign in to your\nAccount</string>
@@ -18,7 +18,7 @@
     <string name="sign_up_1">Sign Up</string>
     <string name="create_an_account_to_continue">Create an account to continue!</string>
     <string name="full_name">Full Name</string>
-    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="enter_your_username">Enter your username</string>
     <string name="set_password">Set Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -57,4 +57,32 @@
     <string name="cards">Cards</string>
     <string name="pay">Pay</string>
     <string name="order_history">Order History</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="security">Security</string>
+    <string name="log_out">Log Out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="total">Total</string>
+    <string name="ordered_item">Ordered Item</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="quantity">Quantity</string>
+    <string name="thank_you_for_your_purchase">Thank you for your purchase!</string>
+    <string name="success">Success</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="cart_empty_string">Fill up your lonely cart with Coffee!</string>
+    <string name="favourite_empty_string">No Favourite Yet?\nDiscover more in our Home Screen!</string>
+    <string name="order_history_empty_string">No Orders Yet?\nDiscover more in our Home Screen!</string>
+    <string name="order_payment">Order Payment</string>
+    <string name="add_your_address_details">Add your address details</string>
+    <string name="deliver_to">Deliver to</string>
+    <string name="ok">OK</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="destination">\tDestination</string>
+    <string name="suggestions_for_you">Suggestions For You</string>
+    <string name="address">Address</string>
 </resources>

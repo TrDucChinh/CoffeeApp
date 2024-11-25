@@ -9,7 +9,7 @@
         android:id="@+id/signInScreenFragment"
         android:name="com.proptit.btl_oop.ui.login.sign_in.SignInScreenFragment"
         android:label="fragment_sign_in_screen"
-        tools:layout="@layout/fragment_sign_in_screen" >
+        tools:layout="@layout/fragment_sign_in_screen">
         <action
             android:id="@+id/action_signInScreenFragment_to_signUpScreenFragment"
             app:destination="@id/signUpScreenFragment" />
@@ -20,8 +20,7 @@
             android:id="@+id/action_signInScreenFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/signInScreenFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreenFragment"
@@ -57,17 +56,20 @@
         tools:layout="@layout/fragment_home_screen">
         <action
             android:id="@+id/action_homeScreenFragment_to_coffeeDetailsFragment"
-            app:destination="@id/coffeeDetailsFragment" />
+            app:destination="@id/coffeeDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeScreenFragment_to_beanDetailsFragment"
-            app:destination="@id/beanDetailsFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_signInScreenFragment"
-            app:destination="@id/signInScreenFragment"
-            app:popUpTo="@id/homeScreenFragment"
-            app:popUpToInclusive="true"
-            />
+            app:destination="@id/beanDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/coffeeDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.CoffeeDetailsFragment"
@@ -75,39 +77,143 @@
         tools:layout="@layout/fragment_coffee_details">
         <argument
             android:name="coffeeId"
-            app:argType="long" />
+            app:argType="integer" />
+        <argument
+            android:name="isFavourite"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_coffeeDetailsFragment_to_addToCartFragment"
+            app:destination="@id/addToCartFragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_bean_details"
         android:id="@+id/beanDetailsFragment"
         android:name="com.proptit.btl_oop.ui.main_app.details.BeanDetailsFragment"
-        android:label="BeanDetailsFragment">
+        android:label="BeanDetailsFragment"
+        tools:layout="@layout/fragment_bean_details">
         <argument
             android:name="beanId"
-            app:argType="long" />
+            app:argType="integer" />
+        <argument
+            android:name="isFavourite"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_beanDetailsFragment_to_addToCartFragment"
+            app:destination="@id/addToCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.favourite.FavouriteScreenFragment"
         android:label="fragment_favourite_screen"
-        tools:layout="@layout/fragment_favourite_screen" />
+        tools:layout="@layout/fragment_favourite_screen">
+        <action
+            android:id="@+id/action_favouriteScreenFragment_to_beanDetailsFragment"
+            app:destination="@id/beanDetailsFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+
+        <action
+            android:id="@+id/action_favouriteScreenFragment_to_coffeeDetailsFragment"
+            app:destination="@id/coffeeDetailsFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
         android:label="fragment_cart_screen"
-        tools:layout="@layout/fragment_cart_screen" >
+        tools:layout="@layout/fragment_cart_screen">
         <action
             android:id="@+id/action_cartScreenFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+
+
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/paymentFragment"
         android:name="com.proptit.btl_oop.ui.main_app.payment.PaymentFragment"
         android:label="fragment_payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/fragment_payment">
+        <action
+            android:id="@+id/action_successFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_paymentFragment_to_choseMapFragment"
+            app:destination="@id/choseMapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderHistoryFragment"
         android:name="com.proptit.btl_oop.ui.main_app.order_history.OrderHistoryFragment"
         android:label="fragment_order_history"
-        tools:layout="@layout/fragment_order_history" />
+        tools:layout="@layout/fragment_order_history">
+        <action
+            android:id="@+id/action_orderHistoryFragment_to_detailsOrderHistoryFragment"
+            app:destination="@id/detailsOrderHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.proptit.btl_oop.ui.sidebar.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_signInScreenFragment"
+            app:destination="@id/signInScreenFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.proptit.btl_oop.ui.sidebar.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.proptit.btl_oop.ui.sidebar.profile.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/detailsOrderHistoryFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.order_history.DetailsOrderHistoryFragment"
+        android:label="fragment_details_order_history"
+        tools:layout="@layout/fragment_details_order_history">
+        <argument
+            android:name="orderID"
+            app:argType="long" />
+    </fragment>
+    <dialog
+        android:id="@+id/addToCartFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.cart.AddToCartFragment"
+        android:label="fragment_add_to_cart"
+        tools:layout="@layout/fragment_add_to_cart">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="sizeIdx"
+            app:argType="integer" />
+    </dialog>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment"
+        android:label="fragment_success"
+        tools:layout="@layout/fragment_success_dialog">
+
+    </fragment>
+    <fragment
+        android:id="@+id/choseMapFragment"
+        android:name="com.proptit.btl_oop.ui.map.ChooseAddress"
+        android:label="fragment_chose_map"
+        tools:layout="@layout/fragment_chose_map" />
+    <action
+        android:id="@+id/action_global_signInScreenFragment"
+        app:destination="@id/signInScreenFragment"
+        app:popUpTo="@id/signInScreenFragment"
+        app:popUpToInclusive="true" />
+
 </navigation>

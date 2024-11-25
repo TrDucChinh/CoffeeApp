@@ -5,17 +5,20 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.proptit.btl_oop.model.Coffee
 import com.proptit.btl_oop.databinding.ItemCoffeeBinding
 
-class CoffeeAdapter(private var coffeeList: List<Coffee>, private val onCoffeeClick: (Long) -> Unit) : RecyclerView.Adapter<CoffeeAdapter.CoffeeViewHolder>() {
+class CoffeeAdapter(private var coffeeList: List<Coffee>, private val onCoffeeClick: (Int) -> Unit) : RecyclerView.Adapter<CoffeeAdapter.CoffeeViewHolder>() {
 
     class CoffeeViewHolder(private val binding: ItemCoffeeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coffee: Coffee) {
             binding.tvCoffeeName.text = coffee.name
-            binding.tvCoffeeDescription.text = coffee.description
-            binding.tvCoffeePrice.text = "${coffee.price}đ"
-            binding.imgCoffee.setImageResource(coffee.imageResId)
+            binding.tvCoffeeIngredients.text = coffee.ingredients
+            binding.tvCoffeePrice.text = "${"%,d".format(coffee.price.get(0))}đ"
+            Glide.with(binding.root)
+                .load(coffee.image_url)
+                .into(binding.imgCoffee)
         }
     }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="250dp"
-    android:layout_margin="8dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
     android:backgroundTint="@color/dark_gray"
     android:radius="8dp"
     app:cardCornerRadius="8dp"
@@ -20,12 +20,12 @@
             android:id="@+id/cardviewImg"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="4dp"
             android:radius="8dp"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imgCoffee"
@@ -37,24 +37,32 @@
 
         <TextView
             android:id="@+id/tvCoffeeName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/cappuccino"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Vietnamese Black Cafe"
             android:textColor="@color/white"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardviewImg" />
+
         <TextView
-            android:id="@+id/tvCoffeeDescription"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvCoffeeIngredients"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
-            android:text="Medium Roasted"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            android:maxLines="1"
+            android:text="Cold brew with lemon"
+            android:textColor="@color/light_gray"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCoffeeName" />
 
@@ -62,31 +70,15 @@
             android:id="@+id/tvCoffeePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
             android:fontFamily="@font/poppins_bold"
             android:text="40.000đ"
-            android:layout_marginStart="10dp"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintVertical_bias="0.8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCoffeeDescription" />
-
-        <ImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_add"
-            android:background="@drawable/rounded_button_background"
-            android:backgroundTint="@color/orange"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.13"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/tvCoffeePrice"
-            app:layout_constraintTop_toBottomOf="@id/tvCoffeeDescription"
+            app:layout_constraintTop_toBottomOf="@id/tvCoffeeIngredients"
             app:layout_constraintVertical_bias="0.8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

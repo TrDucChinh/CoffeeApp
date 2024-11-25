@@ -1,0 +1,32 @@
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>*.iml\r\n.gradle\r\n/local.properties\r\n/.idea/caches\r\n/.idea/libraries\r\n/.idea/modules.xml\r\n/.idea/workspace.xml\r\n/.idea/navEditor.xml\r\n/.idea/assetWizardSettings.xml\r\n.DS_Store\r\n/build\r\n/captures\r\n.externalNativeBuild\r\n.cxx\r\nlocal.properties\r\napp/google-services.json\r\n/app/src/main/java/com/proptit/btl_oop/api\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 3d2d2cff6c87ea03071fc05f4f2b460b341b60f2)
++++ b/.gitignore	(date 1732479072526)
+@@ -14,4 +14,4 @@
+ .cxx
+ local.properties
+ app/google-services.json
+-/app/src/main/java/com/proptit/btl_oop/api
++app/src/main/java/com/proptit/btl_oop/api
+Index: app/src/main/java/com/proptit/btl_oop/api/APIKey.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/proptit/btl_oop/api/APIKey.kt b/app/src/main/java/com/proptit/btl_oop/api/APIKey.kt
+new file mode 100644
+--- /dev/null	(date 1732478751349)
++++ b/app/src/main/java/com/proptit/btl_oop/api/APIKey.kt	(date 1732478751349)
+@@ -0,0 +1,5 @@
++package com.proptit.btl_oop.api
++
++object APIKey {
++    const val GOONG_API_KEY = "pEBXsHSTb34LXa7zPnKJN3FocpJnU8GDvHJ4y87i"
++}
+\ No newline at end of file

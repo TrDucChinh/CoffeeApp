@@ -1,26 +1,21 @@
 package com.proptit.btl_oop.ui.login.sign_up
 
+import android.app.ProgressDialog
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.proptit.btl_oop.Firebase
-import com.proptit.btl_oop.MainActivity
-import com.proptit.btl_oop.SaveToDB
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.proptit.btl_oop.utils.Firebase
+import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentSignUpScreenBinding
 import com.proptit.btl_oop.model.User
+import com.proptit.btl_oop.utils.Check
 
 
 class SignUpScreenFragment : Fragment() {
@@ -28,6 +23,12 @@ class SignUpScreenFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val auth = Firebase.auth
+    private val progessDialog: ProgressDialog by lazy {
+        ProgressDialog(requireContext()).apply {
+            setCancelable(false)
+            setMessage("Please wait...")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,12 +74,12 @@ class SignUpScreenFragment : Fragment() {
                     .show()
             }
 
-            !isPasswordValid(password) -> {
+            !Check.isPasswordValid(password) -> {
                 binding.tvPasswordRequired.visibility = View.VISIBLE
             }
 
             else -> {
-                if (isPasswordValid(password)) {
+                if (Check.isPasswordValid(password)) {
                     registerUser(email, password, binding.etFullName.text.toString().trim())
                 }
             }
@@ -90,11 +91,18 @@ class SignUpScreenFragment : Fragment() {
     }
 
     private fun registerUser(email: String, password: String, name: String) {
+        progessDialog.show()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { registerTask ->
+                progessDialog.dismiss()
                 if (registerTask.isSuccessful) {
                     val userId = auth.currentUser?.uid
                     val user = User(id = userId ?: "", email = email, name = name)
+                    val myUser = auth.currentUser
+                    val profileChange = UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build()
+                    myUser?.updateProfile(profileChange)
                     SaveToDB.saveUserToDB(user)
                     Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT)
                         .show()
@@ -106,10 +114,7 @@ class SignUpScreenFragment : Fragment() {
             }
     }
 
-    private fun isPasswordValid(password: String): Boolean {
-        val passwordPattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}".toRegex()
-        return password.matches(passwordPattern)
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

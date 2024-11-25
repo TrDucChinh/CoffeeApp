@@ -46,10 +46,10 @@
         android:id="@+id/detailsBackground"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.18"
         android:background="@drawable/details_background"
         app:layout_constraintBottom_toBottomOf="@id/imgCoffee"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.16"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -67,7 +67,7 @@
         app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/detailsBackground"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <TextView
         android:id="@+id/tvCoffeeRecipe"
@@ -79,55 +79,11 @@
         android:fontFamily="@font/poppins_regular"
         android:text="With steamed milk"
         android:textColor="@color/light_gray"
-        android:textSize="12sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCoffeeName"
         app:layout_constraintVertical_bias="0.0" />
-
-
-    <include
-        android:id="@+id/icon_coffee_layout"
-        layout="@layout/icon_coffee_layout"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toEndOf="@id/tvCoffeeName"
-        app:layout_constraintTop_toTopOf="@id/detailsBackground"
-        app:layout_constraintVertical_bias="0.2" />
-
-    <include
-        android:id="@+id/icon_milk_layout"
-        layout="@layout/icon_milk_layout"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@id/icon_coffee_layout"
-        app:layout_constraintTop_toTopOf="@id/detailsBackground"
-        app:layout_constraintVertical_bias="0.2" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button_background"
-        android:backgroundTint="@color/dark_blue"
-        android:fontFamily="@font/poppins_regular"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="@string/medium_roasted"
-        android:textAllCaps="false"
-        android:textColor="@color/light_gray"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/detailsBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/icon_coffee_layout"
-        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/tvDescriptionLabel"
@@ -162,12 +118,12 @@
         android:id="@+id/tvSeeMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/see_more"
         android:textColor="@color/orange"
         android:textSize="14sp"
-        android:fontFamily="@font/poppins_medium"
         android:visibility="gone"
-        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDescriptionContent" />
 
@@ -176,6 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/size"
         android:textColor="@color/light_gray"
@@ -283,7 +240,7 @@
         android:fontFamily="@font/poppins_bold"
         android:paddingStart="70dp"
         android:paddingEnd="70dp"
-        android:text="Add To Cart"
+        android:text="@string/add_to_cart"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"

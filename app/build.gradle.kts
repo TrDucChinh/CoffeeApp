@@ -51,6 +51,12 @@ dependencies {
     implementation (libs.firebase.auth)
     // Firebase google auth
     implementation(libs.play.services.auth)
+    // Glide for image loading and caching
+    implementation (libs.glide)
+    // Gson for JSON parsing
+    implementation (libs.gson)
+    implementation(libs.play.services.location)
+
 
     val nav_version = "2.7.2"
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
@@ -62,6 +68,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")

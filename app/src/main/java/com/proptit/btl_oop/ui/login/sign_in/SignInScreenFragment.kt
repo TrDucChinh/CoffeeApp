@@ -1,5 +1,6 @@
 package com.proptit.btl_oop.ui.login.sign_in
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -17,10 +18,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.proptit.btl_oop.Firebase
-import com.proptit.btl_oop.MainActivity
+import com.proptit.btl_oop.utils.Firebase
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.SaveToDB
+import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentSignInScreenBinding
 import com.proptit.btl_oop.model.User
 
@@ -33,6 +33,12 @@ class SignInScreenFragment : Fragment() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100
+    private val progessDialog: ProgressDialog by lazy {
+        ProgressDialog(requireContext()).apply {
+            setCancelable(false)
+            setMessage("Please wait...")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,8 +93,10 @@ class SignInScreenFragment : Fragment() {
     }
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+        progessDialog.show()
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener { task ->
+                progessDialog.dismiss()
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
                     user?.let{
@@ -117,8 +125,10 @@ class SignInScreenFragment : Fragment() {
             }
             else -> {
                 // Đăng nhập
+                progessDialog.show()
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
+                        progessDialog.dismiss()
                         if (task.isSuccessful) {
                             Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.action_signInScreenFragment_to_homeScreenFragment)
