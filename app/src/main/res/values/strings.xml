@@ -84,4 +84,5 @@
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="destination">\tDestination</string>
     <string name="suggestions_for_you">Suggestions For You</string>
+    <string name="address">Address</string>
 </resources>
