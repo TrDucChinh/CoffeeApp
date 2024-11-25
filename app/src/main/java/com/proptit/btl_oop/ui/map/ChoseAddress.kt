@@ -1,4 +1,4 @@
-package com.proptit.btl_oop.ui
+package com.proptit.btl_oop.ui.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -29,8 +29,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
 
-class ChoseMap : Fragment() {
+class ChoseAddress : Fragment() {
 
     private var _binding: FragmentChoseMapBinding? = null
     private val binding get() = _binding!!
@@ -42,6 +45,7 @@ class ChoseMap : Fragment() {
 
         retrofit.create(GoongApiService::class.java)
     }
+    private lateinit var choseAddressViewModel: ChoseAddressViewModel
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var currentLocation: android.location.Location
@@ -57,6 +61,7 @@ class ChoseMap : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentChoseMapBinding.inflate(inflater, container, false)
+        choseAddressViewModel = ViewModelProvider(requireActivity()).get(ChoseAddressViewModel::class.java)
         return binding.root
     }
 
@@ -76,12 +81,17 @@ class ChoseMap : Fragment() {
                 1
             )
         }
+        binding.icBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         addressAdapter = AddressAdapter(addressSuggestions) { address ->
             binding.etAddress.setText(address.fullAddress)
+            choseAddressViewModel.setAddress(address.fullAddress)
             binding.rvAddressSuggestions.visibility = View.GONE
             KeyBoard.hideKeyboard(requireActivity() as AppCompatActivity)
             binding.etAddress.clearFocus()
+            findNavController().popBackStack()
         }
         binding.rvAddressSuggestions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvAddressSuggestions.adapter = addressAdapter
@@ -98,7 +108,7 @@ class ChoseMap : Fragment() {
                     fetchAddressSuggestions(query)
                     binding.rvAddressSuggestions.visibility = View.VISIBLE
                 }
-                handler.postDelayed(searchRunnable!!, 3000)  // Delay 3 giây
+                handler.postDelayed(searchRunnable!!, 1000)  // Delay 3 giây
             } else {
                 binding.rvAddressSuggestions.visibility = View.GONE
             }

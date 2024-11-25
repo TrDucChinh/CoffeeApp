@@ -206,7 +206,7 @@
     </fragment>
     <fragment
         android:id="@+id/choseMapFragment"
-        android:name="com.proptit.btl_oop.ui.ChoseMap"
+        android:name="com.proptit.btl_oop.ui.map.ChoseAddress"
         android:label="fragment_chose_map"
         tools:layout="@layout/fragment_chose_map"/>
 
