@@ -55,6 +55,8 @@ class DetailsOrderHistoryFragment : Fragment() {
                         tvPaymentAmount.text = "${"%,d".format(it.totalPrice)}đ"
                         tvPriceAmount.text = "${"%,d".format(it.totalPrice)}đ"
                         checkPayment(it.payment)
+                        phoneNumber.text = it.sdt
+                        tvAddress.text = it.address
                     }
                 }
             }

@@ -68,15 +68,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_signInScreenFragment"
-            app:destination="@id/signInScreenFragment"
-            app:popUpTo="@id/homeScreenFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -113,7 +104,17 @@
         android:id="@+id/favouriteScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.favourite.FavouriteScreenFragment"
         android:label="fragment_favourite_screen"
-        tools:layout="@layout/fragment_favourite_screen" />
+        tools:layout="@layout/fragment_favourite_screen">
+        <action
+            android:id="@+id/action_favouriteScreenFragment_to_beanDetailsFragment"
+            app:destination="@id/beanDetailsFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+
+        <action
+            android:id="@+id/action_favouriteScreenFragment_to_coffeeDetailsFragment"
+            app:destination="@id/coffeeDetailsFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartScreenFragment"
         android:name="com.proptit.btl_oop.ui.main_app.cart.CartScreenFragment"
@@ -206,8 +207,13 @@
     </fragment>
     <fragment
         android:id="@+id/choseMapFragment"
-        android:name="com.proptit.btl_oop.ui.map.ChoseAddress"
+        android:name="com.proptit.btl_oop.ui.map.ChooseAddress"
         android:label="fragment_chose_map"
-        tools:layout="@layout/fragment_chose_map"/>
+        tools:layout="@layout/fragment_chose_map" />
+    <action
+        android:id="@+id/action_global_signInScreenFragment"
+        app:destination="@id/signInScreenFragment"
+        app:popUpTo="@id/signInScreenFragment"
+        app:popUpToInclusive="true" />
 
 </navigation>

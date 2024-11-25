@@ -33,7 +33,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
 
-class ChoseAddress : Fragment() {
+class ChooseAddress : Fragment() {
 
     private var _binding: FragmentChoseMapBinding? = null
     private val binding get() = _binding!!

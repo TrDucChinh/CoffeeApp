@@ -1,4 +1,5 @@
 package com.proptit.btl_oop.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -16,14 +17,16 @@ import com.proptit.btl_oop.model.FavouriteItem
 
 class FavouriteAdapter(
     private var coffeeList: List<Coffee>,
-    private var beanList: List<CoffeeBean>
+    private var beanList: List<CoffeeBean>,
+    private val onItemClick: (FavouriteItem) -> Unit
 ) : ListAdapter<FavouriteItem, RecyclerView.ViewHolder>(FavouriteDiffCallback()) {
 
     private val VIEW_TYPE_COFFEE = 1
     private val VIEW_TYPE_BEAN = 2
 
     // ViewHolder cho Coffee
-    inner class CoffeeViewHolder(private val binding: ItemCoffeeFavouriteBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CoffeeViewHolder(private val binding: ItemCoffeeFavouriteBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(coffee: Coffee) {
             binding.tvCoffeeName.text = coffee.name
             binding.tvDescriptionContent.text = coffee.description
@@ -32,14 +35,18 @@ class FavouriteAdapter(
                 .into(binding.imgCoffee)
             binding.btnFavourite.setOnClickListener {
                 binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
-                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.COFFEE.toString(), coffee.id), false)
+                SaveToDB.updateFavouriteInFirebase(
+                    FavouriteItem(Type.COFFEE.toString(), coffee.id),
+                    false
+                )
                 removeItem(adapterPosition)
             }
         }
     }
 
     // ViewHolder cho Bean
-    inner class BeanViewHolder(private val binding: ItemBeanFavouriteBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class BeanViewHolder(private val binding: ItemBeanFavouriteBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(bean: CoffeeBean) {
             binding.tvBeanName.text = bean.name
             binding.tvDescriptionContent.text = bean.description
@@ -48,7 +55,10 @@ class FavouriteAdapter(
                 .into(binding.imgBean)
             binding.btnFavourite.setOnClickListener {
                 binding.btnFavourite.setImageResource(R.drawable.ic_heart_default)
-                SaveToDB.updateFavouriteInFirebase(FavouriteItem(Type.BEANS.toString(), bean.id), false)
+                SaveToDB.updateFavouriteInFirebase(
+                    FavouriteItem(Type.BEANS.toString(), bean.id),
+                    false
+                )
                 removeItem(adapterPosition)
             }
         }
@@ -71,11 +81,13 @@ class FavouriteAdapter(
                 val binding = ItemCoffeeFavouriteBinding.inflate(inflater, parent, false)
                 CoffeeViewHolder(binding)
             }
+
             VIEW_TYPE_BEAN -> {
                 val inflater = LayoutInflater.from(parent.context)
                 val binding = ItemBeanFavouriteBinding.inflate(inflater, parent, false)
                 BeanViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -85,10 +97,18 @@ class FavouriteAdapter(
         val favouriteItem = getItem(position)
         if (holder is CoffeeViewHolder) {
             val coffee = coffeeList.find { it.id == favouriteItem.id }
-            coffee?.let { holder.bind(it) }
+            coffee?.let {
+                holder.bind(it)
+            }
         } else if (holder is BeanViewHolder) {
             val bean = beanList.find { it.id == favouriteItem.id }
-            bean?.let { holder.bind(it) }
+            bean?.let {
+                holder.bind(it)
+
+            }
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick(favouriteItem)
         }
     }
 

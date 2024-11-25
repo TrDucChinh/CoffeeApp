@@ -1,6 +1,6 @@
 package com.proptit.btl_oop.ui.main_app.favourite
 
-import FavouriteAdapter
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,9 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proptit.btl_oop.R
+import com.proptit.btl_oop.adapter.FavouriteAdapter
 import com.proptit.btl_oop.databinding.FragmentFavouriteScreenBinding
+import com.proptit.btl_oop.utils.Type
 import com.proptit.btl_oop.viewmodel.FavouriteViewModel
 import com.proptit.btl_oop.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
@@ -54,7 +57,31 @@ class FavouriteScreenFragment : Fragment() {
     private fun setupRecyclerView() {
         favouriteAdapter = FavouriteAdapter(
             homeViewModel.coffees.value ?: emptyList(),
-            homeViewModel.beans.value ?: emptyList()
+            homeViewModel.beans.value ?: emptyList(),
+            { items ->
+                when (items.type) {
+                    Type.COFFEE.toString() -> {
+                        findNavController().navigate(
+                            FavouriteScreenFragmentDirections.actionFavouriteScreenFragmentToCoffeeDetailsFragment(
+                                items.id,
+                                true
+                            )
+                        )
+                    }
+                    Type.BEANS.toString() -> {
+                        findNavController().navigate(
+                            FavouriteScreenFragmentDirections.actionFavouriteScreenFragmentToBeanDetailsFragment(
+                                items.id,
+                                true
+                            )
+                        )
+
+
+                    }
+
+                }
+
+            }
         )
         binding.rvFavouriteItems.apply {
             adapter = favouriteAdapter

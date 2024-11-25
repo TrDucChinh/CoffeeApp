@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_logout -> {
                     Firebase.auth.signOut()
                     navController.navigate(
-                        R.id.action_homeScreenFragment_to_signInScreenFragment,
+                        R.id.action_global_signInScreenFragment,
                         null,
-                        navOptions
+                        createNavOptions()
                     )
                     false
                 }
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.choseMapFragment,
                 R.id.profileFragment,
                 R.id.editProfileFragment,
+                R.id.sendLinkViaEmailFragment,
                 R.id.changePasswordFragment -> {
                     hideBottomNavigation()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
