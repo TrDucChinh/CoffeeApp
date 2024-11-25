@@ -214,6 +214,6 @@
         android:id="@+id/action_global_signInScreenFragment"
         app:destination="@id/signInScreenFragment"
         app:popUpTo="@id/signInScreenFragment"
-        app:popUpToInclusive="true" />
+        />
 
 </navigation>

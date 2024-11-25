@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.nav_logout -> {
                     Firebase.auth.signOut()
+                    navController.popBackStack(R.id.homeScreenFragment, false)
                     navController.navigate(
                         R.id.action_global_signInScreenFragment,
                         null,
@@ -155,5 +158,14 @@ class MainActivity : AppCompatActivity() {
         tvFullName = null
         tvEmail = null
         imgPhoto = null
+    }
+
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.nav_host_fragment)
+        if (navController.currentDestination?.id == R.id.signInScreenFragment) {
+            finishAfterTransition()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
