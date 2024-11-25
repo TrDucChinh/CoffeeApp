@@ -82,7 +82,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.addToCartFragment,
                 R.id.detailsOrderHistoryFragment,
                 R.id.choseMapFragment,
-                R.id.profileFragment -> {
+                R.id.profileFragment,
+                R.id.editProfileFragment,
+                R.id.changePasswordFragment -> {
                     hideBottomNavigation()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
