@@ -1,14 +1,16 @@
 # Project Name: Coffee App
 ---
-
-## 1. Introduction
+## 1. Contributors
+- [Trần Đức Chính](https://github.com/TrDucChinh)
+- [Lê Hương Giang](https://github.com/gxdumplingg)
+## 2. Introduction
 - Coffee App is a user-friendly application designed to make coffee ordering seamless and enjoyable. Key features include:
   - An optimized interface and smooth user experience, easily accessible to all customers, enabling easy exploration of coffee products.
   - Detailed product information, helping users make informed purchasing decisions.
   - Fast and convenient ordering with no limitations on time or location.
   - Personalized user experiences: each account can manage orders, save preferences, and review purchase history.
   
-## 2. Working Model
+## 3. Working Model
 Team operates according to the Scrum model, using Linear to manage tasks. All tasks are thoroughly kept track on Linear.
 
 - Link Linear: [Linear](https://linear.app/coffeshop/join/a81f6301450ce305c5602b1a8ba82123?s=1)
@@ -30,7 +32,7 @@ Once completing a branch, team will create a Pull Request to review code as well
 </div>
 
 At the end of each week, team will merge develop into main/master to release a new version.
-## 3. Technologies
+## 4. Technologies
 - Language: Kotlin
 - Development Platform: Android
 - Firebase (Firebase Realtime Database, Firebase BOM, Firebase Authentication, Firebase Google Auth)
@@ -40,7 +42,7 @@ At the end of each week, team will merge develop into main/master to release a n
 - Kotlin Coroutines
 - Goong Map
 
-## 4. Demo App
+## 5. Demo App
 - Link download: [APK](https://drive.google.com/file/d/1ZoYQSUmqmvTIaRh82EOQ9O2wC58enlCY/view)
 - **Sign in**, **Sign up** and **Forgot password**
 <table>
@@ -101,7 +103,7 @@ At the end of each week, team will merge develop into main/master to release a n
    </tr> 
 </table>
 
-## 5. References
+## 6. References
 - [Kotlin Documentation](https://kotlinlang.org/docs/home.html)
 - [Android Documention](https://developer.android.com/reference/org/w3c/dom/Document)
 - [Firebase Documention](https://firebase.google.com/docs)
