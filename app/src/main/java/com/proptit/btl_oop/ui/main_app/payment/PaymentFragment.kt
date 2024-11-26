@@ -5,17 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.proptit.btl_oop.utils.Payment
 import com.proptit.btl_oop.R
-import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.databinding.FragmentPaymentBinding
 import com.proptit.btl_oop.model.OrderHistory
 import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
+import com.proptit.btl_oop.utils.Payment
+import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.viewmodel.CartViewModel
 import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 class PaymentFragment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
-    private val cartViewModel: CartViewModel by activityViewModels(){
+    private val cartViewModel: CartViewModel by activityViewModels {
         CartViewModel.CartViewModelFactory(requireActivity().application)
     }
     private lateinit var choseAddressViewModel: ChoseAddressViewModel
@@ -48,18 +49,32 @@ class PaymentFragment : Fragment() {
                 choseAddressViewModel.setAddress("")
                 findNavController().popBackStack()
             }
-
             paymentMethodGroup.setOnCheckedChangeListener { _, _ ->
-                // Nếu có radio button được chọn thì btnPay mới được enable
-                val isEnabled = paymentMethodGroup.checkedRadioButtonId != -1
-                btnPay.isEnabled = isEnabled
-
-                val backgroundColor = if (isEnabled) R.color.orange else R.color.light_orange
-                val textColor = if (isEnabled) R.color.white else R.color.white
-
-                btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
-                btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
+                updatePayButtonState()
             }
+            etPhone.addTextChangedListener {
+                updatePayButtonState()
+            }
+
+            // Theo dõi địa chỉ được chọn từ ViewModel
+            lifecycleScope.launch {
+                choseAddressViewModel.address.collect { address ->
+                    if (address.isNotEmpty()){
+                        btnNavigate.text = address
+                        btnNavigate.setTextColor(
+                            ContextCompat.getColor(requireContext(), R.color.black)
+                        )
+                    }
+                }
+            }
+
+            // Nút điều hướng tới chọn bản đồ
+            btnNavigate.setOnClickListener {
+                val action = PaymentFragmentDirections.actionPaymentFragmentToChoseMapFragment()
+                findNavController().navigate(action)
+            }
+
+            // Xử lý nút thanh toán
             btnPay.setOnClickListener {
                 if (isPhoneNumberValid(etPhone.text.toString())) {
                     val orderItem = cartViewModel.cartItem.value
@@ -77,38 +92,35 @@ class PaymentFragment : Fragment() {
                         parentFragmentManager,
                         "SuccessDialog"
                     )
-                }
-                else{
+                } else {
                     etPhone.error = "Invalid phone number."
                 }
             }
-            // disable btnPay neu khong duoc chon
-            val isEnabled = paymentMethodGroup.checkedRadioButtonId != -1
-            btnPay.isEnabled = isEnabled
-            val backgroundColor = if (isEnabled) R.color.orange else R.color.light_orange
-            val textColor = if (isEnabled) R.color.white else R.color.white
 
-            btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
-            btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
-
-            btnNavigate.setOnClickListener {
-                val action = PaymentFragmentDirections.actionPaymentFragmentToChoseMapFragment()
-                findNavController().navigate(action)
-            }
-            lifecycleScope.launch {
-                choseAddressViewModel.address.collect {
-                    if (it.isNotEmpty()) {
-                        btnNavigate.text = it
-                        btnNavigate.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                    }
-                }
-            }
+            // Khởi tạo trạng thái ban đầu cho nút Pay
+            updatePayButtonState()
         }
     }
 
+    // Kiểm tra trạng thái của nút Pay
+    private fun updatePayButtonState() {
+        val isAddressValid = binding.btnNavigate.text.toString().isNotEmpty()
+        val isPhoneValid = isPhoneNumberValid(binding.etPhone.text.toString())
+        val isPaymentMethodSelected = binding.paymentMethodGroup.checkedRadioButtonId != -1
 
-    private fun checkPayment(): String{
-        return when(binding.paymentMethodGroup.checkedRadioButtonId){
+        val isEnabled = isAddressValid && isPhoneValid && isPaymentMethodSelected
+
+        binding.btnPay.isEnabled = isEnabled
+        val backgroundColor = if (isEnabled) R.color.orange else R.color.light_orange
+        val textColor = if (isEnabled) R.color.white else R.color.white
+
+        binding.btnPay.backgroundTintList = ContextCompat.getColorStateList(requireContext(), backgroundColor)
+        binding.btnPay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
+    }
+
+    // Kiểm tra phương thức thanh toán
+    private fun checkPayment(): String {
+        return when (binding.paymentMethodGroup.checkedRadioButtonId) {
             R.id.cashRadioButton -> Payment.Cash.toString()
             R.id.vnPayRadioButton -> Payment.VNPAY.toString()
             R.id.momoRadioButton -> Payment.MoMo.toString()
@@ -117,15 +129,15 @@ class PaymentFragment : Fragment() {
             else -> ""
         }
     }
+
+    // Kiểm tra số điện thoại hợp lệ
     private fun isPhoneNumberValid(phone: String): Boolean {
         val regex = Regex("^[0-9]{10,11}$") // Chấp nhận số điện thoại từ 10-11 số
         return phone.matches(regex)
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

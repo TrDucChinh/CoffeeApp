@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.window.OnBackInvokedDispatcher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.proptit.btl_oop.databinding.ActivityMainBinding
+import com.proptit.btl_oop.utils.CheckAddressPermis
 import com.proptit.btl_oop.utils.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -23,10 +25,14 @@ class MainActivity : AppCompatActivity() {
     private var tvFullName: TextView? = null
     private var tvEmail: TextView? = null
     private var imgPhoto: ImageView? = null
+    private val resquestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        CheckAddressPermis.handlePermissionResult(isGranted)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        CheckAddressPermis.checkLocationPermission(this, resquestPermissionLauncher)
         setContentView(binding.drawerLayout)
 
         initUI()

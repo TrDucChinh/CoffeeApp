@@ -31,6 +31,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.proptit.btl_oop.utils.CheckAddressPermis
 import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
 
 class ChooseAddress : Fragment() {
@@ -69,17 +70,10 @@ class ChooseAddress : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            getCurrentLocation()
-        } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1
-            )
+        CheckAddressPermis.locationPermissionGranted.observe(viewLifecycleOwner) { isGranted ->
+            if (isGranted) {
+                getCurrentLocation()
+            }
         }
         binding.icBack.setOnClickListener {
             findNavController().popBackStack()

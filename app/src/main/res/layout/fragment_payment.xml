@@ -106,7 +106,7 @@
             android:background="@drawable/rounded_button_background"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/enter_your_phone_number"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/light_gray"
