@@ -30,9 +30,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.proptit.btl_oop.utils.CheckAddressPermis
-import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
+import com.proptit.btl_oop.viewmodel.ChooseAddressViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ChooseAddress : Fragment() {
 
@@ -46,7 +50,7 @@ class ChooseAddress : Fragment() {
 
         retrofit.create(GoongApiService::class.java)
     }
-    private lateinit var choseAddressViewModel: ChoseAddressViewModel
+    private lateinit var chooseAddressViewModel: ChooseAddressViewModel
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var currentLocation: android.location.Location
@@ -62,7 +66,7 @@ class ChooseAddress : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentChoseMapBinding.inflate(inflater, container, false)
-        choseAddressViewModel = ViewModelProvider(requireActivity()).get(ChoseAddressViewModel::class.java)
+        chooseAddressViewModel = ViewModelProvider(requireActivity()).get(ChooseAddressViewModel::class.java)
         return binding.root
     }
 
@@ -81,7 +85,7 @@ class ChooseAddress : Fragment() {
 
         addressAdapter = AddressAdapter(addressSuggestions) { address ->
             binding.etAddress.setText(address.fullAddress)
-            choseAddressViewModel.setAddress(address.fullAddress)
+            chooseAddressViewModel.setAddress(address.fullAddress)
             binding.rvAddressSuggestions.visibility = View.GONE
             KeyBoard.hideKeyboard(requireActivity() as AppCompatActivity)
             binding.etAddress.clearFocus()
@@ -96,7 +100,9 @@ class ChooseAddress : Fragment() {
 
             if (query.isNotEmpty() && ::currentLocation.isInitialized) {
                 searchRunnable = Runnable {
-                    fetchAddressSuggestions(query)
+                    lifecycleScope.launch {
+                        fetchAddressSuggestions(query)
+                    }
                     binding.rvAddressSuggestions.visibility = View.VISIBLE
                 }
                 handler.postDelayed(searchRunnable!!, 1000)
@@ -127,11 +133,13 @@ class ChooseAddress : Fragment() {
     }
 
     //query địa chỉ
-    private fun fetchAddressSuggestions(query: String) {
+    private suspend fun fetchAddressSuggestions(query: String) {
         val api = APIKey.GOONG_API_KEY
         val location = "${currentLocation.latitude},${currentLocation.longitude}"
         val input = query
-        val call = goongApiService.getAutoCompleteSuggestions(api, location, input)
+        val call = withContext(Dispatchers.IO){
+            goongApiService.getAutoCompleteSuggestions(api, location, input)
+        }
 
         call.enqueue(object : Callback<AutoCompleteResponse> {
             override fun onResponse(

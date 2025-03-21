@@ -18,7 +18,7 @@ import com.proptit.btl_oop.ui.main_app.dialog.SuccessDialogFragment
 import com.proptit.btl_oop.utils.Payment
 import com.proptit.btl_oop.utils.SaveToDB
 import com.proptit.btl_oop.viewmodel.CartViewModel
-import com.proptit.btl_oop.viewmodel.ChoseAddressViewModel
+import com.proptit.btl_oop.viewmodel.ChooseAddressViewModel
 import kotlinx.coroutines.launch
 
 class PaymentFragment : Fragment() {
@@ -27,14 +27,14 @@ class PaymentFragment : Fragment() {
     private val cartViewModel: CartViewModel by activityViewModels {
         CartViewModel.CartViewModelFactory(requireActivity().application)
     }
-    private lateinit var choseAddressViewModel: ChoseAddressViewModel
+    private lateinit var chooseAddressViewModel: ChooseAddressViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
-        choseAddressViewModel = ViewModelProvider(requireActivity()).get(ChoseAddressViewModel::class.java)
+        chooseAddressViewModel = ViewModelProvider(requireActivity()).get(ChooseAddressViewModel::class.java)
         return binding.root
     }
 
@@ -46,7 +46,7 @@ class PaymentFragment : Fragment() {
     private fun setupUI() {
         binding.apply {
             btnBack.setOnClickListener {
-                choseAddressViewModel.setAddress("")
+                chooseAddressViewModel.setAddress("")
                 findNavController().popBackStack()
             }
             paymentMethodGroup.setOnCheckedChangeListener { _, _ ->
@@ -57,8 +57,8 @@ class PaymentFragment : Fragment() {
             }
 
             // Theo dõi địa chỉ được chọn từ ViewModel
-            lifecycleScope.launch {
-                choseAddressViewModel.address.collect { address ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                chooseAddressViewModel.address.collect { address ->
                     if (address.isNotEmpty()){
                         btnNavigate.text = address
                         btnNavigate.setTextColor(

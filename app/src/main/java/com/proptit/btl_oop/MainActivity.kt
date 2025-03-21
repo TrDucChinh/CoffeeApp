@@ -25,14 +25,14 @@ class MainActivity : AppCompatActivity() {
     private var tvFullName: TextView? = null
     private var tvEmail: TextView? = null
     private var imgPhoto: ImageView? = null
-    private val resquestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         CheckAddressPermis.handlePermissionResult(isGranted)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        CheckAddressPermis.checkLocationPermission(this, resquestPermissionLauncher)
+        CheckAddressPermis.checkLocationPermission(this, requestPermissionLauncher)
         setContentView(binding.drawerLayout)
 
         initUI()
